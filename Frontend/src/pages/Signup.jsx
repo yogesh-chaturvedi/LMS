@@ -1,18 +1,9 @@
 import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
-// toast("text copied successfully", {
-//                 position: "top-center",
-//                 autoClose: 1500,
-//                 hideProgressBar: false,
-//                 closeOnClick: false,
-//                 pauseOnHover: true,
-//                 draggable: true,
-//                 progress: undefined,
-//                 theme: "dark",
-//             });
 
 
 const Signup = () => {
@@ -29,6 +20,51 @@ const Signup = () => {
     console.log(signupData)
 
 
+
+    // send user credentials 
+    async function handleSubmit(e) {
+        e.preventDefault();
+        try {
+            const response = await axios({
+                method: "post",
+                url: 'http://localhost:3000/auth/signup',
+                data: signupData,
+            })
+
+            const { message, success, error } = response.data
+
+            if (success) {
+                toast(message, {
+                    position: "top-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                console.log(message)
+            }
+
+        }
+        catch (error) {
+            console.log("there is an error", error)
+            const message = error?.response?.data?.error?.details[0]?.message || error?.response?.data?.message
+            toast(message, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+    }
+
+
     return (
         <div className='min-h-screen flex justify-center bg-slate-200 items-center'>
 
@@ -37,7 +73,7 @@ const Signup = () => {
             <div className="login border-2 border-slate-300 rounded-2xl shadow-xl bg-slate-100 w-[90vw] sm:w-[65vw] md:w-[55vw] lg:w-[45vw] flex flex-col gap-5 py-5 justify-center items-center">
                 <h1 className='font-bold text-2xl underline'>SignUp</h1>
 
-                <form className='flex gap-3 flex-col w-[80%]'>
+                <form className='flex gap-3 flex-col w-[80%]' onSubmit={handleSubmit}>
 
                     {/* name  */}
                     <div className='w-full '>
