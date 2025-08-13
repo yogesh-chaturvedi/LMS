@@ -45,6 +45,7 @@ const Signup = () => {
                     theme: "dark",
                 });
                 console.log(message)
+                setSignupData({ userName: '', userEmail: '', userPassword: '' })
             }
 
         }

@@ -5,15 +5,18 @@ dotenv.config();
 require('./models/db')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const Cookies = require('cookies')
+const cookieParser = require('cookie-parser')
 const AuthRoute = require('./routes/AuthRoutes')
 
 
 const port = process.env.PORT || 3000;
 
+app.use(cookieParser())
 app.use(bodyParser.json()) // to parse the requests which comes from the frontend...
 app.use(cors({
     origin: 'http://localhost:5173',
-    httpOnly: true
+    credentials: true   
 }))
 
 app.get('/', (req, res) => {

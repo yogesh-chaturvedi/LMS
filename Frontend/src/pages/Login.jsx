@@ -1,21 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
-import { Link, useNavigate } from 'react-router-dom';
-
-// toast("text copied successfully", {
-//                 position: "top-center",
-//                 autoClose: 1500,
-//                 hideProgressBar: false,
-//                 closeOnClick: false,
-//                 pauseOnHover: true,
-//                 draggable: true,
-//                 progress: undefined,
-//                 theme: "dark",
-//             });
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import { AuthContext } from '../context/AuthContext';
 
 
 const Login = () => {
-
+    const { auth, setAuth } = useContext(AuthContext)
+    const naviagte = useNavigate();
     const [loginData, setLoginData] = useState({
         userEmail: '',
         userPassword: ''
@@ -24,8 +16,41 @@ const Login = () => {
     function handleChange(e) {
         setLoginData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
-
     console.log(loginData)
+
+
+    // to login
+    async function handleSubmit(e) {
+        e.preventDefault();
+        try {
+            const response = await axios({
+                method: "post",
+                url: 'http://localhost:3000/auth/login',
+                data: loginData,
+                withCredentials: true
+            })
+            const { message, success } = response.data;
+            if (success) {
+                setAuth(true)
+                toast(message, {
+                    position: "top-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                setLoginData({ userEmail: '', userPassword: '' })
+                naviagte('/')
+                console.log(message)
+            }
+        }
+        catch (error) {
+            console.log("there i an error", error)
+        }
+    }
 
     return (
         <div className="min-h-screen flex justify-center bg-slate-200  items-center ">
@@ -36,7 +61,7 @@ const Login = () => {
                 <h1 className='font-bold text-2xl underline'>LogIn</h1>
 
 
-                <form className='flex gap-3 flex-col w-[80%]'>
+                <form className='flex gap-3 flex-col w-[80%]' onSubmit={handleSubmit}>
 
                     {/* email */}
                     <div className='w-full '>
