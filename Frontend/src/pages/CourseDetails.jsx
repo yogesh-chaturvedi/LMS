@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { Camera, PlayCircle } from 'lucide-react'
-import { useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 
 const CourseDetails = () => {
 
@@ -125,7 +125,7 @@ const CourseDetails = () => {
 
                 {/* right */}
                 <div className='right'>
-                    <div className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 max-w-md">
+                    <div className="bg-white pb-3 shadow-md rounded-lg overflow-hidden border border-gray-200 max-w-md">
                         {/* Video Section */}
                         <video controls className="w-full h-64 object-cover">
                             <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
@@ -136,6 +136,10 @@ const CourseDetails = () => {
                         <div className="p-4">
                             <h3 className="text-2xl font-bold text-gray-800">₹499</h3>
                             <p className="text-sm text-gray-500">One-time payment for lifetime access</p>
+                        </div>
+
+                        <div className='text-center'>
+                            <Link to={`/course-progress/${id}`} state={topics} className='bg-green-500 hover:bg-green-600 px-2 rounded-lg text-lg font-medium'>Continue Course</Link>
                         </div>
                     </div>
                 </div>
