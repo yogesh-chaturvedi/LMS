@@ -6,13 +6,12 @@ import { AuthContext } from '../context/AuthContext'
 
 const ProtectedRoutes = () => {
 
-    const { auth } = useContext(AuthContext);
+    const { user, setUser, loading } = useContext(AuthContext);
 
-    console.log(auth)
+    // console.log(user.role)
 
-
-    if (auth === null) return <p className="font-bold text-2xl">Loading...</p>;
-    return auth ? <Outlet /> : <Navigate to='/login' replace />
+    if (loading) return <p className="font-bold text-2xl">Loading...</p>;
+    return user !== null ? (<Outlet />) : (<Navigate to='/login' replace />)
 
 }
 

@@ -7,7 +7,8 @@ export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
 
-    const [auth, setAuth] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null)
 
     useEffect(() => {
         async function protectRouter() {
@@ -20,14 +21,19 @@ const AuthContextProvider = (props) => {
 
                 const { success } = response.data;
                 if (success) {
-                    setAuth(true);
+                    console.log(response.data.user)
+                    setUser(response.data.user)
                 }
-
+                else {
+                    setUser(null);
+                }
             }
 
             catch (error) {
                 console.log("there is an error")
-                setAuth(false);
+            }
+            finally {
+                setLoading(false);
             }
 
         }
@@ -35,8 +41,7 @@ const AuthContextProvider = (props) => {
     }, [])
 
 
-    const value = { auth, setAuth }
-
+    const value = { user, setUser, loading, setLoading };
 
     return (
 

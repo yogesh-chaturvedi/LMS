@@ -32,7 +32,7 @@ const Courses = () => {
                             {categories.map((category, index) => (
                                 <label key={index} className="flex items-center gap-2 cursor-pointer">
                                     <input onChange={() => handleChange(category)} checked={Filter.includes(category)} type="checkbox" className="w-4 h-4" />
-                                    <span>{category}</span> 
+                                    <span>{category}</span>
                                 </label>
                             ))}
                         </div>

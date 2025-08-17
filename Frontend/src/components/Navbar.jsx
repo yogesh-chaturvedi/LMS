@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const Navbar = () => {
     const naviagte = useNavigate();
-    const { auth, setAuth } = useContext(AuthContext);
+    const { user, setUser, loading, setLoading } = useContext(AuthContext);
 
     function handleLogin() {
         naviagte('/login')
@@ -36,7 +36,7 @@ const Navbar = () => {
                     progress: undefined,
                     theme: "dark",
                 });
-                setAuth(false)
+                setUser(null);
             }
 
         }
@@ -56,7 +56,7 @@ const Navbar = () => {
 
                 {/* Right Side Buttons */}
                 <div className="space-x-4">
-                    {auth ? (<button onClick={handleLogout} className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition duration-300">
+                    {user ? (<button onClick={handleLogout} className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition duration-300">
                         Logout
                     </button>) : (<div className="space-x-4" >
                         <button onClick={handleLogin} className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition duration-300">

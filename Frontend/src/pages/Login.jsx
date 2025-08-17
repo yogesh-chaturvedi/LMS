@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext';
 
 
 const Login = () => {
-    const { auth, setAuth } = useContext(AuthContext)
+    const { user, setUser, loading, setLoading } = useContext(AuthContext)
     const naviagte = useNavigate();
     const [loginData, setLoginData] = useState({
         userEmail: '',
@@ -31,7 +31,8 @@ const Login = () => {
             })
             const { message, success } = response.data;
             if (success) {
-                setAuth(true)
+                setUser({})
+                setLoading(false)
                 toast(message, {
                     position: "top-center",
                     autoClose: 1500,

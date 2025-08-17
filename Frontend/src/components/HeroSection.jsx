@@ -11,6 +11,9 @@ const HeroSection = () => {
     navigate('/course')
   }
 
+  function openAdmin() {
+    navigate("/admin/dashboard")
+  }
 
 
   return (
@@ -39,6 +42,11 @@ const HeroSection = () => {
       <button onClick={openCourses} className="mt-6 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
         Explore Courses
       </button>
+
+      <button onClick={openAdmin} className="mt-6 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+        go to dashboard
+      </button>
+
     </section>
   )
 }

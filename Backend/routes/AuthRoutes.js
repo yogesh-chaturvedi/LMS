@@ -7,10 +7,20 @@ const varifyUser = require('../middleware/varifyUser')
 router.post('/signup', signupValidation, signup)
 router.post('/login', loginValidation, login)
 
+
+
 // to check if token is avilable or not 
 router.get('/verify', varifyUser, (req, res) => {
-    res.status(200).json({ success: true, user: req.user })
+    res.status(200).json({
+        success: true,
+        user: {
+            id: req.user.id,
+            email: req.user.email,
+            role: req.user.role
+        }
+    })
 })
+
 
 // to clear jwt token fron cookie
 router.post('/logout', (req, res) => {
