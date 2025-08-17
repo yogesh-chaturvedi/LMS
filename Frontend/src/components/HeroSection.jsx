@@ -1,6 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const HeroSection = () => {
+
+
+  const navigate = useNavigate();
+
+  // it naviagte to all courses page
+  function openCourses() {
+    navigate('/course')
+  }
+
+
+
   return (
     <section className="text-center border-2 border-red-500 px-28 py-16 bg-gray-50">
       {/* Main Title */}
@@ -24,7 +36,7 @@ const HeroSection = () => {
       </div>
 
       {/* Explore Button */}
-      <button className="mt-6 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+      <button onClick={openCourses} className="mt-6 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
         Explore Courses
       </button>
     </section>
