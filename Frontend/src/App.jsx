@@ -11,6 +11,7 @@ import CourseProgress from './pages/CourseProgress'
 import Courses from './pages/Courses'
 import DashboardHome from './pages/Dashboard/DashboardHome'
 import AdminProtectedRoutes from './components/AdminProtectedRoutes'
+import AddInstructor from './pages/Dashboard/AddInstructor'
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
       {/* admin protected routes */}
       <Route element={<AdminProtectedRoutes />}>
         <Route path="/admin/dashboard" element={<DashboardHome />} />
+        <Route path="/admin/add-instructor" element={<AddInstructor />} />
       </Route>
     </Routes>
   )

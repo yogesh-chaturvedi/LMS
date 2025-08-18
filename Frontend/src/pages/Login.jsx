@@ -6,12 +6,16 @@ import { AuthContext } from '../context/AuthContext';
 
 
 const Login = () => {
+
+    const BASE_URL = import.meta.env.VITE_API_URL;
+
     const { user, setUser, loading, setLoading } = useContext(AuthContext)
     const naviagte = useNavigate();
     const [loginData, setLoginData] = useState({
         userEmail: '',
         userPassword: ''
     })
+
 
     function handleChange(e) {
         setLoginData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -25,7 +29,7 @@ const Login = () => {
         try {
             const response = await axios({
                 method: "post",
-                url: 'http://localhost:3000/auth/login',
+                url: `${BASE_URL}auth/login`,
                 data: loginData,
                 withCredentials: true
             })

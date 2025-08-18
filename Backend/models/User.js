@@ -20,11 +20,22 @@ const UserSchema = new mongoose.Schema({
         enum: ["admin", "instructor", "user"],
         default: 'user',
     },
+    phone: {
+        type: Number
+    },
+    expertise: {
+        type: String
+    },
+    experience: {
+        type: Number
+    },
+    profileImage: {
+        type: String
+    },
     date: {
         type: Date,
         default: Date.now
     }
-
 });
 
 const User = mongoose.model('User', UserSchema);
