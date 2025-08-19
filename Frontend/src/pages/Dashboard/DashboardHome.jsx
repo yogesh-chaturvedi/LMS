@@ -17,7 +17,8 @@ const DashboardHome = () => {
                 <Sidebar />
 
                 {/* right */}
-                <div className='py-12 border-2 w-full border-orange-600 '>
+                {/* flex-1 for remaining width */}
+                <div className='flex flex-1 py-12 border-2 w-full border-orange-600 '>
 
                     <div className='mx-auto w-[80%] flex flex-col gap-10'>
                         <div className='flex gap-10 '>

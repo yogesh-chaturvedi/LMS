@@ -11,9 +11,12 @@ const Sidebar = () => {
 
             <nav className="flex flex-col gap-4">
 
-                <Link onClick={() => { handleTab('dashboard') }} to="/admin/dashboard" className={`px-4 py-2 rounded-lg hover:bg-gray-700 transition ${loaction.pathname === "/admin/dashboard" ? 'bg-gray-600' : ''}`}>Dashboard</Link>
+                <Link to="/admin/dashboard" className={`px-4 py-2 rounded-lg hover:bg-gray-700 transition ${loaction.pathname === "/admin/dashboard" ? 'bg-gray-600' : ''}`}>Dashboard</Link>
 
-                <Link onClick={() => { handleTab('Instructor') }} to="/admin/add-instructor" className={`px-4 py-2 rounded-lg hover:bg-gray-700 transition  ${loaction.pathname === "/admin/add-instructor" ? 'bg-gray-600' : ''}`}>Add Instructor</Link>
+                <Link to="/admin/courses" className={`px-4 py-2 rounded-lg hover:bg-gray-700 transition  ${loaction.pathname === "/admin/courses" ? 'bg-gray-600' : ''}`}>Courses</Link>
+
+                <Link to="/admin/add-instructor" className={`px-4 py-2 rounded-lg hover:bg-gray-700 transition  ${loaction.pathname === "/admin/add-instructor" ? 'bg-gray-600' : ''}`}>Add Instructor</Link>
+
             </nav>
         </div>
     )

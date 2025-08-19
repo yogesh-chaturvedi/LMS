@@ -90,8 +90,8 @@ const AddInstructor = () => {
                 <Sidebar />
 
                 {/* right */}
-                <div className='flex flex-1 justify-center items-center bg-gray-900'>
-                    <div className="p-6 h-[80vh] max-w-lg mx-auto  bg-gray-500 shadow-lg rounded-2xl">
+                <div className='flex flex-1 justify-center items-center bg-gray-900 overflow-auto'>
+                    <div className="p-6  max-w-lg mx-auto  bg-gray-500 shadow-lg rounded-2xl">
                         <h2 className="text-xl font-semibold mb-4">Add Instructor</h2>
                         <form className="space-y-4" onSubmit={handleSubmit}>
                             {/* Name */}
