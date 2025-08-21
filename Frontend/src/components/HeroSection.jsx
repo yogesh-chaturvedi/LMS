@@ -15,6 +15,10 @@ const HeroSection = () => {
     navigate("/admin/dashboard")
   }
 
+  function addCourse() {
+    navigate("/instructor/add-courses")
+  }
+
 
   return (
     <section className="text-center border-2 border-red-500 px-28 py-16 bg-gray-50">
@@ -45,6 +49,10 @@ const HeroSection = () => {
 
       <button onClick={openAdmin} className="mt-6 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
         go to dashboard
+      </button>
+
+      <button onClick={addCourse} className="mt-6 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+        add courses
       </button>
 
     </section>

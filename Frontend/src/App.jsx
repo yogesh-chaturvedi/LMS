@@ -13,6 +13,11 @@ import DashboardHome from './pages/Dashboard/DashboardHome'
 import AdminProtectedRoutes from './components/AdminProtectedRoutes'
 import AddInstructor from './pages/Dashboard/AddInstructor'
 import AllCourses from './pages/Dashboard/AllCourses'
+import InstructorProtectedRoutes from './components/InstructorProtectedRoutes'
+import AddCourses from './pages/Instructor/AddCourses'
+import MyCourses from './pages/Instructor/MyCourses'
+import AddLectures from './pages/Instructor/AddLectures'
+import EditLecture from './pages/Instructor/EditLecture'
 
 
 function App() {
@@ -25,19 +30,28 @@ function App() {
       <Route path='/signup' element={<Signup />} />
       <Route path='/reset' element={<Reset />} />
 
-      {/* users can only access if thsy are logged in  */}
+      {/* users can only access if they are logged in  */}
       <Route element={<ProtectedRoutes />}>
         <Route path='/course-details/:id' element={<CourseDetails />} />
         <Route path='/course-progress/:id' element={<CourseProgress />} />
         <Route path='/course' element={<Courses />} />
       </Route>
 
-      {/* admin protected routes */}
+      {/* admin only routes */}
       <Route element={<AdminProtectedRoutes />}>
         <Route path="/admin/dashboard" element={<DashboardHome />} />
         <Route path="/admin/courses" element={<AllCourses />} />
         <Route path="/admin/add-instructor" element={<AddInstructor />} />
       </Route>
+
+      {/* instructor only routes */}
+      <Route element={<InstructorProtectedRoutes />}>
+        <Route path='/instructor/add-courses' element={<AddCourses />} />
+        <Route path='/instructor/my-courses' element={<MyCourses />} />
+        <Route path='/instructor/add-lectures' element={<AddLectures />} />
+        <Route path='/instructor/edit-lectures/:id' element={<EditLecture />} />
+      </Route>
+
     </Routes>
   )
 }
