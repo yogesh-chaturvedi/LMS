@@ -53,7 +53,7 @@ const AddLectures = () => {
                 <div className=' bg-gray-950 px-28 flex-1 py-10'>
                     <div className='text-white bg-black rounded-xl p-4 border border-gray-700 shadow-xl'>
                         {/* heading */}
-                        
+
                         <h3 className='font-bold text-2xl text-white'>Add some lectures for your course</h3>
 
                         <div className='mt-5 border-2 border-black flex flex-col gap-4'>
@@ -70,7 +70,7 @@ const AddLectures = () => {
 
                                 <Link to='/instructor/add-lectures' className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Back to course</Link>
 
-                                <Link to='/instructor/my-courses' className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Create lecture</Link>
+                                <Link className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Create lecture</Link>
 
                             </div>
 

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 
-
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -32,6 +31,20 @@ const UserSchema = new mongoose.Schema({
     profileImage: {
         type: String
     },
+    // if login by user 
+    purchasedCourses: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Course"
+        }
+    ],
+    // if login by instructor
+    createdBy: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Course"
+        }
+    ],
     date: {
         type: Date,
         default: Date.now
