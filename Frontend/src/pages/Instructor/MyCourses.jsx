@@ -4,22 +4,23 @@ import Footer from '../../components/Footer'
 import InstructorSidebar from '../../components/InstructorSidebar'
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserPen } from 'lucide-react';
+import { useContext } from 'react';
+import { CoursesContext } from '../../context/CoursesContext';
+import { useNavigate } from 'react-router-dom';
 
 const MyCourses = () => {
-    const courses = [
-        { title: "Redux Advanced Course", price: "Rs.1000", status: "Published" },
-        { title: "Next.js Complete Guide", price: "Rs.1500", status: "Unpublished" },
-        { title: "React Basics", price: "Rs.800", status: "Published" },
-        { title: "React Basics", price: "Rs.800", status: "Published" },
-        { title: "React Basics", price: "Rs.800", status: "Published" },
-        { title: "React Basics", price: "Rs.800", status: "Published" },
-        { title: "React Basics", price: "Rs.800", status: "Published" },
-        { title: "React Basics", price: "Rs.800", status: "Published" },
-        { title: "React Basics", price: "Rs.800", status: "Published" },
-        { title: "React Basics", price: "Rs.800", status: "Published" },
-        { title: "React Basics", price: "Rs.800", status: "Published" },
-        { title: "React Basics kjcndknckdsncdjcodscoidscdslcmdslcmdslcmdslocmdslkcmdsklcmknckjnc", price: "Rs.800", status: "Published" },
-    ];
+
+    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit } = useContext(CoursesContext)
+    const navigate = useNavigate()
+
+    // it will navigate user to add-courses page and pre-fill the form with previous data that user wants to change
+    function handleEdit(indexToBeEdit, courseToBeSelected) {
+        // console.log(indexToBeEdit)
+        setIsEdit(true)
+        setCourseDetails(courseToBeSelected)
+        navigate('/instructor/add-courses')
+    }
+
 
     return (
         <div>
@@ -44,8 +45,8 @@ const MyCourses = () => {
 
                         {/* Data Rows */}
                         <div className="divide-y">
-                            {courses.map((course, index) => (
-                                <div key={index} className="flex justify-between items-center px-4 py-3">
+                            {allCourses.map((course, index) => {
+                                return (<div key={index} className="flex justify-between items-center px-4 py-3">
                                     {/* Title */}
                                     <p className="w-1/3 font-medium truncate">{course.title}</p>
 
@@ -53,22 +54,16 @@ const MyCourses = () => {
                                     <p className="w-1/6 text-center font-semibold">{course.price}</p>
 
                                     {/* Status */}
-                                    <p
-                                        className={`w-1/6 text-center font-semibold ${course.status === "Published"
-                                            ? "text-green-600"
-                                            : "text-red-600"
-                                            }`}
-                                    >
-                                        {course.status}
-                                    </p>
+                                    <p className={`w-1/6 text-center font-semibold ${course.status ? "text-green-600" : "text-red-600"}`} >{course.status ? 'Published' : 'Unpublished'}</p>
 
                                     {/* Action */}
-                                    <div className="w-1/6 text-center flex items-center justify-center gap-2 text-blue-600 cursor-pointer hover:underline">
-                                        <UserPen size={18} />
-                                        <span>Edit</span>
+                                    <div onClick={() => { handleEdit(index, course) }} className="w-1/6 text-center flex items-center justify-center gap-2 text-blue-600 cursor-pointer ">
+                                        <UserPen size={18} color='black' />
+                                        <span className='font-semibold text-black'>Edit</span>
                                     </div>
                                 </div>
-                            ))}
+                                )
+                            })}
                         </div>
                     </div>
                 </div>

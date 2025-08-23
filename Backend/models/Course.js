@@ -30,6 +30,10 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    status: {
+        type: Boolean,
+        default: false,
+    },
     instructor: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
