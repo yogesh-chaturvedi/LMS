@@ -22,7 +22,7 @@ router.post('/info', varifyUser, async (req, res) => {
             })
 
             await course.save();
-            return res.status(200).json({ message: 'Saved', success: true })
+            return res.status(200).json({ message: 'Saved', success: true, course })
         }
         else {
             return res.status(404).json({ message: 'Unauthorised', success: false })
@@ -86,6 +86,41 @@ router.put('/update/:id', async (req, res) => {
         res.status(400).json({ message: 'something went wrong', success: false, error })
     }
 
+})
+
+
+
+// to add lectures
+router.post('/lecture/:id', varifyUser, async (req, res) => {
+    const { lectureTitle } = req.body;
+    try {
+        const objId = req.params.id;
+        // console.log(objId)
+        // console.log(lectureTitle)
+
+        if (req.user.role === 'instructor') {
+            const course = await CourseModel.findById(objId);
+
+            if (!course) {
+                return res.status(404).json({ message: 'Course Not Found', success: false })
+            }
+
+            // console.log(course);
+            course.lecture.push({
+                lectureTitle: lectureTitle
+            })
+
+            await course.save();
+            return res.status(200).json({ message: 'Lecture Added', success: true, course })
+        }
+        else {
+            return res.status(400).json({ message: 'You are not Unauthorized', success: false })
+        }
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
 })
 
 

@@ -32,11 +32,12 @@ const AddCourses = () => {
                     withCredentials: true
                 })
 
-                const { message, success } = response.data;
+                const { message, success, course } = response.data;
 
                 if (success) {
                     console.log(message);
-                    setIsEdit(false)
+                    setIsEdit(false);
+                    navigate(`/instructor/add-lectures/${course._id}`);
                 }
 
             }
@@ -49,11 +50,11 @@ const AddCourses = () => {
                     withCredentials: true
                 })
 
-                const { message, success } = response.data
+                const { message, success, course } = response.data
 
                 if (success) {
                     console.log(message);
-                    navigate('/instructor/add-lectures')
+                    navigate(`/instructor/add-lectures/${course._id}`);
                 }
             }
         }
@@ -159,14 +160,13 @@ const AddCourses = () => {
                                 <button onClick={handleClear} className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Clear</button>
 
                                 {/* to='/instructor/add-lectures' */}
-                                <Link onClick={handleClick} className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>{isEdit ? 'Updated' : 'Create'}</Link>
+                                <button onClick={handleClick} className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>{isEdit ? 'Updated' : 'Create'}</button>
                             </div>
 
                         </div>
 
                     </div>
                 </div>
-
 
             </div>
 

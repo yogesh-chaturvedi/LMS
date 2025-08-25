@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import InstructorSidebar from '../../components/InstructorSidebar'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const AddLectures = () => {
     const navigate = useNavigate()
 
+    const { id } = useParams()
+    // console.log(id)
+
+    const [lectureTitle, setLectureTitle] = useState('');
+
+    const BASE_URL = import.meta.env.VITE_API_URL;
+
+    // dummy for now only
     let lectures = [
         {
             id: 1,
@@ -35,9 +44,40 @@ const AddLectures = () => {
     ]
 
 
+    // to set the title value in usestate
+    function handleChange(e) {
+        setLectureTitle(e.target.value);
+    }
+    console.log(lectureTitle)
+
+
+    // naviagtes us to edit lecture page
     function handleClick(id) {
         navigate(`/instructor/edit-lectures/${id}`)
         console.log(id)
+    }
+
+
+    // to create Lecture
+    async function createLecture(objectId) {
+        console.log("create lecture")
+        try {
+            const response = await axios({
+                method: 'post',
+                url: `${BASE_URL}course/lecture/${objectId}`,
+                data: { lectureTitle },
+                withCredentials: true
+            })
+
+            const { message, success } = response.data;
+            if (success) {
+                console.log(message)
+            }
+
+        }
+        catch (error) {
+            console.log("there is an error", error)
+        }
     }
 
 
@@ -60,8 +100,8 @@ const AddLectures = () => {
 
                             {/* title */}
                             <div className='flex flex-col'>
-                                <label className='font-semibold text-lg'>Title</label>
-                                <input className='outline-none text-white bg-black border-2 border-gray-500 rounded-md px-2' type="text" placeholder='Enter Title of your course' />
+                                <label className='font-semibold text-lg'>Lecture Title</label>
+                                <input value={lectureTitle} onChange={handleChange} name='lecTitle' className='outline-none text-white bg-black border-2 border-gray-500 rounded-md px-2' type="text" placeholder='Enter Title of your course' />
                             </div>
 
 
@@ -70,7 +110,7 @@ const AddLectures = () => {
 
                                 <Link to='/instructor/add-lectures' className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Back to course</Link>
 
-                                <Link className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Create lecture</Link>
+                                <Link onClick={() => createLecture(id)} className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Create lecture</Link>
 
                             </div>
 

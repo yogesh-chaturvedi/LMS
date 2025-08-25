@@ -46,7 +46,6 @@ const CourseSchema = new mongoose.Schema({
             },
             lectureVideo: {
                 type: String,
-                required: true
             },
             isFree: {
                 type: Boolean,
