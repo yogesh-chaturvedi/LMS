@@ -78,6 +78,11 @@ const AddCourses = () => {
     }
 
 
+    // function goToLecture(courseId) {
+    //     navigate(`instructor/add-lectures/${courseId}`)
+    // }
+
+
     return (
         <div>
             <Navbar />
@@ -87,7 +92,13 @@ const AddCourses = () => {
                 {/* sidebar */}
                 <InstructorSidebar />
 
-                <div className=' bg-gray-950 px-28 flex-1 py-10'>
+                <div className=' bg-gray-950 px-28 flex-1 py-10 flex gap-4 flex-col'>
+
+                    <div className='flex justify-between'>
+                        <h2 className='text-2xl font-bold text-white'>Add details information regarding course</h2>
+                        <button className='text-white font-semibold hover:underline bg-gray-800 hover:bg-gray-700  px-2 rounded-lg'>Go to lecture page</button>
+                    </div>
+
                     <div className='text-white bg-black rounded-xl p-4 border border-gray-700 shadow-xl'>
 
                         {/* heading */}

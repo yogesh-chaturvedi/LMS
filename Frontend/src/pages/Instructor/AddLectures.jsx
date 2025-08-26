@@ -4,44 +4,21 @@ import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { useContext } from 'react'
+import { CoursesContext } from '../../context/CoursesContext'
+import { useEffect } from 'react'
 
 const AddLectures = () => {
     const navigate = useNavigate()
 
-    const { id } = useParams()
-    // console.log(id)
+    const { courseId } = useParams()
+    console.log(courseId)
 
     const [lectureTitle, setLectureTitle] = useState('');
 
-    const BASE_URL = import.meta.env.VITE_API_URL;
+    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName } = useContext(CoursesContext)
 
-    // dummy for now only
-    let lectures = [
-        {
-            id: 1,
-            topic: "lecture 1 - introduction to redux"
-        },
-        {
-            id: 2,
-            topic: "lecture 2 - introduction to redux"
-        },
-        {
-            id: 3,
-            topic: "lecture 3 - introduction to redux"
-        },
-        {
-            id: 4,
-            topic: "lecture 4 - introduction to redux"
-        },
-        {
-            id: 5,
-            topic: "lecture 5 - introduction to redux"
-        },
-        {
-            id: 6,
-            topic: "lecture 6 - introduction to redux"
-        },
-    ]
+    const BASE_URL = import.meta.env.VITE_API_URL;
 
 
     // to set the title value in usestate
@@ -51,11 +28,27 @@ const AddLectures = () => {
     console.log(lectureTitle)
 
 
-    // naviagtes us to edit lecture page
-    function handleClick(id) {
-        navigate(`/instructor/edit-lectures/${id}`)
-        console.log(id)
-    }
+    // fetch course details on mount 
+    useEffect(() => {
+        async function fetchCourseDetails(courseId) {
+            try {
+                const response = await axios({
+                    method: 'get',
+                    url: `${BASE_URL}course/courseDetails/${courseId}`,
+                    withCredentials: true
+                })
+                const { message, success, course } = response.data;
+                if (success) {
+                    console.log(message)
+                    setCourseDetails(course)
+                }
+            }
+            catch (error) {
+                console.log("there is an error ", error)
+            }
+        }
+        fetchCourseDetails(courseId)
+    }, [])
 
 
     // to create Lecture
@@ -69,9 +62,11 @@ const AddLectures = () => {
                 withCredentials: true
             })
 
-            const { message, success } = response.data;
+            const { message, success, course } = response.data;
             if (success) {
-                console.log(message)
+                console.log(message);
+                setLectureTitle('');
+                setCourseDetails(course);
             }
 
         }
@@ -110,17 +105,16 @@ const AddLectures = () => {
 
                                 <Link to='/instructor/add-lectures' className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Back to course</Link>
 
-                                <Link onClick={() => createLecture(id)} className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Create lecture</Link>
+                                <button onClick={() => createLecture(courseId)} className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Create lecture</button>
 
                             </div>
 
                             {/* lectures */}
                             <div className='flex flex-col gap-3'>
-                                {lectures.map((lecture, index) => {
-                                    return <div key={index}>
-                                        <p onClick={() => handleClick(lecture.id)} className='font-semibold rounded-lg px-2 py-1 bg-gray-700'>{lecture.topic}</p>
+                                {courseDetails?.lecture?.map((lecture) => {
+                                    return <div key={lecture._id} >
+                                        <Link to={`/instructor/edit-lectures/${courseId}/${lecture._id}`} state={lecture} className=' w-full block font-semibold rounded-lg px-2 py-1 bg-gray-700 hover:bg-gray-800 cursor-pointer'>{lecture.lectureTitle}</Link>
                                     </div>
-
                                 })}
 
                             </div>

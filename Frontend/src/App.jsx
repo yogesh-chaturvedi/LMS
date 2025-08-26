@@ -48,8 +48,9 @@ function App() {
       <Route element={<InstructorProtectedRoutes />}>
         <Route path='/instructor/add-courses' element={<AddCourses />} />
         <Route path='/instructor/my-courses' element={<MyCourses />} />
-        <Route path='/instructor/add-lectures/:id' element={<AddLectures />} />
-        <Route path='/instructor/edit-lectures/:id' element={<EditLecture />} />
+        <Route path='/instructor/add-lectures/:courseId' element={<AddLectures />} />
+        <Route path='/instructor/add-lectures/:courseId/:lectureId' element={<AddLectures />} />
+        <Route path='/instructor/edit-lectures/:courseId/:lectureId' element={<EditLecture />} />
       </Route>
 
     </Routes>

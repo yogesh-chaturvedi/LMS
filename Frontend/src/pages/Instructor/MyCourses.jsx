@@ -22,6 +22,10 @@ const MyCourses = () => {
     }
 
 
+    function handleClick(courseId) {
+        navigate(`/instructor/add-lectures/${courseId}`)
+    }
+
     return (
         <div>
             <Navbar />
@@ -48,7 +52,7 @@ const MyCourses = () => {
                             {allCourses.map((course, index) => {
                                 return (<div key={index} className="flex justify-between items-center px-4 py-3">
                                     {/* Title */}
-                                    <p className="w-1/3 font-medium truncate">{course.title}</p>
+                                    <p onClick={() => handleClick(course._id)} className="w-1/3 cursor-pointer font-medium truncate">{course.title}</p>
 
                                     {/* Price */}
                                     <p className="w-1/6 text-center font-semibold">{course.price}</p>

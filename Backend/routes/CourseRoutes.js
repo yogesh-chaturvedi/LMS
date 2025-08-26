@@ -53,6 +53,7 @@ router.get('/fetch', async (req, res) => {
 })
 
 
+
 // to update course
 router.put('/update/:id', async (req, res) => {
     const { title, subTitle, category, level, price, description, thumbnail } = req.body;
@@ -115,6 +116,92 @@ router.post('/lecture/:id', varifyUser, async (req, res) => {
         }
         else {
             return res.status(400).json({ message: 'You are not Unauthorized', success: false })
+        }
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
+
+
+
+// to get coursedaetails
+router.get('/courseDetails/:id', varifyUser, async (req, res) => {
+    try {
+        const objId = req.params.id;
+        if (req.user.role === 'instructor') {
+            const course = await CourseModel.findById(objId)
+            return res.status(200).json({ message: 'Fetched course details', success: true, course })
+        }
+        else {
+            return res.status(400).json({ message: 'You are unauthorized', success: false })
+        }
+
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
+
+
+
+// to remove lecture
+router.delete('/removeLecture/:courseId/:lectureId', varifyUser, async (req, res) => {
+    const courseId = req.params.courseId;
+    const lectureId = req.params.lectureId;
+    try {
+        if (req.user.role === "instructor") {
+            const course = await CourseModel.findByIdAndUpdate(courseId, { $pull: { lecture: { _id: lectureId } } }, { new: true })
+
+            if (!course) {
+                return res.status(404).json({ message: 'lecture not found', success: false })
+            }
+
+            return res.status(200).json({ message: 'Lecture removed successfully', success: true, course })
+        }
+        else {
+            return res.status(400).json({ message: 'You are unauthorized', success: false })
+        }
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
+
+
+// to add videos and isFree
+router.put('/addVideo/:courseId/:lectureId', varifyUser, async (req, res) => {
+    const { videoUrl, isFree } = req.body
+    const CourseId = req.params.courseId;
+    const LectureId = req.params.lectureId;
+    try {
+
+        if (req.user.role === 'instructor') {
+            const course = await CourseModel.findById(CourseId)
+
+            if (!course) {
+                return res.status(404).json({ message: 'Course not found', success: false })
+            }
+
+            const lecture = course.lecture.id(LectureId)
+
+            if (!lecture) {
+                return res.status(404).json({ message: 'Lecture not found', success: false })
+            }
+
+            // addinf video and status also
+            lecture.lectureVideo = videoUrl,
+                lecture.isFree = isFree
+
+            await course.save();
+            return res.status(200).json({ message: 'Lecture video updated successfully', success: true, course });
+
+        }
+        else {
+            return res.status(400).json({ message: 'You are unauthorized', success: false })
         }
     }
     catch (error) {

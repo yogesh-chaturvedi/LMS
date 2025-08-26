@@ -18,9 +18,11 @@ const CoursesContextProvider = (props) => {
         price: '',
         description: '',
         thumbnail: '',
-    })
+    }) 
 
     const [isEdit, setIsEdit] = useState(false)  // mode
+
+    const [lectureName, setLectureName] = useState('')
 
     const [allCourses, setAllCourses] = useState([]);
 
@@ -50,7 +52,7 @@ const CoursesContextProvider = (props) => {
     }, [])
 
 
-    const value = { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit }
+    const value = { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName }
 
     return (
         <CoursesContext.Provider value={value}>
