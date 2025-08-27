@@ -1,15 +1,22 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { assets } from '../assets/assets'
+import { CoursesContext } from '../context/CoursesContext'
+import { FolderSync } from 'lucide-react'
+import axios from 'axios'
 
 const Courses = () => {
 
-    const categories = ["Web Development", "Data Science", "Design", "Marketing"];
+    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName } = useContext(CoursesContext)
+
+
+    const categories = ["webdev", "Data Science", "Design", "Marketing"];
 
     const [Filter, setFilter] = useState([]);
 
 
+    // filtering
     function handleChange(category) {
         setFilter((prev) =>
             prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]
@@ -17,12 +24,15 @@ const Courses = () => {
     }
     console.log(Filter);
 
+    const filtering = allCourses.filter((course) => Filter.length === 0 || Filter.includes(course.category))
+
+
 
     return (
         <div>
             <Navbar />
 
-            <div className='flex gap-4 px-28 py-12'>
+            <div className='flex gap-4 px-28 py-12 h-[90vh]'>
                 {/* left  */}
                 <div className='w-[20%]'>
                     <h1 className="text-2xl font-bold pb-2 border-black border-b-2">Filter Options</h1>
@@ -41,90 +51,31 @@ const Courses = () => {
 
 
                 {/* right */}
-                <div className='flex flex-col gap-6 w-full'>
+                <div className='flex flex-col gap-6 w-full min-h-[80vh] overflow-auto'>
+                    {filtering.length === 0 ? (
+                        <p className="text-gray-500 font-bold text-2xl text-center mt-20">No courses found for selected filters</p>
+                    ) : (filtering.map((courses, index) => {
+                        return <div key={index} className="flex gap-4 border border-gray-300 rounded-xl shadow-lg p-4 bg-white w-full h-[160p]">
+                            {/* Image (Left) */}
+                            <img src={`${courses.thumbnail}`} alt="course thumbnail" className="w-48 h-32 object-cover rounded-lg shadow-md" />
 
-                    <div className="flex gap-4 border border-gray-300 rounded-xl shadow-lg p-4 bg-white w-full h-[160p]">
-                        {/* Image (Left) */}
-                        <img src={assets.mern} alt="course thumbnail" className="w-48 h-32 object-cover rounded-lg shadow-md" />
+                            {/* Content (Right) */}
+                            <div className="flex flex-col ">
+                                {/* Title */}
+                                <h2 className="font-bold text-xl text-gray-800">{courses.title}</h2>
 
-                        {/* Content (Right) */}
-                        <div className="flex flex-col ">
-                            {/* Title */}
-                            <h2 className="font-bold text-xl text-gray-800">Mastering Docker – A Complete Guide</h2>
+                                {/* Description */}
+                                <p className="text-sm text-gray-600">{courses.description}</p>
 
-                            {/* Description */}
-                            <p className="text-sm text-gray-600">Learn how to build, ship, and run applications with Docker containers.</p>
+                                {/* Instructor */}
+                                <p className="text-gray-700">Instructor: <span className="font-semibold">Yogesh Chaturvedi</span></p>
 
-                            {/* Instructor */}
-                            <p className="text-gray-700">Instructor: <span className="font-semibold">Yogesh Chaturvedi</span></p>
-
-                            {/* Level */}
-                            <span className="inline-block px-2 text-sm rounded-md bg-red-500 text-white w-fit">Advanced</span>
+                                {/* Level */}
+                                <span className="inline-block px-2 text-sm rounded-md bg-red-500 text-white w-fit">{courses.level}</span>
+                            </div>
                         </div>
-                    </div>
-
-
-                    <div className="flex gap-4 border border-gray-300 rounded-xl shadow-lg p-4 bg-white w-full h-[160p]">
-                        {/* Image (Left) */}
-                        <img src={assets.mern} alt="course thumbnail" className="w-48 h-32 object-cover rounded-lg shadow-md" />
-
-                        {/* Content (Right) */}
-                        <div className="flex flex-col ">
-                            {/* Title */}
-                            <h2 className="font-bold text-xl text-gray-800">Mastering Docker – A Complete Guide</h2>
-
-                            {/* Description */}
-                            <p className="text-sm text-gray-600">Learn how to build, ship, and run applications with Docker containers.</p>
-
-                            {/* Instructor */}
-                            <p className="text-gray-700">Instructor: <span className="font-semibold">Yogesh Chaturvedi</span></p>
-
-                            {/* Level */}
-                            <span className="inline-block px-2 text-sm rounded-md bg-red-500 text-white w-fit">Advanced</span>
-                        </div>
-                    </div>
-
-
-                    <div className="flex gap-4 border border-gray-300 rounded-xl shadow-lg p-4 bg-white w-full h-[160p]">
-                        {/* Image (Left) */}
-                        <img src={assets.mern} alt="course thumbnail" className="w-48 h-32 object-cover rounded-lg shadow-md" />
-
-                        {/* Content (Right) */}
-                        <div className="flex flex-col ">
-                            {/* Title */}
-                            <h2 className="font-bold text-xl text-gray-800">Mastering Docker – A Complete Guide</h2>
-
-                            {/* Description */}
-                            <p className="text-sm text-gray-600">Learn how to build, ship, and run applications with Docker containers.</p>
-
-                            {/* Instructor */}
-                            <p className="text-gray-700">Instructor: <span className="font-semibold">Yogesh Chaturvedi</span></p>
-
-                            {/* Level */}
-                            <span className="inline-block px-2 text-sm rounded-md bg-red-500 text-white w-fit">Advanced</span>
-                        </div>
-                    </div>
-
-
-                    <div className="flex gap-4 border border-gray-300 rounded-xl shadow-lg p-4 bg-white w-full h-[160p]">
-                        {/* Image (Left) */}
-                        <img src={assets.mern} alt="course thumbnail" className="w-48 h-32 object-cover rounded-lg shadow-md" />
-
-                        {/* Content (Right) */}
-                        <div className="flex flex-col ">
-                            {/* Title */}
-                            <h2 className="font-bold text-xl text-gray-800">Mastering Docker – A Complete Guide</h2>
-
-                            {/* Description */}
-                            <p className="text-sm text-gray-600">Learn how to build, ship, and run applications with Docker containers.</p>
-
-                            {/* Instructor */}
-                            <p className="text-gray-700">Instructor: <span className="font-semibold">Yogesh Chaturvedi</span></p>
-
-                            {/* Level */}
-                            <span className="inline-block px-2 text-sm rounded-md bg-red-500 text-white w-fit">Advanced</span>
-                        </div>
-                    </div>
+                    }))
+                    }
 
 
                 </div>

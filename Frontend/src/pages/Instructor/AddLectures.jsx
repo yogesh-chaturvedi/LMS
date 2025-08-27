@@ -9,6 +9,9 @@ import { CoursesContext } from '../../context/CoursesContext'
 import { useEffect } from 'react'
 
 const AddLectures = () => {
+
+    const BASE_URL = import.meta.env.VITE_API_URL;
+
     const navigate = useNavigate()
 
     const { courseId } = useParams()
@@ -17,8 +20,6 @@ const AddLectures = () => {
     const [lectureTitle, setLectureTitle] = useState('');
 
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName } = useContext(CoursesContext)
-
-    const BASE_URL = import.meta.env.VITE_API_URL;
 
 
     // to set the title value in usestate
@@ -103,7 +104,7 @@ const AddLectures = () => {
                             {/* buttons */}
                             <div className='flex gap-2'>
 
-                                <Link to='/instructor/add-lectures' className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Back to course</Link>
+                                <Link to='/instructor/my-courses' className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Back to course</Link>
 
                                 <button onClick={() => createLecture(courseId)} className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Create lecture</button>
 
@@ -111,11 +112,14 @@ const AddLectures = () => {
 
                             {/* lectures */}
                             <div className='flex flex-col gap-3'>
-                                {courseDetails?.lecture?.map((lecture) => {
+                                {courseDetails?.lecture?.length === 0 ? (
+                                    <div>No lecture available</div>
+                                ) : (courseDetails?.lecture?.map((lecture) => {
                                     return <div key={lecture._id} >
                                         <Link to={`/instructor/edit-lectures/${courseId}/${lecture._id}`} state={lecture} className=' w-full block font-semibold rounded-lg px-2 py-1 bg-gray-700 hover:bg-gray-800 cursor-pointer'>{lecture.lectureTitle}</Link>
                                     </div>
-                                })}
+                                }))}
+
 
                             </div>
                         </div>

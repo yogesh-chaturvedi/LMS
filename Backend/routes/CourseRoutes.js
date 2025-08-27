@@ -211,4 +211,40 @@ router.put('/addVideo/:courseId/:lectureId', varifyUser, async (req, res) => {
 })
 
 
+// to toggle course status 
+router.put('/status/:courseId', varifyUser, async (req, res) => {
+    const id = req.params.courseId;
+    const { status } = req.body;
+    try {
+        if (req.user.role === 'instructor') {
+            const course = await CourseModel.findById(id)
+
+            if (!course) {
+                return res.status(400).json({ message: 'Course not found', success: false })
+            }
+
+            // toggling status
+            if (status === false) {
+                course.status = true;
+            }
+            else {
+                course.status = false;
+            }
+
+            await course.save();
+            res.status(200).json({ message: 'Status changed successfully', success: true, course })
+
+        }
+        else {
+            return res.status(400).json({ message: 'You are unauthorized', success: false })
+        }
+
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
+
+
 module.exports = router

@@ -7,11 +7,15 @@ import { UserPen } from 'lucide-react';
 import { useContext } from 'react';
 import { CoursesContext } from '../../context/CoursesContext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
 
 const MyCourses = () => {
-
+    const BASE_URL = import.meta.env.VITE_API_URL;
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit } = useContext(CoursesContext)
     const navigate = useNavigate()
+
+    // const [courseStatus, setCourseStatus] = useState(false)
 
     // it will navigate user to add-courses page and pre-fill the form with previous data that user wants to change
     function handleEdit(indexToBeEdit, courseToBeSelected) {
@@ -25,6 +29,29 @@ const MyCourses = () => {
     function handleClick(courseId) {
         navigate(`/instructor/add-lectures/${courseId}`)
     }
+
+
+    // toggle course status
+    async function handleStatus(courseId, status) {
+
+        try {
+            const response = await axios({
+                method: 'put',
+                url: `${BASE_URL}course/status/${courseId}`,
+                data: { status },
+                withCredentials: true
+            })
+            const { message, success, course } = response.data
+            if (success) {
+                console.log(message)
+                setAllCourses(prev => prev.map(c => (c._id === courseId ? course : c)))
+            }
+        }
+        catch (error) {
+            console.log("there is an error", error)
+        }
+    }
+
 
     return (
         <div>
@@ -52,13 +79,13 @@ const MyCourses = () => {
                             {allCourses.map((course, index) => {
                                 return (<div key={index} className="flex justify-between items-center px-4 py-3">
                                     {/* Title */}
-                                    <p onClick={() => handleClick(course._id)} className="w-1/3 cursor-pointer font-medium truncate">{course.title}</p>
+                                    <p onClick={() => handleClick(course._id)} className="w-1/3 hover:underline cursor-pointer font-medium truncate">{course.title}</p>
 
                                     {/* Price */}
                                     <p className="w-1/6 text-center font-semibold">{course.price}</p>
 
                                     {/* Status */}
-                                    <p className={`w-1/6 text-center font-semibold ${course.status ? "text-green-600" : "text-red-600"}`} >{course.status ? 'Published' : 'Unpublished'}</p>
+                                    <button onClick={() => { handleStatus(course._id, course.status) }} className={`w-1/6 text-center font-semibold ${course.status ? "text-green-600" : "text-red-600"}`} >{course.status ? 'Published' : 'Unpublished'}</button>
 
                                     {/* Action */}
                                     <div onClick={() => { handleEdit(index, course) }} className="w-1/6 text-center flex items-center justify-center gap-2 text-blue-600 cursor-pointer ">
