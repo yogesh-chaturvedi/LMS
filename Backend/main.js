@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser')
 const AuthRoute = require('./routes/AuthRoutes')
 const AddInstructorRoute = require('./routes/AddInstructor')
 const CourseRoute = require('./routes/CourseRoutes')
+const UserRoute = require('./routes/UserRoutes')
 
 
 const port = process.env.PORT || 3000;
@@ -26,8 +27,9 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', AuthRoute)
-app.use("/add", AddInstructorRoute)
+app.use('/add', AddInstructorRoute)
 app.use('/course', CourseRoute)
+app.use('/user', UserRoute)
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

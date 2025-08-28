@@ -42,7 +42,7 @@ const login = async (req, res, next) => {
                 return res.status(401).json({ message: "Incorrect Password", success: false })
             }
             else {
-                const token = jwt.sign({ email: user.email, id: user._id, role: user.role }, process.env.JWT_SECRET);
+                const token = jwt.sign({ email: user.email, id: user._id, role: user.role, name: user.name }, process.env.JWT_SECRET);
                 res.cookie("Token", token, {
                     secure: false,        // only for localhost dev
                     httpOnly: true,

@@ -18,6 +18,7 @@ import AddCourses from './pages/Instructor/AddCourses'
 import MyCourses from './pages/Instructor/MyCourses'
 import AddLectures from './pages/Instructor/AddLectures'
 import EditLecture from './pages/Instructor/EditLecture'
+import Profile from './pages/Profile'
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path='/course-details/:id' element={<CourseDetails />} />
         <Route path='/course-progress/:id' element={<CourseProgress />} />
         <Route path='/course' element={<Courses />} />
+        <Route path='/profile' element={<Profile />} />
       </Route>
 
       {/* admin only routes */}
