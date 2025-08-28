@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const CourseModel = require('../models/Course')
 const varifyUser = require('../middleware/varifyUser');
+const { route } = require('./AuthRoutes');
 
 
 // to save basic information of course
@@ -239,6 +240,26 @@ router.put('/status/:courseId', varifyUser, async (req, res) => {
             return res.status(400).json({ message: 'You are unauthorized', success: false })
         }
 
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
+
+
+// search route
+router.post('/search/:searchedText', async (req, res) => {
+    const searchedText = req.params.searchedText;
+    try {
+        const searchedCourses = await CourseModel.find({
+            description: {
+                $regex: searchedText,
+                $options: 'i'
+            }
+        })
+        console.log(searchedCourses)
+        res.status(200).json({ message: 'Your Searched Course', success: true, searchedCourses })
     }
     catch (error) {
         console.error("error", error)

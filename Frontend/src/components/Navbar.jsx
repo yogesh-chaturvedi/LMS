@@ -12,11 +12,11 @@ const Navbar = () => {
     const [profile, setProfile] = useState(true)
 
     function handleLogin() {
-        naviagte('/login')
+        navigate('/login')
     }
 
     function handleSignUp() {
-        naviagte('/signup')
+        navigate('/signup')
     }
 
     async function handleLogout() {
@@ -64,6 +64,14 @@ const Navbar = () => {
         navigate('/profile')
     }
 
+    function handleCreateCourse() {
+        navigate("/instructor/add-courses")
+    }
+
+    function handleAdmin() {
+        navigate("/admin/dashboard")
+    }
+
     return (
         <div>
             <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
@@ -82,9 +90,16 @@ const Navbar = () => {
 
                             <img onClick={() => handleClick()} className="h-10 w-10 border-2 border-black rounded-full" src={assets.node} alt="userImg" />
 
+                            {/* dropdown */}
                             <div className={`w-52 py-3 px-2 rounded-lg flex-col flex gap-4 bg-gray-400 absolute top-10 right-2 ${profile ? 'hidden' : 'flex'} `}>
                                 <span onClick={() => handleProfile()} className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>My Profile</span>
                                 <span className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>Edit Information</span>
+
+                                {/* for instructor */}
+                                {user.role === 'instructor' ? (<span onClick={() => handleCreateCourse()} className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>Create Course</span>) : ""}
+
+                                {/* for admin */}
+                                {user.role === 'admin' ? (<span onClick={() => handleAdmin()} className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>Dashboard</span>) : ""}
                             </div>
 
                         </div>

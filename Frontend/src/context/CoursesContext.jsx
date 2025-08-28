@@ -26,6 +26,7 @@ const CoursesContextProvider = (props) => {
 
     const [allCourses, setAllCourses] = useState([]);
 
+
     useEffect(() => {
         async function getData() {
             try {
@@ -52,7 +53,7 @@ const CoursesContextProvider = (props) => {
     }, [])
 
 
-    const value = { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName }
+    const value = { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName}
 
     return (
         <CoursesContext.Provider value={value}>

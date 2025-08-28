@@ -88,7 +88,7 @@ const Profile = () => {
 
     // to toggle edit btn
     const [editMode, setEditMode] = useState(false)
-    console.log(editMode)
+    // console.log(editMode)
 
     // to store new or edited data by the user
     const [newData, setnewData] = useState({
@@ -101,10 +101,7 @@ const Profile = () => {
     function handleChange(e) {
         setnewData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
-    console.log(newData)
-
-
-
+    // console.log(newData)
 
     async function handleEdit(userId) {
 
@@ -112,7 +109,6 @@ const Profile = () => {
             console.log("fields are empty")
             return;
         }
-
 
         try {
             const response = await axios({

@@ -8,7 +8,7 @@ import axios from 'axios'
 
 const Courses = () => {
 
-    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName } = useContext(CoursesContext)
+    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName,search, setSearch  } = useContext(CoursesContext)
 
 
     const categories = ["webdev", "Data Science", "Design", "Marketing"];
