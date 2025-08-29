@@ -7,9 +7,8 @@ const { route } = require('./AuthRoutes');
 
 // to save basic information of course
 router.post('/info', varifyUser, async (req, res) => {
-    const { title, subTitle, category, level, price, description, thumbnail } = req.body;
+    const { title, subTitle, category, level, price, description, thumbnail, instructorName } = req.body;
     try {
-
         if (req.user.role === 'instructor') {
 
             const course = new CourseModel({
@@ -19,7 +18,8 @@ router.post('/info', varifyUser, async (req, res) => {
                 level: level,
                 price: price,
                 description: description,
-                thumbnail: thumbnail
+                thumbnail: thumbnail,
+                instructor: instructorName
             })
 
             await course.save();
@@ -260,6 +260,40 @@ router.post('/search/:searchedText', async (req, res) => {
         })
         console.log(searchedCourses)
         res.status(200).json({ message: 'Your Searched Course', success: true, searchedCourses })
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
+
+
+// 
+router.put('/toprated', varifyUser, async (req, res) => {
+    const { courseId } = req.body
+    try {
+        if (req.user.role === 'admin') {
+
+            const course = await CourseModel.findById(courseId);
+
+            if (!course) {
+                return res.status(400).json({ message: 'Course not found', success: false });
+            }
+
+            // toggle top courses
+            if (course.topCourses === true) {
+                course.topCourses = false;
+            }
+            else {
+                course.topCourses = true
+            }
+
+            await course.save();
+            return res.status(200).json({ message: 'Course updated', success: true, course });
+        }
+        else {
+            console.log("absent")
+        }
     }
     catch (error) {
         console.error("error", error)

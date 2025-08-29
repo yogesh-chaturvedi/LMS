@@ -12,17 +12,9 @@ const CourseProgress = () => {
 
     const [videos, setVideos] = useState()
 
-    // const loaction = useLocation();
-    // console.log(loaction);
+    const location = useLocation();
+    const course = location.state || '';
 
-    const topics = [
-        "Introduction to MERN Stack",
-        "Setting up Development Environment",
-        "React Basics & Components",
-        "Node.js & Express Fundamentals",
-        "MongoDB CRUD Operations",
-        "Deploying MERN Application"
-    ];
 
 
     return (
@@ -36,7 +28,7 @@ const CourseProgress = () => {
                     <h1 className="text-3xl font-bold mb-4 ">My Awesome Video</h1>
                     {/* Video */}
                     <div className="aspect-w-16 aspect-h-9">
-                        <iframe width="100%" height="400" src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        <iframe width="100%" height="400" src={course?.lecture?.[0]?.lectureVideo}
                             title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </div>
                     {/* video title  */}
@@ -54,13 +46,13 @@ const CourseProgress = () => {
                         {/* Header */}
                         <div className="mb-4">
                             <h2 className="text-xl font-bold text-gray-800">Course Content</h2>
-                            <p className="text-sm text-gray-500">12 Lectures</p>
+                            <p className="text-sm text-gray-500">{`${course.lecture.length} Lectures`}</p>
                         </div>
 
                         {/* Topics List */}
                         <ul className="space-y-3">
-                            {topics.map((topic, index) => (
-                                <li key={index} className="flex border-2 border-gray-300 py-2.5 px-1.5 rounded-lg items-center gap-3 text-gray-700 hover:bg-gray-400 cursor-pointer transition"><PlayCircle className="w-5 h-5 text-blue-500" /><span>{topic}</span></li>
+                            {course.lecture.map((lectures, index) => (
+                                <li key={index} className="flex border-2 border-gray-300 py-2.5 px-1.5 rounded-lg items-center gap-3 text-gray-700 hover:bg-gray-400 cursor-pointer transition"><PlayCircle className="w-5 h-5 text-blue-500" /><span>{lectures.lectureTitle}</span></li>
                             ))}
                         </ul>
                     </div>

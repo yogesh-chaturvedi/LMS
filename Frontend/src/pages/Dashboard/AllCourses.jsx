@@ -1,20 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import Sidebar from '../../components/Sidebar'
 import { assets } from '../../assets/assets'
 import { useContext } from 'react'
 import { CoursesContext } from '../../context/CoursesContext'
+import axios from 'axios'
 
 const AllCourses = () => {
 
+    const BASE_URL = import.meta.env.VITE_API_URL;
+    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData } = useContext(CoursesContext);
 
-    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName } = useContext(CoursesContext);
 
+    const [isloading, setIsloading] = useState(null)
+    // function CourseStatus() {
+    //     console.log("published Clicked")
+    // }
 
+    async function addtoTopRated(courseId) {
+        setIsloading(courseId)
+        try {
+            const response = await axios({
+                method: 'put',
+                url: `${BASE_URL}course/toprated`,
+                data: { courseId },
+                withCredentials: true
+            })
+            const { message, success } = response.data;
+            if (success) {
+                console.log(message)
+                setIsloading(false)
+                getData()  // re-run this function to fetch data
+            }
 
-    function CourseStatus() {
-        console.log("published Clicked")
+        }
+        catch (error) {
+            console.log("there is an error", error)
+        }
+        finally {
+            setIsloading(null);
+        }
     }
 
 
@@ -31,7 +57,7 @@ const AllCourses = () => {
                 <div className='flex flex-1 flex-col gap-4 border-2 border-blue-600 pr-28 p-5 h-[90vh] overflow-auto'>
 
                     {allCourses.map((courses, index) => {
-                        return <div key={index} className="flex gap-4 border border-gray-300 rounded-xl shadow-lg p-4 bg-white w-full h-[160p]">
+                        return <div key={index} className="flex items-center gap-4 border border-gray-300 rounded-xl shadow-lg p-4 bg-white w-full h-[160p]">
                             {/* Image (Left) */}
                             <img src={`${courses.thumbnail}`} alt="courseThumbnail" className="w-48 h-32 object-cover rounded-lg shadow-md" />
 
@@ -47,7 +73,7 @@ const AllCourses = () => {
                                     <p className="text-sm text-gray-600">{courses.description}</p>
 
                                     {/* Instructor */}
-                                    <p className="text-gray-700">Instructor: <span className="font-semibold">Yogesh Chaturvedi</span></p>
+                                    <p className="text-gray-700">Instructor: <span className="font-semibold">{courses.instructor}</span></p>
 
                                     {/* Level */}
                                     <span className="inline-block px-2 text-sm rounded-md bg-red-500 text-white w-fit">{courses.level}</span>
@@ -58,6 +84,9 @@ const AllCourses = () => {
                                 <button onClick={CourseStatus} className=' bg-green-500 rounded-lg p-1 px-2' type='button'>Published</button> */}
 
                             </div>
+
+                            <button onClick={() => addtoTopRated(courses._id)} className={`rounded-xl flex items-center justify-center w-[120px] px-2 py-1 ${courses.topCourses ? "bg-green-400" : "bg-red-500"}`}>{isloading === courses._id ? (<div className='border-2 text-center border-gray-600 border-t-transparent animate-spin h-5 w-5 rounded-full'></div>) : (courses.topCourses ? '-Toprated' : '+Toprated')}</button>
+
                         </div>
                     })}
 

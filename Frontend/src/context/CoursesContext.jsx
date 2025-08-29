@@ -18,7 +18,8 @@ const CoursesContextProvider = (props) => {
         price: '',
         description: '',
         thumbnail: '',
-    }) 
+        instructorName: ''
+    })
 
     const [isEdit, setIsEdit] = useState(false)  // mode
 
@@ -27,33 +28,33 @@ const CoursesContextProvider = (props) => {
     const [allCourses, setAllCourses] = useState([]);
 
 
-    useEffect(() => {
-        async function getData() {
-            try {
-                const response = await axios({
-                    method: 'get',
-                    url: `${BASE_URL}course/fetch`,
-                    withCredentials: true
-                })
+    // to fetch all courses
+    async function getData() {
+        try {
+            const response = await axios({
+                method: 'get',
+                url: `${BASE_URL}course/fetch`,
+                withCredentials: true
+            })
 
-                const { message, success, courses } = response.data;
-                if (success) {
-                    console.log(message);
-                    setAllCourses(courses);
-                    console.log(courses)
-                }
-
-            }
-            catch (error) {
-                console.log("there is an error", error)
+            const { message, success, courses } = response.data;
+            if (success) {
+                console.log(message);
+                setAllCourses(courses);
+                console.log(courses)
             }
         }
+        catch (error) {
+            console.log("there is an error", error)
+        }
+    }
 
+
+    useEffect(() => {
         getData();
     }, [])
 
-
-    const value = { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName}
+    const value = { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName,getData }
 
     return (
         <CoursesContext.Provider value={value}>

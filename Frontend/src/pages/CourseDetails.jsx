@@ -6,22 +6,6 @@ import { Link, useLocation, useParams } from 'react-router-dom'
 
 const CourseDetails = () => {
 
-    // const course = {
-    //     name: "MERN Full Stack Development",
-    //     description: "Learn to build modern web applications using MongoDB, Express, React, and Node.js.",
-    //     instructor: "John Doe",
-    //     students: 1250
-    // };
-
-    const topics = [
-        "Introduction to MERN Stack",
-        "Setting up Development Environment",
-        "React Basics & Components",
-        "Node.js & Express Fundamentals",
-        "MongoDB CRUD Operations",
-        "Deploying MERN Application"
-    ];
-
     const { id } = useParams();
     console.log(id);
 
@@ -62,7 +46,7 @@ const CourseDetails = () => {
             </div>
 
             {/* course details */}
-            <div className='px-28 py-10 flex justify-between'>
+            <div className='px-28 py-10 flex justify-between w-full'>
 
                 {/*left*/}
                 <div className='left flex flex-col gap-3'>
@@ -110,27 +94,36 @@ const CourseDetails = () => {
                         {/* Header */}
                         <div className="mb-4">
                             <h2 className="text-xl font-bold text-gray-800">Course Content</h2>
-                            <p className="text-sm text-gray-500">12 Lectures</p>
+                            <p className="text-sm text-gray-500">{`${course.lecture.length} Lectures`}</p>
                         </div>
 
                         {/* Topics List */}
                         <ul className="space-y-3">
-                            {topics.map((topic, index) => (
-                                <li key={index} className="flex items-center gap-3 text-gray-700 hover:text-blue-600 cursor-pointer transition"><PlayCircle className="w-5 h-5 text-blue-500" /><span>{topic}</span></li>
+                            {course.lecture.map((topic, index) => (
+                                <li key={index} className="flex items-center gap-3 text-gray-700 hover:text-blue-600 cursor-pointer transition"><PlayCircle className="w-5 h-5 text-blue-500" /><span>{topic.lectureTitle}</span></li>
                             ))}
                         </ul>
                     </div>
 
                 </div>
 
+
+
                 {/* right */}
-                <div className='right'>
-                    <div className="bg-white pb-3 shadow-md rounded-lg overflow-hidden border border-gray-200 max-w-md">
+                <div className='right w-[29vw]'>
+                    <div className="bg-white w-full pb-3 shadow-md rounded-lg overflow-hidden border border-gray-200 max-w-md">
                         {/* Video Section */}
-                        <video controls className="w-full h-64 object-cover">
-                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                        {/* <video controls className="w-full h-64 object-cover">
+                            <source src={course?.lecture[0]?.lectureVideo} type="video/mp4" />
                             Your browser does not support the video tag.
-                        </video>
+                        </video> */}
+                        <iframe
+                            src={course?.lecture?.[0]?.lectureVideo}
+                            title="Course Preview"
+                            className="w-full h-full rounded-lg"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
 
                         {/* Price Section */}
                         <div className="p-4">
@@ -139,7 +132,7 @@ const CourseDetails = () => {
                         </div>
 
                         <div className='text-center'>
-                            <Link to={`/course-progress/${id}`} state={topics} className='bg-green-500 hover:bg-green-600 px-2 rounded-lg text-lg font-medium'>Continue Course</Link>
+                            <Link to={`/course-progress/${id}`} state={course} className='bg-green-500 hover:bg-green-600 px-2 rounded-lg text-lg font-medium'>Continue Course</Link>
                         </div>
                     </div>
                 </div>

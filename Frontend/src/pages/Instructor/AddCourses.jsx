@@ -146,12 +146,18 @@ const AddCourses = () => {
                                     </select>
                                 </div>
 
+                                {/* price */}
+                                <div className='flex flex-col gap-1'>
+                                    <label className='font-semibold text-lg'>Price</label>
+                                    <input value={courseDetails.price} onChange={handleChange} name='price' className='w-40 border-2 border-gray-500 rounded-lg px-2 outline-none bg-black text-white' type="number" placeholder='Enter Price' />
+                                </div>
+
                             </div>
 
-                            {/* price */}
-                            <div className='flex flex-col gap-1'>
-                                <label className='font-semibold text-lg'>Price</label>
-                                <input value={courseDetails.price} onChange={handleChange} name='price' className='w-40 border-2 border-gray-500 rounded-lg px-2 outline-none bg-black text-white' type="number" placeholder='Enter Price' />
+                            {/*Instructor name */}
+                            <div className='flex flex-col'>
+                                <label className='font-semibold text-lg'>Name</label>
+                                <input value={courseDetails.instructorName} onChange={handleChange} name='instructorName' className='outline-none text-white bg-black border-2 border-gray-500 rounded-md px-2' type="text" placeholder='Enter Instructor Name' />
                             </div>
 
                             {/* description */}

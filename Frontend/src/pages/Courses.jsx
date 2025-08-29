@@ -8,10 +8,10 @@ import axios from 'axios'
 
 const Courses = () => {
 
-    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName,search, setSearch  } = useContext(CoursesContext)
+    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, search, setSearch } = useContext(CoursesContext)
 
 
-    const categories = ["webdev", "Data Science", "Design", "Marketing"];
+    const categories = ["webdev", "datascience", "Design", "Marketing"];
 
     const [Filter, setFilter] = useState([]);
 
@@ -68,7 +68,7 @@ const Courses = () => {
                                 <p className="text-sm text-gray-600">{courses.description}</p>
 
                                 {/* Instructor */}
-                                <p className="text-gray-700">Instructor: <span className="font-semibold">Yogesh Chaturvedi</span></p>
+                                <p className="text-gray-700">Instructor: <span className="font-semibold">{courses.instructor}</span></p>
 
                                 {/* Level */}
                                 <span className="inline-block px-2 text-sm rounded-md bg-red-500 text-white w-fit">{courses.level}</span>

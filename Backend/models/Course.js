@@ -35,8 +35,12 @@ const CourseSchema = new mongoose.Schema({
         default: false,
     },
     instructor: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        type: String,
+        required: true
+    },
+    topCourses: {
+        type: Boolean,
+        default: false
     },
     lecture: [
         {
