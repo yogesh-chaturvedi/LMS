@@ -48,7 +48,7 @@ const CoursesContextProvider = (props) => {
             console.log("there is an error", error)
         }
     }
-
+    
 
     useEffect(() => {
         getData();
