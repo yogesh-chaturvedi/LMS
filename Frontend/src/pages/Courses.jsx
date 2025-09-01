@@ -5,11 +5,12 @@ import { assets } from '../assets/assets'
 import { CoursesContext } from '../context/CoursesContext'
 import { FolderSync } from 'lucide-react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Courses = () => {
 
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, search, setSearch } = useContext(CoursesContext)
-
+    const navigate = useNavigate();
 
     const categories = ["webdev", "datascience", "Design", "Marketing"];
 
@@ -26,7 +27,10 @@ const Courses = () => {
 
     const filtering = allCourses.filter((course) => Filter.length === 0 || Filter.includes(course.category))
 
-
+    // it let users to view course details
+    function handleClick(course) {
+        navigate(`/course-details/${course._id}`, { state: course });
+    }
 
     return (
         <div>
@@ -55,7 +59,7 @@ const Courses = () => {
                     {filtering.length === 0 ? (
                         <p className="text-gray-500 font-bold text-2xl text-center mt-20">No courses found for selected filters</p>
                     ) : (filtering.map((courses, index) => {
-                        return <div key={index} className="flex gap-4 border border-gray-300 rounded-xl shadow-lg p-4 bg-white w-full h-[160p]">
+                        return <div onClick={() => handleClick(courses)} key={index} className="flex gap-4 cursor-pointer border border-gray-300 rounded-xl shadow-lg p-4 bg-white w-full h-[160p]">
                             {/* Image (Left) */}
                             <img src={`${courses.thumbnail}`} alt="course thumbnail" className="w-48 h-32 object-cover rounded-lg shadow-md" />
 

@@ -5,15 +5,15 @@ import { assets } from '../assets/assets'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import axios from 'axios'
+import { CoursesContext } from '../context/CoursesContext'
 
 
 const Profile = () => {
 
-
-
-
     const BASE_URL = import.meta.env.VITE_API_URL;
     const { user, setUser, loading, setLoading, fetchUser } = useContext(AuthContext);
+    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData } = useContext(CoursesContext);
+
 
     // to toggle edit btn
     const [editMode, setEditMode] = useState(false)
@@ -68,14 +68,14 @@ const Profile = () => {
         async function getCourses() {
             try {
                 const resposne = await axios({
-                    method: 'post',
-                    url: ``,
-                    data: {},
+                    method: 'get',
+                    url: `${BASE_URL}course/get-purchasedCourses`,
                     withCredentials: true
                 })
-                const { message, success } = resposne.data;
+                const { message, success, purchasedCourse } = resposne.data;
                 if (success) {
                     console.log(message)
+                    setPurchasedCourses(purchasedCourse)
                 }
             }
             catch (error) {
@@ -150,9 +150,9 @@ const Profile = () => {
                     <h1 className="text-2xl text-white font-bold mb-3">Courses you are enrolled in</h1>
 
                     <div className="grid py-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {user.purchasedCourses.map((course, index) => (
+                        {purchasedCourses.map((course, index) => (
                             <div key={index} className="bg-white w-[270px] rounded-2xl border-2 border-gray-700 shadow-md overflow-hidden hover:shadow-lg transition" >
-                                <img src={course.image} alt={course.title} className="w-full h-40 object-cover" />
+                                <img src={course.thumbnail} alt={course.title} className="w-full h-40 object-cover" />
 
                                 <div className="px-4 py-3">
                                     <h3 className="text-lg font-semibold">{course.title}</h3>

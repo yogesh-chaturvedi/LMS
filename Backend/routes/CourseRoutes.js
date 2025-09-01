@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const CourseModel = require('../models/Course')
+const UserModel = require('../models/User')
 const varifyUser = require('../middleware/varifyUser');
 const { route } = require('./AuthRoutes');
 
@@ -293,6 +294,24 @@ router.put('/toprated', varifyUser, async (req, res) => {
         }
         else {
             console.log("absent")
+        }
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
+
+// to get purchased Courses
+router.get('/get-purchasedCourses', varifyUser, async (req, res) => {
+    try {
+        if (req.user.role === 'user') {
+            const user = await UserModel.findById(req.user.id);
+            const courses = await CourseModel.find({ _id: { $in: user.purchasedCourses } })
+            return res.status(200).json({ message: 'Purchased coursed fetched successfully', success: true, purchasedCourse: courses });
+        }
+        else {
+            return res.status(400).json({ message: 'User not found', success: false });
         }
     }
     catch (error) {
