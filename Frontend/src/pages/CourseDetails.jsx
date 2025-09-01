@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { Camera, PlayCircle } from 'lucide-react'
 import { Link, useLocation, useParams } from 'react-router-dom'
+import axios from 'axios'
+import { AuthContext } from '../context/AuthContext'
+
 
 const CourseDetails = () => {
+    const BASE_URL = import.meta.env.VITE_API_URL;
+    const { user, setUser, loading, setLoading, fetchUser } = useContext(AuthContext);
 
     const { id } = useParams();
     console.log(id);
@@ -16,6 +21,25 @@ const CourseDetails = () => {
     // stores the data
     const course = location.state || null;
     console.log(course)
+
+
+
+    async function handleCheckOut() {
+        try {
+            const response = await axios({
+                method: 'post',
+                url: `${BASE_URL}payment/checkout`,
+                data: { course },
+                withCredentials: true
+            })
+            // const { message, success } = response.data;
+            console.log(response.data.message);
+            window.location.href = response.data.url;
+        }
+        catch (error) {
+            console.log("there is an error", error)
+        }
+    }
 
 
     return (
@@ -99,7 +123,7 @@ const CourseDetails = () => {
 
                         {/* Topics List */}
                         <ul className="space-y-3">
-                            {course.lecture.map((topic, index) => (
+                            {course?.lecture?.map((topic, index) => (
                                 <li key={index} className="flex items-center gap-3 text-gray-700 hover:text-blue-600 cursor-pointer transition"><PlayCircle className="w-5 h-5 text-blue-500" /><span>{topic.lectureTitle}</span></li>
                             ))}
                         </ul>
@@ -127,13 +151,17 @@ const CourseDetails = () => {
 
                         {/* Price Section */}
                         <div className="p-4">
-                            <h3 className="text-2xl font-bold text-gray-800">₹499</h3>
+                            <h3 className="text-2xl font-bold text-gray-800">Rs.{course.price}</h3>
                             <p className="text-sm text-gray-500">One-time payment for lifetime access</p>
                         </div>
 
-                        <div className='text-center'>
+                        {/* to show buy or purchase */}
+                        {user.purchasedCourses.length > 0 && user.purchasedCourses.includes(id) ? (<div className='text-center'>
                             <Link to={`/course-progress/${id}`} state={course} className='bg-green-500 hover:bg-green-600 px-2 rounded-lg text-lg font-medium'>Continue Course</Link>
-                        </div>
+                        </div>) : (<div className='text-center'>
+                            <button onClick={() => handleCheckOut()} className='bg-green-500 hover:bg-green-600 px-2 rounded-lg text-lg font-medium'>Buy Course</button>
+                        </div>)}
+
                     </div>
                 </div>
 

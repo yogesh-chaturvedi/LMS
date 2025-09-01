@@ -27,6 +27,7 @@ const CoursesContextProvider = (props) => {
 
     const [allCourses, setAllCourses] = useState([]);
 
+   
 
     // to fetch all courses
     async function getData() {
@@ -48,13 +49,13 @@ const CoursesContextProvider = (props) => {
             console.log("there is an error", error)
         }
     }
-    
+
 
     useEffect(() => {
         getData();
     }, [])
 
-    const value = { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName,getData }
+    const value = { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData}
 
     return (
         <CoursesContext.Provider value={value}>

@@ -11,6 +11,7 @@ const AuthRoute = require('./routes/AuthRoutes')
 const AddInstructorRoute = require('./routes/AddInstructor')
 const CourseRoute = require('./routes/CourseRoutes')
 const UserRoute = require('./routes/UserRoutes')
+const PaymentRoute = require('./routes/Payment')
 
 
 const port = process.env.PORT || 3000;
@@ -30,6 +31,7 @@ app.use('/auth', AuthRoute)
 app.use('/add', AddInstructorRoute)
 app.use('/course', CourseRoute)
 app.use('/user', UserRoute)
+app.use('/payment',PaymentRoute)
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

@@ -21,7 +21,7 @@ const AuthContextProvider = (props) => {
 
             const { success, user } = response.data;
             if (success) {
-                console.log(response.data.user)
+                console.log('userData',response.data.user)
                 setUser(response.data.user)
             }
             else {

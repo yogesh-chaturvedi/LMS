@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { assets } from '../assets/assets'
@@ -9,78 +9,7 @@ import axios from 'axios'
 
 const Profile = () => {
 
-    const courses = [
-        {
-            id: 1,
-            title: "Web Development",
-            image: assets.mern,
-            price: 300,
-            instructor: 'Yash Chaturvedi'
-        },
-        {
-            id: 2,
-            title: "Data Science",
-            image: assets.mern2,
-            price: 500,
-            instructor: 'Yogesh Chaturvedi'
-        },
-        {
-            id: 3,
-            title: "UI/UX Design",
-            image: assets.node,
-            price: 900,
-            instructor: 'Allen Mamgain'
-        },
-        {
-            id: 4,
-            title: "Machine Learning",
-            image: assets.mern2,
-            price: 700,
-            instructor: 'Allen Chaturvedi'
-        },
-        {
-            id: 4,
-            title: "Machine Learning",
-            image: assets.mern2,
-            price: 700,
-            instructor: 'Allen Chaturvedi'
-        },
-        {
-            id: 4,
-            title: "Machine Learning",
-            image: assets.mern2,
-            price: 700,
-            instructor: 'Allen Chaturvedi'
-        },
-        {
-            id: 4,
-            title: "Machine Learning",
-            image: assets.mern2,
-            price: 700,
-            instructor: 'Allen Chaturvedi'
-        },
-        {
-            id: 4,
-            title: "Machine Learning",
-            image: assets.mern2,
-            price: 700,
-            instructor: 'Allen Chaturvedi'
-        },
-        {
-            id: 4,
-            title: "Machine Learning",
-            image: assets.mern2,
-            price: 700,
-            instructor: 'Allen Chaturvedi'
-        },
-        {
-            id: 4,
-            title: "Machine Learning",
-            image: assets.mern2,
-            price: 700,
-            instructor: 'Allen Chaturvedi'
-        },
-    ];
+
 
 
     const BASE_URL = import.meta.env.VITE_API_URL;
@@ -130,6 +59,34 @@ const Profile = () => {
         }
     }
 
+
+    const [purchasedCourses, setPurchasedCourses] = useState([])
+
+
+
+    useEffect(() => {
+        async function getCourses() {
+            try {
+                const resposne = await axios({
+                    method: 'post',
+                    url: ``,
+                    data: {},
+                    withCredentials: true
+                })
+                const { message, success } = resposne.data;
+                if (success) {
+                    console.log(message)
+                }
+            }
+            catch (error) {
+                console.log('there is an error', error)
+            }
+        }
+        getCourses()
+    }, [])
+
+
+
     return (
         <div>
             <Navbar />
@@ -152,8 +109,6 @@ const Profile = () => {
                             <p className="text-gray-400">{user.email}</p>
                             <p className="text-sm text-gray-200 mt-1">Role: {user.role}</p>
                         </div>
-
-
 
 
 
@@ -195,7 +150,7 @@ const Profile = () => {
                     <h1 className="text-2xl text-white font-bold mb-3">Courses you are enrolled in</h1>
 
                     <div className="grid py-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {courses.map((course, index) => (
+                        {user.purchasedCourses.map((course, index) => (
                             <div key={index} className="bg-white w-[270px] rounded-2xl border-2 border-gray-700 shadow-md overflow-hidden hover:shadow-lg transition" >
                                 <img src={course.image} alt={course.title} className="w-full h-40 object-cover" />
 

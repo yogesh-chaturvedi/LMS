@@ -19,6 +19,8 @@ import MyCourses from './pages/Instructor/MyCourses'
 import AddLectures from './pages/Instructor/AddLectures'
 import EditLecture from './pages/Instructor/EditLecture'
 import Profile from './pages/Profile'
+import Success from './pages/Success'
+import Cancel from './pages/Cancel'
 
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<Signup />} />
       <Route path='/reset' element={<Reset />} />
+      <Route path='success' element={<Success />} />
+      <Route path='cancel' element={<Cancel />} />
 
       {/* users can only access if they are logged in  */}
       <Route element={<ProtectedRoutes />}>
