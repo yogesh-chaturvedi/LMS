@@ -250,15 +250,12 @@ router.put('/status/:courseId', varifyUser, async (req, res) => {
 
 
 // search route
-router.post('/search/:searchedText', async (req, res) => {
-    const searchedText = req.params.searchedText;
+router.post('/search', async (req, res) => {
+    const searchedText = req.query.q
     try {
         const searchedCourses = await CourseModel.find({
-            description: {
-                $regex: searchedText,
-                $options: 'i'
-            }
-        })
+            description: { $regex: searchedText, $options: 'i' }
+        });
         console.log(searchedCourses)
         res.status(200).json({ message: 'Your Searched Course', success: true, searchedCourses })
     }

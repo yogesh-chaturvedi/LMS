@@ -76,8 +76,8 @@ const CourseDetails = () => {
                 <div className='left flex flex-col gap-3'>
 
                     {/* discription */}
-                    <section>
-                        <div className="max-w-3xl mx-auto bg-white rounded-lg">
+                    <section className=''>
+                        <div className="max-w-3xl mx-auto rounded-lg">
                             <h2 className="text-2xl font-bold text-gray-800">Course Description</h2>
                             <p className="text-gray-600 leading-relaxed">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axiox from 'axios'
 import { CoursesContext } from '../context/CoursesContext';
+import axios from 'axios';
 
 const HeroSection = () => {
 
@@ -16,6 +16,7 @@ const HeroSection = () => {
   }
 
   const [searchedText, setSearchedText] = useState("");
+  console.log(searchedText);
 
   function handleChange(e) {
     setSearchedText(e.target.value)
@@ -24,9 +25,9 @@ const HeroSection = () => {
 
   async function handleSearch(searchedText) {
     try {
-      const response = await axiox({
+      const response = await axios({
         method: 'post',
-        url: `${BASE_URL}course/search/${searchedText}`,
+        url: `${BASE_URL}course/search/?q=${searchedText}`,
       })
 
       const { message, success, searchedCourses } = response.data;
@@ -44,7 +45,7 @@ const HeroSection = () => {
 
 
   return (
-    <section className="text-center border-2 border-red-500 px-28 py-16 bg-gray-50">
+    <section className=" bg-gray-800 text-center px-28 py-16 ">
       {/* Main Title */}
       <h1 className="text-4xl font-bold text-gray-800">Learn Without Limits</h1>
 

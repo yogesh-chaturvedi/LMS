@@ -6,15 +6,31 @@ import { CoursesContext } from '../context/CoursesContext'
 import { FolderSync } from 'lucide-react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const Courses = () => {
 
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, search, setSearch } = useContext(CoursesContext)
     const navigate = useNavigate();
 
-    const categories = ["webdev", "datascience", "Design", "Marketing"];
+    // const categories = [];
+    const [Categories, setCategories] = useState([])
+    console.log('Categories', Categories)
 
     const [Filter, setFilter] = useState([]);
+
+    useEffect(() => {
+
+        function getCtaegories() {
+            const allCategories = allCourses.map((courses, index) => {
+                return courses.category
+            })
+            setCategories(allCategories)
+        }
+        getCtaegories()
+
+    }, [])
+
 
 
     // filtering
@@ -36,14 +52,14 @@ const Courses = () => {
         <div>
             <Navbar />
 
-            <div className='flex gap-4 px-28 py-12 h-[90vh]'>
+            <div className='flex gap-4 px-28 py-12 h-[90vh]  '>
                 {/* left  */}
                 <div className='w-[20%]'>
                     <h1 className="text-2xl font-bold pb-2 border-black border-b-2">Filter Options</h1>
                     <div className="bg-white rounded-lg max-w-xs">
                         <h2 className="text-lg font-bold mt-2 mb-1">Categories</h2>
                         <div className="space-y-2">
-                            {categories.map((category, index) => (
+                            {Categories.map((category, index) => (
                                 <label key={index} className="flex items-center gap-2 cursor-pointer">
                                     <input onChange={() => handleChange(category)} checked={Filter.includes(category)} type="checkbox" className="w-4 h-4" />
                                     <span>{category}</span>
@@ -55,7 +71,7 @@ const Courses = () => {
 
 
                 {/* right */}
-                <div className='flex flex-col gap-6 w-full min-h-[80vh] overflow-auto'>
+                <div className='flex flex-col gap-6 w-full min-h-[80vh] overflow-y-auto scrollbar-hide'>
                     {filtering.length === 0 ? (
                         <p className="text-gray-500 font-bold text-2xl text-center mt-20">No courses found for selected filters</p>
                     ) : (filtering.map((courses, index) => {

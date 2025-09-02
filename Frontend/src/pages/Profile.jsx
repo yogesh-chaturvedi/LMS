@@ -91,7 +91,7 @@ const Profile = () => {
         <div>
             <Navbar />
 
-            <div className=' border-2 border-red-700 bg-black px-28 flex flex-col gap-3 justify-center'>
+            <div className='bg-black px-28 flex flex-col gap-3 justify-center h-[91vh]'>
 
                 {/* user info */}
                 <div className="p-6">

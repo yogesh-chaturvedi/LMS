@@ -72,18 +72,22 @@ const Navbar = () => {
         navigate("/admin/dashboard")
     }
 
+    function GoToHome(){
+        navigate('/')
+    }
+
     return (
         <div>
             <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
 
-            <nav className="bg-white border-2  border-red-600  px-28 shadow-md  py-3 flex justify-between items-center">
+            <nav className="bg-gray-950 border-b border-gray-400 px-28 shadow-md  py-3 flex justify-between items-center">
                 {/* Logo / Platform Name */}
-                <h1 className="text-2xl font-bold text-blue-600">eLearning</h1>
+                <h1 onClick={()=>GoToHome()} className="text-2xl font-bold text-blue-600 cursor-pointer">eLearning</h1>
 
                 {/* Right Side Buttons */}
                 <div className="space-x-4">
                     {user ? (<div className="space-x-4 flex gap-3 items-center" >
-                        <button onClick={handleLogout} className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition duration-300">
+                        <button onClick={handleLogout} className="bg-red-600 hover:bg-red-700 px-4 py-2 text-white rounded-lg font-bold transition duration-300">
                             Logout
                         </button>
                         <div className='relative' >
