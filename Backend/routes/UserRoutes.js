@@ -42,5 +42,22 @@ router.put('/edit/:userId', varifyUser, async (req, res) => {
 })
 
 
+router.get('/info', varifyUser, async (req, res) => {
+    try {
+        const {} = req.body
+        if (req.user.role) {
+
+        }
+        else {
+            return res.status(400).json({ message: 'You Are Unauthorized', success: false })
+        }
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
+
+
 
 module.exports = router

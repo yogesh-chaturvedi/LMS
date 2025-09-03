@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import InstructorSidebar from '../../components/InstructorSidebar'
+import { ToastContainer, toast } from 'react-toastify';
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -10,6 +11,10 @@ const EditLecture = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName } = useContext(CoursesContext)
+
+    // to get lecture id from URL.
+    const { courseId, lectureId } = useParams();
+    // console.log("edit lecture ", courseId)
 
     const [videoUrl, setVideoUrl] = useState('')
 
@@ -22,9 +27,6 @@ const EditLecture = () => {
         setLectureName(location.state.lectureTitle)
     }, [])
 
-
-    // to get lecture id from URL.
-    const { courseId, lectureId } = useParams();
 
     const [isFree, setIsFree] = useState(false)
 
@@ -63,6 +65,21 @@ const EditLecture = () => {
     console.log(videoUrl)
 
     async function addVideo(videoUrl, isFree) {
+
+        if (videoUrl === '') {
+            toast('Add Video', {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return
+        }
+
         try {
             const response = await axios({
                 method: 'put',
@@ -73,6 +90,19 @@ const EditLecture = () => {
             const { message, success, course } = response.data;
             if (success) {
                 console.log(message);
+                toast(message, {
+                    position: "bottom-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                setTimeout(() => {
+                    navigate(`/instructor/add-lectures/${courseId}`)
+                }, 1500);
                 // setCourseDetails(course)
             }
         }

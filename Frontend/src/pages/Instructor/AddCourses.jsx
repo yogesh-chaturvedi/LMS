@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import InstructorSidebar from '../../components/InstructorSidebar'
@@ -36,8 +37,20 @@ const AddCourses = () => {
 
                 if (success) {
                     console.log(message);
+                    toast(message, {
+                        position: "bottom-right",
+                        autoClose: 1500,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
                     setIsEdit(false);
-                    navigate(`/instructor/add-lectures/${course._id}`);
+                    setTimeout(() => {
+                        navigate(`/instructor/add-lectures/${course._id}`);
+                    }, 1500);
                 }
 
             }
@@ -49,12 +62,22 @@ const AddCourses = () => {
                     data: courseDetails,
                     withCredentials: true
                 })
-
-                const { message, success, course } = response.data
-
+                const { message, success, course } = response.data;
                 if (success) {
-                    console.log(message);
-                    navigate(`/instructor/add-lectures/${course._id}`);
+                    // console.log(message);
+                    toast(message, {
+                        position: "top-center",
+                        autoClose: 1500,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
+                    setTimeout(() => {
+                        navigate(`/instructor/add-lectures/${course._id}`);
+                    }, 1500);
                 }
             }
         }
@@ -154,11 +177,11 @@ const AddCourses = () => {
 
                             </div>
 
-                            {/*Instructor name */}
+                            {/* Instructor name
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Name</label>
                                 <input value={courseDetails.instructorName} onChange={handleChange} name='instructorName' className='outline-none text-white bg-black border-2 border-gray-500 rounded-md px-2' type="text" placeholder='Enter Instructor Name' />
-                            </div>
+                            </div> */}
 
                             {/* description */}
                             <div className='flex flex-col'>

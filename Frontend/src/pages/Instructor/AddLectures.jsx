@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import InstructorSidebar from '../../components/InstructorSidebar'
+import { ToastContainer, toast } from 'react-toastify';
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -7,6 +8,7 @@ import axios from 'axios'
 import { useContext } from 'react'
 import { CoursesContext } from '../../context/CoursesContext'
 import { useEffect } from 'react'
+import { CircleCheck } from 'lucide-react';
 
 const AddLectures = () => {
 
@@ -52,6 +54,7 @@ const AddLectures = () => {
     }, [])
 
 
+
     // to create Lecture
     async function createLecture(objectId) {
         console.log("create lecture")
@@ -66,6 +69,16 @@ const AddLectures = () => {
             const { message, success, course } = response.data;
             if (success) {
                 console.log(message);
+                toast(message, {
+                    position: "top-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
                 setLectureTitle('');
                 setCourseDetails(course);
             }
@@ -116,7 +129,7 @@ const AddLectures = () => {
                                     <div>No lecture available</div>
                                 ) : (courseDetails?.lecture?.map((lecture) => {
                                     return <div key={lecture._id} >
-                                        <Link to={`/instructor/edit-lectures/${courseId}/${lecture._id}`} state={lecture} className=' w-full block font-semibold rounded-lg px-2 py-1 bg-gray-700 hover:bg-gray-800 cursor-pointer'>{lecture.lectureTitle}</Link>
+                                        <Link to={`/instructor/edit-lectures/${courseId}/${lecture._id}`} state={lecture} className='flex justify-between w-full font-semibold rounded-lg px-2 py-1 bg-gray-700 hover:bg-gray-800 cursor-pointer'><span className='w-[70%] truncate'>{lecture.lectureTitle}</span> {lecture?.lectureVideo ? (<span><CircleCheck color="green" /></span>) : ''}</Link>
                                     </div>
                                 }))}
 

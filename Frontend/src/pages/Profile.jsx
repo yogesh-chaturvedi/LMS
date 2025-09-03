@@ -19,7 +19,7 @@ const Profile = () => {
     // to toggle edit btn
     const [editMode, setEditMode] = useState(false)
     // console.log(editMode)
-    
+
     const [purchasedCourses, setPurchasedCourses] = useState([])
 
     // to store new or edited data by the user
@@ -100,7 +100,7 @@ const Profile = () => {
     return (
         <div>
 
-            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
+            {/* <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" /> */}
 
             <Navbar />
 

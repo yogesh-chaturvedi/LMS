@@ -1,6 +1,5 @@
 const { ref } = require('joi');
 const mongoose = require('mongoose');
-const User = require('./User');
 
 
 const CourseSchema = new mongoose.Schema({
@@ -37,16 +36,13 @@ const CourseSchema = new mongoose.Schema({
         default: false,
     },
     instructor: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     topCourses: {
         type: Boolean,
         default: false
-    },
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
     },
     lecture: [
         {

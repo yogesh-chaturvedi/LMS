@@ -79,25 +79,26 @@ const MyCourses = () => {
                         {/* .filter((courses, index) => courses._id === user.id) */}
                         {/* Data Rows */}
                         <div className="divide-y">
-                            {allCourses.map((course, index) => {
-                                return (<div key={index} className="flex justify-between items-center px-4 py-3">
-                                    {/* Title */}
-                                    <p onClick={() => handleClick(course._id)} className="w-1/3 hover:underline cursor-pointer font-medium truncate">{course.title}</p>
+                            {allCourses.filter((course, index) => course.instructor === user.id)
+                                .map((course, index) => {
+                                    return (<div key={index} className="flex justify-between items-center px-4 py-3">
+                                        {/* Title */}
+                                        <p onClick={() => handleClick(course._id)} className="w-1/3 hover:underline cursor-pointer font-medium truncate">{course.title}</p>
 
-                                    {/* Price */}
-                                    <p className="w-1/6 text-center font-semibold">{course.price}</p>
+                                        {/* Price */}
+                                        <p className="w-1/6 text-center font-semibold">{course.price}</p>
 
-                                    {/* Status */}
-                                    <button onClick={() => { handleStatus(course._id, course.status) }} className={`w-1/6 text-center font-semibold ${course.status ? "text-green-600" : "text-red-600"}`} >{course.status ? 'Published' : 'Unpublished'}</button>
+                                        {/* Status */}
+                                        <button onClick={() => { handleStatus(course._id, course.status) }} className={`w-1/6 text-center font-semibold ${course.status ? "text-green-600" : "text-red-600"}`} >{course.status ? 'Published' : 'Unpublished'}</button>
 
-                                    {/* Action */}
-                                    <div onClick={() => { handleEdit(index, course) }} className="w-1/6 text-center flex items-center justify-center gap-2 text-blue-600 cursor-pointer ">
-                                        <UserPen size={18} color='black' />
-                                        <span className='font-semibold text-black'>Edit</span>
+                                        {/* Action */}
+                                        <div onClick={() => { handleEdit(index, course) }} className="w-1/6 text-center flex items-center justify-center gap-2 text-blue-600 cursor-pointer ">
+                                            <UserPen size={18} color='black' />
+                                            <span className='font-semibold text-black'>Edit</span>
+                                        </div>
                                     </div>
-                                </div>
-                                )
-                            })}
+                                    )
+                                })}
                         </div>
                     </div>
                 </div>

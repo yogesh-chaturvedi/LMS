@@ -8,7 +8,7 @@ const { route } = require('./AuthRoutes');
 
 // to save basic information of course
 router.post('/info', varifyUser, async (req, res) => {
-    const { title, subTitle, category, level, price, description, thumbnail, instructorName } = req.body;
+    const { title, subTitle, category, level, price, description, thumbnail } = req.body;
     try {
         if (req.user.role === 'instructor') {
 
@@ -20,11 +20,11 @@ router.post('/info', varifyUser, async (req, res) => {
                 price: price,
                 description: description,
                 thumbnail: thumbnail,
-                instructor: instructorName
+                instructor: req.user.id
             })
 
             await course.save();
-            return res.status(200).json({ message: 'Saved', success: true, course })
+            return res.status(200).json({ message: 'The course is created with core details', success: true, course })
         }
         else {
             return res.status(404).json({ message: 'Unauthorised', success: false })

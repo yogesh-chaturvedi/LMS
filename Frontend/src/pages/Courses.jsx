@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { assets } from '../assets/assets'
 import { CoursesContext } from '../context/CoursesContext'
+import { ToastContainer, toast } from 'react-toastify';
 import { FolderSync } from 'lucide-react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -10,6 +11,7 @@ import { useEffect } from 'react'
 
 const Courses = () => {
 
+    const BASE_URL = import.meta.env.VITE_API_URL;
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, search, setSearch } = useContext(CoursesContext)
     const navigate = useNavigate();
 
@@ -30,6 +32,33 @@ const Courses = () => {
         getCtaegories()
 
     }, [])
+
+    const [instuctorDetails, setInstuctorDetails] = useState({});
+
+
+
+    // problem 
+    useEffect(() => {
+        async function getInstructorInfo() {
+            try {
+                const response = await axios({
+                    method: 'get',
+                    url: `${BASE_URL}user/info/${courses.instructor}`,
+                    withCredentials: true
+                })
+                const { message, success, details } = response.data;
+                if (success) {
+                    console.log(message);
+                    setInstuctorDetails(details);
+                }
+            }
+            catch (error) {
+                console.log("there is an error", error)
+            }
+        }
+        getInstructorInfo()
+    }, [])
+
 
 
 
@@ -87,6 +116,7 @@ const Courses = () => {
                                 {/* Description */}
                                 <p className="text-sm text-gray-600">{courses.description}</p>
 
+                                {/*  */}
                                 {/* Instructor */}
                                 <p className="text-gray-700">Instructor: <span className="font-semibold">{courses.instructor}</span></p>
 
