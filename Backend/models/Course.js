@@ -1,4 +1,6 @@
-const mongoose = require('mongoose')
+const { ref } = require('joi');
+const mongoose = require('mongoose');
+const User = require('./User');
 
 
 const CourseSchema = new mongoose.Schema({
@@ -41,6 +43,10 @@ const CourseSchema = new mongoose.Schema({
     topCourses: {
         type: Boolean,
         default: false
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     lecture: [
         {

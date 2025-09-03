@@ -9,9 +9,11 @@ import { CoursesContext } from '../../context/CoursesContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 const MyCourses = () => {
     const BASE_URL = import.meta.env.VITE_API_URL;
+    const { user, setUser, loading, setLoading, fetchUser } = useContext(AuthContext);
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit } = useContext(CoursesContext)
     const navigate = useNavigate()
 
@@ -74,6 +76,7 @@ const MyCourses = () => {
                             <p className="w-1/6 text-center">Action</p>
                         </div>
 
+                        {/* .filter((courses, index) => courses._id === user.id) */}
                         {/* Data Rows */}
                         <div className="divide-y">
                             {allCourses.map((course, index) => {

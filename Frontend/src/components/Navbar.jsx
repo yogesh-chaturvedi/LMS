@@ -8,6 +8,7 @@ import { assets } from '../assets/assets'
 const Navbar = () => {
     const navigate = useNavigate();
     const { user, setUser, loading, setLoading } = useContext(AuthContext);
+    // console.log('user' ,user)
 
     const [profile, setProfile] = useState(true)
 
@@ -72,7 +73,7 @@ const Navbar = () => {
         navigate("/admin/dashboard")
     }
 
-    function GoToHome(){
+    function GoToHome() {
         navigate('/')
     }
 
@@ -82,7 +83,7 @@ const Navbar = () => {
 
             <nav className="bg-gray-950 border-b border-gray-400 px-28 shadow-md  py-3 flex justify-between items-center">
                 {/* Logo / Platform Name */}
-                <h1 onClick={()=>GoToHome()} className="text-2xl font-bold text-blue-600 cursor-pointer">eLearning</h1>
+                <h1 onClick={() => GoToHome()} className="text-2xl font-bold text-blue-600 cursor-pointer">eLearning</h1>
 
                 {/* Right Side Buttons */}
                 <div className="space-x-4">
@@ -92,7 +93,7 @@ const Navbar = () => {
                         </button>
                         <div className='relative' >
 
-                            <img onClick={() => handleClick()} className="h-10 w-10 border-2 border-black rounded-full" src={assets.node} alt="userImg" />
+                            <img onClick={() => handleClick()} className="h-10 w-10 border-2 border-gray-400 rounded-full object-contain" src={user.profileImage} alt="profile-Image" />
 
                             {/* dropdown */}
                             <div className={`w-52 py-3 px-2 rounded-lg flex-col flex gap-4 bg-gray-400 absolute top-10 right-2 ${profile ? 'hidden' : 'flex'} `}>

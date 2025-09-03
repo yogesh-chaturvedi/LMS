@@ -18,10 +18,13 @@ router.get('/verify', varifyUser, (req, res) => {
             email: req.user.email,
             name: req.user.name,
             role: req.user.role,
-            purchasedCourses: req.user.purchasedCourses
+            purchasedCourses: req.user.purchasedCourses,
+            profileImage: req.user.profileImage
         }
     })
 })
+
+
 
 
 // to clear jwt token fron cookie

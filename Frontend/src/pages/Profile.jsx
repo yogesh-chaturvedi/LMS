@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { assets } from '../assets/assets'
@@ -18,6 +19,8 @@ const Profile = () => {
     // to toggle edit btn
     const [editMode, setEditMode] = useState(false)
     // console.log(editMode)
+    
+    const [purchasedCourses, setPurchasedCourses] = useState([])
 
     // to store new or edited data by the user
     const [newData, setnewData] = useState({
@@ -32,6 +35,7 @@ const Profile = () => {
     }
     // console.log(newData)
 
+    // to edit user info
     async function handleEdit(userId) {
 
         if (newData.name === "" || newData.email === "") {
@@ -48,7 +52,16 @@ const Profile = () => {
             })
             const { message, success, user } = response.data;
             if (success) {
-                console.log(message);
+                toast(message, {
+                    position: "bottom-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
                 setnewData({ name: '', email: '', imageUrl: '' });
                 setEditMode(false);
                 fetchUser()
@@ -60,10 +73,7 @@ const Profile = () => {
     }
 
 
-    const [purchasedCourses, setPurchasedCourses] = useState([])
-
-
-
+    // to get purchased courses
     useEffect(() => {
         async function getCourses() {
             try {
@@ -89,6 +99,9 @@ const Profile = () => {
 
     return (
         <div>
+
+            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
+
             <Navbar />
 
             <div className='bg-black px-28 flex flex-col gap-3 justify-center h-[91vh]'>
@@ -101,7 +114,7 @@ const Profile = () => {
                     {/* Profile Card */}
                     <div className="flex bg-gray-900 items-center gap-6 p-6 shadow-md rounded-2xl">
                         {/* User Image */}
-                        <img src={assets.node} alt="User" className="w-24 h-24 rounded-full border border-gray-300 object-cover" />
+                        <img src={user.profileImage} alt="profile-Image" className="w-24 h-24 rounded-full border border-gray-300 object-cover" />
 
                         {/* User Info */}
                         <div className="flex-1">
@@ -148,8 +161,7 @@ const Profile = () => {
                 {/* cards */}
                 <div className='p-6'>
                     <h1 className="text-2xl text-white font-bold mb-3">Courses you are enrolled in</h1>
-
-                    <div className="grid py-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {purchasedCourses.length > 0 ? (<div className="grid py-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {purchasedCourses.map((course, index) => (
                             <div key={index} className="bg-white w-[270px] rounded-2xl border-2 border-gray-700 shadow-md overflow-hidden hover:shadow-lg transition" >
                                 <img src={course.thumbnail} alt={course.title} className="w-full h-40 object-cover" />
@@ -169,7 +181,8 @@ const Profile = () => {
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </div>) : (<div className='text-2xl font-bold text-gray-100'>Buy Some Courses</div>)}
+
                 </div>
 
 
