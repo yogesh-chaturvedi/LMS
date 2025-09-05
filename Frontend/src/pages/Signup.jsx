@@ -7,6 +7,8 @@ import axios from 'axios';
 
 
 const Signup = () => {
+    const BASE_URL = import.meta.env.VITE_API_URL;
+    const navigate = useNavigate();
 
     const [signupData, setSignupData] = useState({
         userName: '',
@@ -27,7 +29,7 @@ const Signup = () => {
         try {
             const response = await axios({
                 method: "post",
-                url: 'http://localhost:3000/auth/signup',
+                url: `${BASE_URL}auth/signup`,
                 data: signupData,
             })
 
@@ -46,6 +48,9 @@ const Signup = () => {
                 });
                 console.log(message)
                 setSignupData({ userName: '', userEmail: '', userPassword: '' })
+                setTimeout(() => {
+                    navigate('/login')
+                }, 1500);
             }
 
         }

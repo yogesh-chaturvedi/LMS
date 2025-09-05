@@ -29,17 +29,11 @@ const UserSchema = new mongoose.Schema({
         type: Number
     },
     profileImage: {
-        type: String
+        type: String,
+        default: "https://cdn-icons-png.flaticon.com/512/149/149071.png"
     },
     // if login by user 
     purchasedCourses: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Course"
-        }
-    ],
-    // if login by instructor
-    createdBy: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Course"

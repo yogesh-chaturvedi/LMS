@@ -26,6 +26,9 @@ const CoursesContextProvider = (props) => {
 
     const [allCourses, setAllCourses] = useState([]);
 
+    const [instuctorDetails, setInstuctorDetails] = useState({});
+
+    console.log('instuctorDetails', instuctorDetails)
 
 
     // to fetch all courses
@@ -49,12 +52,32 @@ const CoursesContextProvider = (props) => {
         }
     }
 
-
     useEffect(() => {
         getData();
     }, [])
 
-    const value = { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData }
+
+    // to fetch instructor details 
+    async function getInstructorInfo(id) {
+        try {
+            const response = await axios({
+                method: 'get',
+                url: `${BASE_URL}user/info/${id}`,
+                withCredentials: true
+            })
+            const { message, success, details } = response.data;
+            if (success) {
+                console.log(message);
+                setInstuctorDetails((prev) => ({ ...prev, [id]: details }));
+            }
+        }
+        catch (error) {
+            console.log("there is an error", error)
+        }
+    }
+
+
+    const value = { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails }
 
     return (
         <CoursesContext.Provider value={value}>

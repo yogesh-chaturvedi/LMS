@@ -13,7 +13,7 @@ const Profile = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
     const { user, setUser, loading, setLoading, fetchUser } = useContext(AuthContext);
-    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData } = useContext(CoursesContext);
+    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext);
 
 
     // to toggle edit btn
@@ -97,6 +97,15 @@ const Profile = () => {
 
 
 
+    // to get instructors details 
+    useEffect(() => {
+        allCourses.forEach((courses) => {
+            getInstructorInfo(courses.instructor)
+        })
+    }, [allCourses])
+
+
+
     return (
         <div>
 
@@ -162,15 +171,17 @@ const Profile = () => {
                 <div className='p-6'>
                     <h1 className="text-2xl text-white font-bold mb-3">Courses you are enrolled in</h1>
                     {purchasedCourses.length > 0 ? (<div className="grid py-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {purchasedCourses.map((course, index) => (
-                            <div key={index} className="bg-white w-[270px] rounded-2xl border-2 border-gray-700 shadow-md overflow-hidden hover:shadow-lg transition" >
+                        {purchasedCourses.map((course, index) => {
+                            const instructor = instuctorDetails[course.instructor]
+
+                            return <div key={index} className="bg-white w-[270px] rounded-2xl border-2 border-gray-700 shadow-md overflow-hidden hover:shadow-lg transition" >
                                 <img src={course.thumbnail} alt={course.title} className="w-full h-40 object-cover" />
 
                                 <div className="px-4 py-3">
                                     <h3 className="text-lg font-semibold">{course.title}</h3>
 
                                     <div className='mb-2 flex justify-between items-center'>
-                                        <span className='instructor-name font-bold'>{course.instructor}</span>
+                                        <span className='instructor-name font-bold'>{instructor ? instructor.name : 'Loading'}</span>
                                         <span className='course-level bg-blue-500 px-2 rounded-lg font-bold'>Advance</span>
                                     </div>
 
@@ -180,7 +191,7 @@ const Profile = () => {
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        })}
                     </div>) : (<div className='text-2xl font-bold text-gray-100'>Buy Some Courses</div>)}
 
                 </div>

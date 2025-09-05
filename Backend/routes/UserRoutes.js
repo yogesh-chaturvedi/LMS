@@ -42,11 +42,33 @@ router.put('/edit/:userId', varifyUser, async (req, res) => {
 })
 
 
-router.get('/info', varifyUser, async (req, res) => {
+router.get('/info/:id', varifyUser, async (req, res) => {
     try {
-        const {} = req.body
+        const userId = req.params.id;
         if (req.user.role) {
+            const user = await UserModel.findById(userId);
+            if (!user) {
+                return res.status(404).json({ message: 'User Not Found', success: false })
+            }
+            return res.status(200).json({ message: 'Instructor Info', success: true, details: user })
+        }
+        else {
+            return res.status(400).json({ message: 'You Are Unauthorized', success: false })
+        }
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
 
+
+// to fetch all users 
+router.get("/fetch-allUser", varifyUser, async (req, res) => {
+    try {
+        if (req.user.role === 'admin') {
+            const users = await UserModel.find({});
+            return res.status(200).json({ message: 'All Users Fetched Successfully', success: true, allUser: users })
         }
         else {
             return res.status(400).json({ message: 'You Are Unauthorized', success: false })

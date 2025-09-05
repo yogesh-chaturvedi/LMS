@@ -1,42 +1,73 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import { Link } from 'react-router-dom'
 import Sidebar from '../../components/Sidebar'
+import { UserContext } from '../../context/UserContext'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { useState } from 'react'
+import { CoursesContext } from '../../context/CoursesContext'
 
 const DashboardHome = () => {
-
+    // const BASE_URL = import.meta.env.VITE_API_URL;
     const sideMenue = ['Dashboard', 'Add Instructor']
+
+    const { allUsers, setAllUsers } = useContext(UserContext);
+    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData } = useContext(CoursesContext);
+
+    const [purchasedCoursesPrice, setPurchasedCoursesPrice] = useState([])
+
+    const [boughtCourses, setBoughtCourses] = useState(0);
+
+
+    // to match id and fetch prices
+    useEffect(() => {
+        const purchasedCourse = allUsers.filter((user) => user.role === 'user')
+            .flatMap((course) => course.purchasedCourses)
+        setBoughtCourses(purchasedCourse.length)
+        console.log('purchasedCourse', purchasedCourse)
+
+        // filtering bought courses from all courses to fetch prices and add them
+        const totalRevenue = purchasedCourse.reduce((acc, courseId) => {
+            const course = allCourses.find((c) => c._id === courseId);
+            return acc + (course?.price || 0);
+        }, 0);
+
+        setPurchasedCoursesPrice(totalRevenue)
+
+    }, [allUsers])
+
+
 
     return (
         <div>
             <Navbar />
-            <div className='flex border-2 border-pink-800 h-[90vh]'>
+            <div className='flex h-[90vh]'>
 
                 {/* sidebar */}
                 <Sidebar />
 
                 {/* right */}
                 {/* flex-1 for remaining width */}
-                <div className='flex flex-1 py-12 border-2 w-full border-orange-600 '>
+                <div className='bg-gray-50 flex flex-1 py-12 border-2 w-full'>
 
                     <div className='mx-auto w-[80%] flex flex-col gap-10'>
                         <div className='flex gap-10 '>
                             {/* box1 */}
-                            <div className='border-2 border-red-700 rounded-xl h-28 bg-gray-700 p-4 py-5'>
+                            <div className='rounded-xl h-28 border-2 border-gray-500 bg-gray-500 shadow-xl p-4 py-5'>
                                 <h3 className='font-bold text-2xl'>Total Sale</h3>
-                                <p className='font-bold text-xl'>3</p>
+                                <p className='font-bold text-xl'>{boughtCourses}</p>
                             </div>
 
                             {/* box2 */}
-                            <div className='border-2 border-red-700 rounded-xl h-28 bg-gray-700 p-4 py-5'>
+                            <div className='rounded-xl h-28 border-2 border-gray-500 bg-gray-500 shadow-xl p-4 py-5'>
                                 <h3 className='font-bold text-2xl'>Total Revenue</h3>
-                                <p className='font-bold text-xl'>Rs.1300</p>
+                                <p className='font-bold text-xl'>Rs.{purchasedCoursesPrice}</p>
                             </div>
                         </div>
 
-
-                        <div className=' border-2 border-red-600 rounded-xl bg-gray-700 h-72'></div>
+                        <div className='rounded-xl bg-gray-700 h-72'></div>
                     </div>
 
 

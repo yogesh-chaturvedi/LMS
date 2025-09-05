@@ -5,14 +5,14 @@ import { assets } from '../assets/assets'
 import { CoursesContext } from '../context/CoursesContext'
 import { ToastContainer, toast } from 'react-toastify';
 import { FolderSync } from 'lucide-react'
-import axios from 'axios'
+import axios, { all } from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 const Courses = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
-    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, search, setSearch } = useContext(CoursesContext)
+    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, search, setSearch, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext)
     const navigate = useNavigate();
 
     // const categories = [];
@@ -21,44 +21,28 @@ const Courses = () => {
 
     const [Filter, setFilter] = useState([]);
 
+
+    // to fetch category 
     useEffect(() => {
 
         function getCtaegories() {
             const allCategories = allCourses.map((courses, index) => {
                 return courses.category
             })
-            setCategories(allCategories)
+            setCategories([...new Set(allCategories)])
         }
         getCtaegories()
 
     }, [])
 
-    const [instuctorDetails, setInstuctorDetails] = useState({});
 
 
-
-    // problem 
+    // to run getInstructorInfo function 
     useEffect(() => {
-        async function getInstructorInfo() {
-            try {
-                const response = await axios({
-                    method: 'get',
-                    url: `${BASE_URL}user/info/${courses.instructor}`,
-                    withCredentials: true
-                })
-                const { message, success, details } = response.data;
-                if (success) {
-                    console.log(message);
-                    setInstuctorDetails(details);
-                }
-            }
-            catch (error) {
-                console.log("there is an error", error)
-            }
-        }
-        getInstructorInfo()
-    }, [])
-
+        allCourses.forEach((course) => {
+            getInstructorInfo(course.instructor)
+        })
+    }, [allCourses])
 
 
 
@@ -81,11 +65,11 @@ const Courses = () => {
         <div>
             <Navbar />
 
-            <div className='flex gap-4 px-28 py-12 h-[90vh]  '>
+            <div className='flex gap-4 px-28 py-12 h-[91vh] bg-gray-50  '>
                 {/* left  */}
-                <div className='w-[20%]'>
+                <div className='w-[20%] '>
                     <h1 className="text-2xl font-bold pb-2 border-black border-b-2">Filter Options</h1>
-                    <div className="bg-white rounded-lg max-w-xs">
+                    <div className="rounded-lg max-w-xs">
                         <h2 className="text-lg font-bold mt-2 mb-1">Categories</h2>
                         <div className="space-y-2">
                             {Categories.map((category, index) => (
@@ -104,7 +88,8 @@ const Courses = () => {
                     {filtering.length === 0 ? (
                         <p className="text-gray-500 font-bold text-2xl text-center mt-20">No courses found for selected filters</p>
                     ) : (filtering.map((courses, index) => {
-                        return <div onClick={() => handleClick(courses)} key={index} className="flex gap-4 cursor-pointer border border-gray-300 rounded-xl shadow-lg p-4 bg-white w-full h-[160p]">
+                        const instructor = instuctorDetails[courses.instructor]
+                        return <div onClick={() => handleClick(courses)} key={index} className="flex gap-4 cursor-pointer border border-gray-300 rounded-xl shadow-lg p-4 w-full h-[160p]">
                             {/* Image (Left) */}
                             <img src={`${courses.thumbnail}`} alt="course thumbnail" className="w-48 h-32 object-cover rounded-lg shadow-md" />
 
@@ -118,7 +103,7 @@ const Courses = () => {
 
                                 {/*  */}
                                 {/* Instructor */}
-                                <p className="text-gray-700">Instructor: <span className="font-semibold">{courses.instructor}</span></p>
+                                <p className="text-gray-700">Instructor: <span className="font-semibold">{instructor ? instructor.name : 'Loading...'}</span></p>
 
                                 {/* Level */}
                                 <span className="inline-block px-2 text-sm rounded-md bg-red-500 text-white w-fit">{courses.level}</span>

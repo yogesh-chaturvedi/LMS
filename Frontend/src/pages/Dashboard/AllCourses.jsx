@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import Sidebar from '../../components/Sidebar'
@@ -10,7 +10,7 @@ import axios from 'axios'
 const AllCourses = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
-    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData } = useContext(CoursesContext);
+    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext);
 
 
     const [isloading, setIsloading] = useState(null)
@@ -44,22 +44,32 @@ const AllCourses = () => {
     }
 
 
+    // to get instructors details 
+    useEffect(() => {
+        allCourses.forEach((courses) => {
+            getInstructorInfo(courses.instructor)
+        })
+    }, [allCourses])
+
+
+
     return (
         <div>
             <Navbar />
-            <div className='border-2 border-red-600 flex h-[90vh]'>
+            <div className='flex h-[90vh]'>
                 {/* left */}
 
                 <Sidebar />
 
                 {/* right */}
                 {/* flex-1 for remaining width */}
-                <div className='flex flex-1 flex-col gap-4 border-2 border-blue-600 pr-28 p-5 h-[90vh] overflow-auto'>
+                <div className='flex flex-1 flex-col gap-4 pr-28 p-5 h-[90vh] overflow-auto'>
 
                     {allCourses.map((courses, index) => {
+                        const instructor = instuctorDetails[courses.instructor]
                         return <div key={index} className="flex items-center gap-4 border border-gray-300 rounded-xl shadow-lg p-4 bg-white w-full h-[160p]">
                             {/* Image (Left) */}
-                            <img src={`${courses.thumbnail}`} alt="courseThumbnail" className="w-48 h-32 object-cover rounded-lg shadow-md" />
+                            <img src={`${courses.thumbnail}`} alt="courseThumbnail" className=" w-48 h-32 object-cover rounded-lg shadow-md" />
 
                             {/* Content (Right) */}
                             <div className='flex justify-between items-center w-full '>
@@ -73,7 +83,7 @@ const AllCourses = () => {
                                     <p className="text-sm text-gray-600">{courses.description}</p>
 
                                     {/* Instructor */}
-                                    <p className="text-gray-700">Instructor: <span className="font-semibold">{courses.instructor}</span></p>
+                                    <p className="text-gray-700">Instructor: <span className="font-semibold">{instructor ? instructor.name : 'Loading...'}</span></p>
 
                                     {/* Level */}
                                     <span className="inline-block px-2 text-sm rounded-md bg-red-500 text-white w-fit">{courses.level}</span>

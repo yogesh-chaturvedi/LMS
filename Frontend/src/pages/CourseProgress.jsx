@@ -51,29 +51,28 @@ const CourseProgress = () => {
     return (
         <div>
             <Navbar />
-            <div className='flex py-12 justify-between px-28 h-[90vh]'>
+            <div className='bg-gray-50 flex py-12 justify-between px-28 h-[90vh]'>
                 {/* left */}
-                <div className="left p-6 w-[55%] ">
+                <div className="left p-6 w-[55%] rounded-md border-2 border-gray-200 shadow-xl hover:bg-gray-100 ">
 
                     {/* Title */}
-                    <h1 className="text-3xl font-bold mb-4 ">My Awesome Video</h1>
+                    <h1 className="text-3xl font-bold mb-4 ">{videoTitle}</h1>
                     {/* Video */}
                     <div className="aspect-w-16 aspect-h-9">
                         <iframe width="100%" height="400" src={videos}
                             title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </div>
-                    {/* video title  */}
-                    <div className='title text-lg font-medium mt-1'>{videoTitle}</div>
+
                 </div>
 
                 {/* right */}
                 <div className='w-[40%]'>
 
                     <div className='text-end'>
-                        <button onClick={() => handleReset()} className='m-1 px-2 py-1 bg-black text-white rounded-lg'>Reset</button>
+                        <button onClick={() => handleReset()} className='m-1 px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg'>Reset</button>
                     </div>
 
-                    <div className="bg-white rounded-lg p-6 border border-gray-200">
+                    <div className="rounded-lg p-6 hover:bg-gray-100 shadow-xl border border-gray-200">
                         {/* Header */}
                         <div className="mb-4">
                             <h2 className="text-xl font-bold text-gray-800">Course Content</h2>

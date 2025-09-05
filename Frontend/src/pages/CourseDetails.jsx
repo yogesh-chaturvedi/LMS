@@ -3,17 +3,19 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { Camera, PlayCircle } from 'lucide-react'
 import { Link, useLocation, useParams } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
+import { CoursesContext } from '../context/CoursesContext'
 
 
 const CourseDetails = () => {
     const BASE_URL = import.meta.env.VITE_API_URL;
     const { user, setUser, loading, setLoading, fetchUser } = useContext(AuthContext);
+    const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext)
 
     const { id } = useParams();
     console.log(id);
-
 
     const location = useLocation()
     // console.log(location.state)
@@ -22,55 +24,90 @@ const CourseDetails = () => {
     const course = location.state || null;
     console.log(course)
 
-
-
-    async function handleCheckOut() {
-        try {
-            const response = await axios({
-                method: 'post',
-                url: `${BASE_URL}payment/checkout`,
-                data: { course },
-                withCredentials: true
-            })
-            // const { message, success } = response.data;
-            console.log(response.data.message);
-            window.location.href = response.data.url;
+    // for stripe payment
+    async function handleCheckOut(role) {
+        if (role === "instructor") {
+            toast(`Instructor Can't Buy Course`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         }
-        catch (error) {
-            console.log("there is an error", error)
+        else if (role === "admin") {
+            toast(`Admin Can't Buy Course`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+        else {
+            try {
+                const response = await axios({
+                    method: 'post',
+                    url: `${BASE_URL}payment/checkout`,
+                    data: { course },
+                    withCredentials: true
+                })
+                // const { message, success } = response.data;
+                console.log(response.data.message);
+                window.location.href = response.data.url;
+            }
+            catch (error) {
+                console.log("there is an error", error)
+            }
         }
     }
 
+    // to get instructor info 
+    useEffect(() => {
+        allCourses.forEach((courses) => {
+            getInstructorInfo(courses.instructor)
+        })
+    }, [allCourses])
+
+    const instructor = instuctorDetails[course.instructor]
 
     return (
         <div>
             <Navbar />
 
+            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
+
             {/* course details hero section */}
-            <div className="bg-gray-700 shadow-md p-6 w-full px-28 border border-red-200">
+            <div className="bg-gray-700 text-gray-200 shadow-md p-6 w-full px-28 ">
 
                 {course && (
                     <div>
                         {/* Course Name */}
-                        <h3 className="text-xl font-bold text-white">{course.title}</h3>
+                        <h3 className="text-xl font-bold">{course.title}</h3>
 
                         {/* One-line Description */}
-                        <p className="text-white mt-1">This is one of the best course it will help u to become great mern developer</p>
+                        <p className=" mt-1">This is one of the best course it will help u to become great mern developer</p>
 
                         {/* Instructor */}
-                        <p className="mt-3 text-sm text-white">
-                            <span className="font-semibold">Instructor:</span> {course.instructor}
+                        <p className="mt-3 text-sm ">
+                            <span className="font-semibold">Instructor:</span> {instructor ? instructor.name : "Loading"}
                         </p>
 
                         {/* Students Enrolled */}
-                        <p className="text-sm text-white">
+                        <p className="text-sm ">
                             <span className="font-semibold">Enrolled:</span>40</p>
                     </div>
                 )}
             </div>
 
             {/* course details */}
-            <div className='px-28 py-10 flex justify-between w-full'>
+            <div className='bg-gray-50 px-28 py-10 flex justify-between w-full'>
 
                 {/*left*/}
                 <div className='left flex flex-col gap-3'>
@@ -114,7 +151,7 @@ const CourseDetails = () => {
                     </section>
 
                     {/* course content */}
-                    <div className="bg-white shadow-md rounded-lg p-6 max-w-2xl border border-gray-200">
+                    <div className="shadow-md rounded-lg p-6 max-w-2xl border border-gray-200">
                         {/* Header */}
                         <div className="mb-4">
                             <h2 className="text-xl font-bold text-gray-800">Course Content</h2>
@@ -135,7 +172,7 @@ const CourseDetails = () => {
 
                 {/* right */}
                 <div className='right w-[29vw]'>
-                    <div className="bg-white w-full pb-3 shadow-md rounded-lg overflow-hidden border border-gray-200 max-w-md">
+                    <div className="w-full pb-3 shadow-md rounded-lg overflow-hidden border border-gray-200 max-w-md">
                         {/* Video Section */}
                         {/* <video controls className="w-full h-64 object-cover">
                             <source src={course?.lecture[0]?.lectureVideo} type="video/mp4" />
@@ -159,7 +196,7 @@ const CourseDetails = () => {
                         {user.purchasedCourses.length > 0 && user.purchasedCourses.includes(id) ? (<div className='text-center'>
                             <Link to={`/course-progress/${id}`} state={course} className='bg-green-500 hover:bg-green-600 px-2 rounded-lg text-lg font-medium'>Continue Course</Link>
                         </div>) : (<div className='text-center'>
-                            <button onClick={() => handleCheckOut()} className='bg-green-500 hover:bg-green-600 px-2 rounded-lg text-lg font-medium'>Buy Course</button>
+                            <button onClick={() => handleCheckOut(user.role)} type='button' className='bg-green-500 hover:bg-green-600 px-2 rounded-lg text-lg font-medium'>Buy Course</button>
                         </div>)}
 
                     </div>

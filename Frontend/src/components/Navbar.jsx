@@ -6,6 +6,8 @@ import axios from 'axios';
 import { assets } from '../assets/assets'
 
 const Navbar = () => {
+
+    const BASE_URL = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
     const { user, setUser, loading, setLoading } = useContext(AuthContext);
     // console.log('user' ,user)
@@ -25,7 +27,7 @@ const Navbar = () => {
         try {
             const response = await axios({
                 method: 'post',
-                url: 'http://localhost:3000/auth/logout',
+                url: `${BASE_URL}auth/logout`,
                 withCredentials: true
             })
             const { success, message } = response.data;
@@ -79,9 +81,8 @@ const Navbar = () => {
 
     return (
         <div>
-            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
 
-            <nav className="bg-gray-950 border-b border-gray-400 px-28 shadow-md  py-3 flex justify-between items-center">
+            <nav className="bg-gray-900 border-b border-gray-400 px-28 shadow-md  py-3 flex justify-between items-center">
                 {/* Logo / Platform Name */}
                 <h1 onClick={() => GoToHome()} className="text-2xl font-bold text-blue-600 cursor-pointer">eLearning</h1>
 
@@ -98,7 +99,6 @@ const Navbar = () => {
                             {/* dropdown */}
                             <div className={`w-52 py-3 px-2 rounded-lg flex-col flex gap-4 bg-gray-400 absolute top-10 right-2 ${profile ? 'hidden' : 'flex'} `}>
                                 <span onClick={() => handleProfile()} className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>My Profile</span>
-                                <span className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>Edit Information</span>
 
                                 {/* for instructor */}
                                 {user.role === 'instructor' ? (<span onClick={() => handleCreateCourse()} className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>Create Course</span>) : ""}

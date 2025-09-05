@@ -317,5 +317,22 @@ router.get('/get-purchasedCourses', varifyUser, async (req, res) => {
     }
 })
 
+router.get("/courseInfo/:id", varifyUser, async (req, res) => {
+    try {
+        const courseId = req.params.id;
+        if (req.user.role === 'admin') {
+            const courses = await CourseModel.findById(courseId);
+            return res.status(200).json({ message: 'course details fetched', success: true, courseDetails: courses });
+        }
+        else {
+            return res.status(400).json({ message: 'User not found', success: false });
+        }
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
+
 
 module.exports = router
