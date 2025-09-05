@@ -21,6 +21,7 @@ import EditLecture from './pages/Instructor/EditLecture'
 import Profile from './pages/Profile'
 import Success from './pages/Success'
 import Cancel from './pages/Cancel'
+import AllUsers from './pages/Dashboard/AllUsers'
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
         <Route path="/admin/dashboard" element={<DashboardHome />} />
         <Route path="/admin/courses" element={<AllCourses />} />
         <Route path="/admin/add-instructor" element={<AddInstructor />} />
+        <Route path="/admin/users" element={<AllUsers />} />
       </Route>
 
       {/* instructor only routes */}

@@ -15,6 +15,8 @@ const Sidebar = () => {
 
                 <Link to="/admin/courses" className={`px-4 py-2 rounded-lg hover:bg-gray-700 transition  ${loaction.pathname === "/admin/courses" ? 'bg-gray-600' : ''}`}>Courses</Link>
 
+                <Link to="/admin/users" className={`px-4 py-2 rounded-lg hover:bg-gray-700 transition  ${loaction.pathname === "/admin/users" ? 'bg-gray-600' : ''}`}>Users</Link>
+
                 <Link to="/admin/add-instructor" className={`px-4 py-2 rounded-lg hover:bg-gray-700 transition  ${loaction.pathname === "/admin/add-instructor" ? 'bg-gray-600' : ''}`}>Add Instructor</Link>
 
             </nav>
