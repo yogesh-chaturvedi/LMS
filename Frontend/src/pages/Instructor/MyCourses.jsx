@@ -59,15 +59,17 @@ const MyCourses = () => {
         <div>
             <Navbar />
 
-            <div className='flex border-2 border-black'>
+            <div className='flex'>
 
                 {/* sidebar */}
                 <InstructorSidebar />
 
                 {/* right */}
-                <div className="flex-1 pl-2 pr-28 overflow-auto h-[90vh] py-8">
+                <div className="flex-1 bg-gray-50 px-28 overflow-auto h-[91vh] py-8">
 
-                    <div className="border rounded-lg overflow-hidden">
+                    <h2 className='font-bold text-2xl pb-2'>My Courses</h2>
+
+                    <div className="border shadow-xl rounded-lg overflow-hidden ">
                         {/* Heading Row */}
                         <div className="flex justify-between bg-gray-100 px-4 py-3 font-bold text-lg">
                             <p className="w-1/3">Title</p>

@@ -115,32 +115,32 @@ const EditLecture = () => {
         <div>
             <Navbar />
 
-            <div className='flex border-2 border-black'>
+            <div className='flex'>
 
                 {/* sidebar */}
                 <InstructorSidebar />
 
-                <div className=' bg-gray-950 px-28 flex-1 py-10'>
-                    <div className='text-white bg-black rounded-xl p-4 border border-gray-700 shadow-xl'>
+                <div className=' bg-gray-50 px-28 flex-1 py-10'>
+                    <div className='text-black bg-gray-100 rounded-xl p-4 border border-gray-100 shadow-xl'>
 
                         {/* heading */}
-                        <h3 className='font-bold text-2xl text-white'>Edit Lectures</h3>
-                        <p className='text-gray-500'>Make changes and click save when done</p>
+                        <h3 className='font-bold text-2xl text-black'>Edit Lectures</h3>
+                        <p className='text-gray-800'>Make changes and click save when done</p>
 
-                        <div className='mt-5 border-2 border-black flex flex-col gap-4'>
+                        <div className='mt-5 flex flex-col gap-4'>
 
                             <button onClick={() => handleRemove(courseId, lectureId)} className='w-[140px] text-center bg-red-600 hover:bg-red-700 text-black font-semibold rounded-lg px-2 py-2'>Remove Lecture</button>
 
                             {/* title */}
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Title</label>
-                                <input value={lectureName} className='outline-none text-white bg-black border-2 border-gray-500 rounded-md px-2' type="text" placeholder='Enter Title of your course' />
+                                <input value={lectureName} className='outline-none text-black bg-white border-2 border-gray-200 rounded-md px-2' type="text" placeholder='Enter Title of your course' />
                             </div>
 
                             {/* video url */}
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Video</label>
-                                <input value={videoUrl} onChange={handleChange} className='w-72 outline-none text-white bg-black border-2 border-gray-500 rounded-md px-2' type="url" placeholder='Enter Video url' />
+                                <input value={videoUrl} onChange={handleChange} className='w-72 outline-none text-balck bg-white border-2 border-gray-200 rounded-md px-2' type="url" placeholder='Enter Video url' />
                             </div>
 
                             <div className="flex items-center gap-2">
@@ -152,7 +152,7 @@ const EditLecture = () => {
                             {/* buttons */}
                             {/* to='/instructor/my-courses' */}
                             <div className='flex gap-2'>
-                                <button onClick={() => addVideo(videoUrl, isFree)} className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Update Lecture</button>
+                                <button onClick={() => addVideo(videoUrl, isFree)} className='bg-black text-white font-semibold rounded-lg px-2 py-1'>Update Lecture</button>
                             </div>
 
 

@@ -64,7 +64,7 @@ const AddCourses = () => {
                 })
                 const { message, success, course } = response.data;
                 if (success) {
-                    // console.log(message);
+                    console.log(message);
                     toast(message, {
                         position: "top-center",
                         autoClose: 1500,
@@ -108,39 +108,43 @@ const AddCourses = () => {
 
     return (
         <div>
+
+            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
+
             <Navbar />
 
-            <div className='flex border-2 border-black'>
+            <div className='flex'>
 
                 {/* sidebar */}
                 <InstructorSidebar />
 
-                <div className=' bg-gray-950 px-28 flex-1 py-10 flex gap-4 flex-col'>
+                {/* right  */}
+                <div className='bg-gray-50 px-28 flex-1 py-10 flex gap-4 flex-col'>
 
                     <div className='flex justify-between'>
-                        <h2 className='text-2xl font-bold text-white'>Add details information regarding course</h2>
+                        <h2 className='text-2xl font-bold text- pl-1'>Add details information regarding course</h2>
                         <button className='text-white font-semibold hover:underline bg-gray-800 hover:bg-gray-700  px-2 rounded-lg'>Go to lecture page</button>
                     </div>
 
-                    <div className='text-white bg-black rounded-xl p-4 border border-gray-700 shadow-xl'>
+                    <div className='text-black bg-gray-200 rounded-xl p-4 border border-gray-200 shadow-xl'>
 
                         {/* heading */}
-                        <h3 className='font-bold text-2xl text-white'>
+                        <h3 className='font-bold text-2xl text-black'>
                             Lets Add some basic details of your course
                         </h3>
 
-                        <div className='mt-5 border-2 border-black flex flex-col gap-4'>
+                        <div className='mt-5  flex flex-col gap-4'>
 
                             {/* title */}
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Title</label>
-                                <input value={courseDetails.title} onChange={handleChange} name='title' className='outline-none text-white bg-black border-2 border-gray-500 rounded-md px-2' type="text" placeholder='Enter Title of your course' />
+                                <input value={courseDetails.title} onChange={handleChange} name='title' className='outline-none text-black bg-white border-2 border-gray-200 rounded-md px-2' type="text" placeholder='Enter Title of your course' />
                             </div>
 
                             {/*sub-title */}
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Subtitle</label>
-                                <input value={courseDetails.subTitle} onChange={handleChange} name='subTitle' className='outline-none text-white bg-black border-2 border-gray-500 rounded-md px-2' type="text" placeholder='Enter Subtitle of your course' />
+                                <input value={courseDetails.subTitle} onChange={handleChange} name='subTitle' className='outline-none text-black bg-white border-2 border-gray-200 rounded-md px-2' type="text" placeholder='Enter Subtitle of your course' />
                             </div>
 
                             {/* category and level */}
@@ -149,7 +153,7 @@ const AddCourses = () => {
                                 {/* category */}
                                 <div className='flex flex-col gap-1'>
                                     <label className='font-semibold text-xl'>Category</label>
-                                    <select value={courseDetails.category} onChange={handleChange} name="category" className='w-40 border-2 border-gray-500 outline-none bg-black text-white rounded-md' id="category">
+                                    <select value={courseDetails.category} onChange={handleChange} name="category" className='w-40 border-2 border-gray-200 outline-none bg-white text-black rounded-md' id="category">
                                         <option value="">Select a Category</option>
                                         <option value="webdev">Web Development</option>
                                         <option value="datascience">Data Science</option>
@@ -161,7 +165,7 @@ const AddCourses = () => {
                                 {/* level */}
                                 <div className='flex flex-col gap-1'>
                                     <label className='font-semibold text-xl'>Level</label>
-                                    <select value={courseDetails.level} onChange={handleChange} className='w-32 border-2 border-gray-500 outline-none bg-black text-white rounded-md ' name="level" id="level">
+                                    <select value={courseDetails.level} onChange={handleChange} className='w-32 border-2 border-gray-200 outline-none bg-white text-black rounded-md ' name="level" id="level">
                                         <option value="">Select a Level</option>
                                         <option value="beginner">Beginner</option>
                                         <option value="medium">Medium</option>
@@ -172,35 +176,29 @@ const AddCourses = () => {
                                 {/* price */}
                                 <div className='flex flex-col gap-1'>
                                     <label className='font-semibold text-lg'>Price</label>
-                                    <input value={courseDetails.price} onChange={handleChange} name='price' className='w-40 border-2 border-gray-500 rounded-lg px-2 outline-none bg-black text-white' type="number" placeholder='Enter Price' />
+                                    <input value={courseDetails.price} onChange={handleChange} name='price' className='w-40 border-2 border-gray-200 rounded-lg px-2 outline-none bg-white text-black' type="number" placeholder='Enter Price' />
                                 </div>
 
                             </div>
 
-                            {/* Instructor name
-                            <div className='flex flex-col'>
-                                <label className='font-semibold text-lg'>Name</label>
-                                <input value={courseDetails.instructorName} onChange={handleChange} name='instructorName' className='outline-none text-white bg-black border-2 border-gray-500 rounded-md px-2' type="text" placeholder='Enter Instructor Name' />
-                            </div> */}
-
                             {/* description */}
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Course Description</label>
-                                <input value={courseDetails.description} onChange={handleChange} name='description' className='outline-none border-2 border-gray-500 rounded-md px-2 bg-black text-white' type="text" placeholder='Enter description of your course' />
+                                <input value={courseDetails.description} onChange={handleChange} name='description' className='outline-none border-2 border-gray-200 rounded-md px-2 bg-white text-black' type="text" placeholder='Enter description of your course' />
                             </div>
 
                             {/*thumbnail url*/}
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Course Thumbnail</label>
-                                <input value={courseDetails.thumbnail} onChange={handleChange} name='thumbnail' className='outline-none text-white bg-black border-2 border-gray-500 rounded-md px-2' type="url" placeholder='Enter Thumbnail of your course' />
+                                <input value={courseDetails.thumbnail} onChange={handleChange} name='thumbnail' className='outline-none text-black bg-white border-2 border-gray-200 rounded-md px-2' type="url" placeholder='Enter Thumbnail of your course' />
                             </div>
 
                             {/* buttons */}
                             <div className='flex gap-2'>
-                                <button onClick={handleClear} className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Clear</button>
+                                <button onClick={() => handleClear()} className='text-white font-semibold rounded-lg px-2 py-1 bg-black'>Clear</button>
 
                                 {/* to='/instructor/add-lectures' */}
-                                <button onClick={handleClick} className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>{isEdit ? 'Updated' : 'Create'}</button>
+                                <button onClick={() => handleClick()} className='bg-black text-white font-semibold rounded-lg px-2 py-1'>{isEdit ? 'Updated' : 'Create'}</button>
                             </div>
 
                         </div>

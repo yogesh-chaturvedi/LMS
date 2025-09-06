@@ -94,42 +94,42 @@ const AddLectures = () => {
         <div>
             <Navbar />
 
-            <div className='flex border-2 border-black'>
+            <div className='flex '>
 
                 {/* sidebar */}
                 <InstructorSidebar />
 
-                <div className=' bg-gray-950 px-28 flex-1 py-10'>
-                    <div className='text-white bg-black rounded-xl p-4 border border-gray-700 shadow-xl'>
+                <div className=' bg-gray-50 px-28 flex-1 py-10'>
+                    <div className='text-black bg-gray-100 rounded-xl p-4 border border-gray-200 shadow-xl'>
                         {/* heading */}
 
-                        <h3 className='font-bold text-2xl text-white'>Add some lectures for your course</h3>
+                        <h3 className='font-bold text-2xl text-black'>Add some lectures for your course</h3>
 
-                        <div className='mt-5 border-2 border-black flex flex-col gap-4'>
+                        <div className='mt-5 flex flex-col gap-4'>
 
                             {/* title */}
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Lecture Title</label>
-                                <input value={lectureTitle} onChange={handleChange} name='lecTitle' className='outline-none text-white bg-black border-2 border-gray-500 rounded-md px-2' type="text" placeholder='Enter Title of your course' />
+                                <input value={lectureTitle} onChange={handleChange} name='lecTitle' className='outline-none text-black bg-white border-2 border-gray-200 rounded-md px-2' type="text" placeholder='Enter Title of your course' />
                             </div>
 
 
                             {/* buttons */}
                             <div className='flex gap-2'>
 
-                                <Link to='/instructor/my-courses' className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Back to course</Link>
+                                <Link to='/instructor/my-courses' className='bg-black text-white font-semibold rounded-lg px-2 py-1'>Back to course</Link>
 
-                                <button onClick={() => createLecture(courseId)} className='bg-white hover:bg-slate-300 text-black font-semibold rounded-lg px-2 py-1'>Create lecture</button>
+                                <button onClick={() => createLecture(courseId)} className='bg-black text-white font-semibold rounded-lg px-2 py-1'>Create lecture</button>
 
                             </div>
 
                             {/* lectures */}
                             <div className='flex flex-col gap-3'>
                                 {courseDetails?.lecture?.length === 0 ? (
-                                    <div>No lecture available</div>
+                                    <div className='font-bold text-xl'>No lecture available</div>
                                 ) : (courseDetails?.lecture?.map((lecture) => {
                                     return <div key={lecture._id} >
-                                        <Link to={`/instructor/edit-lectures/${courseId}/${lecture._id}`} state={lecture} className='flex justify-between w-full font-semibold rounded-lg px-2 py-1 bg-gray-700 hover:bg-gray-800 cursor-pointer'><span className='w-[70%] truncate'>{lecture.lectureTitle}</span> {lecture?.lectureVideo ? (<span><CircleCheck color="green" /></span>) : ''}</Link>
+                                        <Link to={`/instructor/edit-lectures/${courseId}/${lecture._id}`} state={lecture} className='flex justify-between w-full font-semibold rounded-lg px-2 py-1 bg-gray-200 hover:bg-gray-300 cursor-pointer'><span className='w-[70%] truncate'>{lecture.lectureTitle}</span> {lecture?.lectureVideo ? (<span><CircleCheck color="green" /></span>) : ''}</Link>
                                     </div>
                                 }))}
 
