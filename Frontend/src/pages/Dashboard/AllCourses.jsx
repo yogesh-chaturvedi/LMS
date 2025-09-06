@@ -63,7 +63,7 @@ const AllCourses = () => {
 
                 {/* right */}
                 {/* flex-1 for remaining width */}
-                <div className='flex flex-1 flex-col gap-4 pr-28 p-5 h-[90vh] overflow-auto'>
+                <div className='bg-gray-50 flex flex-1 flex-col gap-4 pr-28 p-5 h-[90vh] overflow-auto'>
 
                     {allCourses.map((courses, index) => {
                         const instructor = instuctorDetails[courses.instructor]

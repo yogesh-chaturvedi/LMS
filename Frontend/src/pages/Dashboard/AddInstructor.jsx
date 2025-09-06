@@ -85,13 +85,13 @@ const AddInstructor = () => {
             <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
 
             <Navbar />
-            <div className='flex border-2 border-black h-[90vh]'>
+            <div className='flex h-[91vh]'>
 
                 <Sidebar />
 
                 {/* right */}
-                <div className='flex flex-1 justify-center items-center bg-gray-900 overflow-auto'>
-                    <div className="p-6  max-w-lg mx-auto  bg-gray-500 shadow-lg rounded-2xl">
+                <div className='flex flex-1 justify-center items-center bg-gray-50 overflow-auto'>
+                    <div className="p-6 max-w-lg mx-auto  bg-gray-500 border-2 shadow-2xl rounded-2xl">
                         <h2 className="text-xl font-semibold mb-4">Add Instructor</h2>
                         <form className="space-y-4" onSubmit={handleSubmit}>
                             {/* Name */}
