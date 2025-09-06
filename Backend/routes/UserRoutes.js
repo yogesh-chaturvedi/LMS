@@ -81,5 +81,23 @@ router.get("/fetch-allUser", varifyUser, async (req, res) => {
 })
 
 
+// to remive user buy admin only 
+router.delete('/remove', varifyUser, async (req, res) => {
+    const { userId } = req.body;
+    try {
+        if (req.user.role === 'admin') {
+            const user = await UserModel.findByIdAndDelete(userId)
+            return res.status(200).json({ message: 'Account removed successfullt', success: true, users: user })
+        }
+        else {
+            return res.status(400).json({ message: 'You Are Unauthorized', success: false })
+        }
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
+
 
 module.exports = router

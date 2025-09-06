@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
 import { CoursesContext } from '../context/CoursesContext';
 import axios from 'axios';
 
@@ -24,6 +25,19 @@ const HeroSection = () => {
 
 
   async function handleSearch(searchedText) {
+    if (searchedText === '') {
+      toast('Search Soemthing', {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return
+    }
     try {
       const response = await axios({
         method: 'post',
@@ -46,6 +60,9 @@ const HeroSection = () => {
 
   return (
     <section className=" bg-gray-800 text-center px-28 py-16 ">
+
+      <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
+
       {/* Main Title */}
       <h1 className="text-4xl font-bold text-gray-800">Learn Without Limits</h1>
 
