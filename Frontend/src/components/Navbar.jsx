@@ -68,7 +68,7 @@ const Navbar = () => {
     }
 
     function handleCreateCourse() {
-        navigate("/instructor/add-courses")
+        navigate("/instructor/my-courses")
     }
 
     function handleAdmin() {
@@ -101,7 +101,7 @@ const Navbar = () => {
                                 <span onClick={() => handleProfile()} className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>My Profile</span>
 
                                 {/* for instructor */}
-                                {user.role === 'instructor' ? (<span onClick={() => handleCreateCourse()} className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>Create Course</span>) : ""}
+                                {user.role === 'instructor' ? (<span onClick={() => handleCreateCourse()} className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>Dashboard</span>) : ""}
 
                                 {/* for admin */}
                                 {user.role === 'admin' ? (<span onClick={() => handleAdmin()} className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>Dashboard</span>) : ""}

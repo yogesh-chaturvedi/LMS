@@ -169,55 +169,113 @@ const Profile = () => {
                 <div className='p-6'>
                     {user.role === "user" ? (<div>
                         <h1 className="text-2xl text-black font-bold mb-3">Courses you are enrolled in</h1>
-                        {purchasedCourses.length > 0 ? (<div className="grid py-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {purchasedCourses.length > 0 ? (<div className="flex flex-wrap gap-6 py-2">
                             {purchasedCourses.map((course, index) => {
-                                const instructor = instuctorDetails[course.instructor]
+                                const instructor = instuctorDetails[course.instructor];
 
-                                return <div key={index} className="bg-white w-[270px] rounded-2xl border-2 border-gray-700 shadow-md overflow-hidden hover:shadow-lg transition" >
-                                    <img src={course.thumbnail} alt={course.title} className="w-full h-40 object-cover" />
+                                return (
+                                    <div
+                                        key={index}
+                                        className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition w-72"
+                                    >
+                                        <img
+                                            src={course.thumbnail}
+                                            alt="courseThumbnail"
+                                            className="w-full h-44 object-cover"
+                                        />
 
-                                    <div className="px-4 py-3">
-                                        <h3 className="text-lg font-semibold">{course.title}</h3>
+                                        <div className="px-4 py-3 flex flex-col gap-2">
+                                            {/* Title */}
+                                            <h3 className="text-lg font-semibold text-gray-800 line-clamp-2">
+                                                {course.title}
+                                            </h3>
 
-                                        <div className='mb-2 flex justify-between items-center'>
-                                            <span className='instructor-name font-bold'>{instructor ? instructor.name : 'Loading'}</span>
-                                            <span className='course-level bg-blue-500 px-2 rounded-lg font-bold'>Advance</span>
-                                        </div>
+                                            {/* Instructor + Level */}
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-sm font-medium text-gray-600">
+                                                    {instructor ? instructor.name : "Loading..."}
+                                                </span>
+                                                <span className="text-xs px-2 py-1 rounded-md bg-blue-100 text-blue-700 font-semibold">
+                                                    {course.level}
+                                                </span>
+                                            </div>
 
-                                        <div className=' flex justify-between items-center'>
-                                            <span className='price font-bold'>Rs.{course.price}</span>
-                                            <Link to={`/course-details/${course.id}`} state={course} className='bg-green-500 px-2 rounded-lg font-bold'>View Course</Link>
+                                            {/* Price + Button */}
+                                            <div className="flex justify-between items-center mt-2">
+                                                <span className="text-lg font-bold text-gray-800">
+                                                    ₹{course.price}
+                                                </span>
+                                                <Link
+                                                    to={`/course-details/${course._id}`}
+                                                    state={course}
+                                                    className="bg-green-600 text-white px-3 py-1 rounded-lg text-sm font-semibold hover:bg-green-700 transition"
+                                                >
+                                                    View
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                );
                             })}
-                        </div>) : (<div className='text-2xl font-bold text-gray-100'>Buy Some Courses</div>)}
+                        </div>
+                        ) : (<div className='text-2xl font-bold text-gray-100'>Buy Some Courses</div>)}
 
                     </div>) : (<div>
                         <h1 className="text-2xl text-black font-bold mb-3">Your Courses</h1>
-                        <div className="grid py-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                            {allCourses.filter((course) => course.instructor === user.id)
+
+                        <div className="flex flex-wrap gap-6 py-2">
+                            {allCourses
+                                .filter((course) => course.instructor === user.id)
                                 .map((course, index) => {
-                                    const instructor = instuctorDetails[course.instructor]
-                                    return <div key={index} className="bg-white w-[270px] rounded-2xl border-2 border-gray-200 shadow-md overflow-hidden hover:shadow-lg transition" >
-                                        <img src={course.thumbnail} alt={course.title} className="w-full h-40 object-cover" />
-                                        <div className="px-4 py-3">
-                                            <h3 className="text-lg font-semibold">{course.title}</h3>
+                                    const instructor = instuctorDetails[course.instructor];
 
-                                            <div className='mb-2 flex justify-between items-center'>
-                                                <span className='instructor-name font-bold'>{instructor ? instructor.name : 'Loading'}</span>
-                                                <span className='course-level bg-blue-500 px-2 rounded-lg font-bold'>Advance</span>
-                                            </div>
+                                    return (
+                                        <div
+                                            key={index}
+                                            className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition w-72"
+                                        >
+                                            <img
+                                                src={course.thumbnail}
+                                                alt="courseThumbnail"
+                                                className="w-full h-44 object-cover"
+                                            />
 
-                                            <div className=' flex justify-between items-center'>
-                                                <span className='price font-bold'>Rs.{course.price}</span>
-                                                <Link to={`/course-details/${course.id}`} state={course} className='bg-green-500 px-2 rounded-lg font-bold'>View Course</Link>
+                                            <div className="px-4 py-3 flex flex-col gap-2">
+                                                {/* Title */}
+                                                <h3 className="text-lg font-semibold text-gray-800 line-clamp-2">
+                                                    {course.title}
+                                                </h3>
+
+                                                {/* Instructor + Level */}
+                                                <div className="flex justify-between items-center">
+                                                    <span className="text-sm font-medium text-gray-600">
+                                                        {instructor ? instructor.name : "Loading..."}
+                                                    </span>
+                                                    <span className="text-xs px-2 py-1 rounded-md bg-blue-100 text-blue-700 font-semibold">
+                                                        {course.level}
+                                                    </span>
+                                                </div>
+
+                                                {/* Price + Button */}
+                                                <div className="flex justify-between items-center mt-2">
+                                                    <span className="text-lg font-bold text-gray-800">
+                                                        ₹{course.price}
+                                                    </span>
+                                                    <Link
+                                                        to={`/course-details/${course._id}`}
+                                                        state={course}
+                                                        className="bg-green-600 text-white px-3 py-1 rounded-lg text-sm font-semibold hover:bg-green-700 transition"
+                                                    >
+                                                        View
+                                                    </Link>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    );
                                 })}
                         </div>
-                    </div>)}
+                    </div>
+                    )}
 
                 </div>
 
