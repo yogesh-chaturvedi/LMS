@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import { assets } from '../assets/assets'
+import { LogOut } from 'lucide-react';
 
 const Navbar = () => {
 
@@ -89,23 +90,27 @@ const Navbar = () => {
                 {/* Right Side Buttons */}
                 <div className="space-x-4">
                     {user ? (<div className="space-x-4 flex gap-3 items-center" >
-                        <button onClick={handleLogout} className="bg-red-600 hover:bg-red-700 px-4 py-2 text-white rounded-lg font-bold transition duration-300">
-                            Logout
-                        </button>
-                        <div className='relative' >
 
-                            <img onClick={() => handleClick()} className="h-10 w-10 border-2 border-gray-400 rounded-full object-contain" src={user.profileImage} alt="profile-Image" />
+                        <img onClick={() => handleClick()} className="h-10 w-10 border-2 border-gray-400 rounded-full object-contain" src={user.profileImage} alt="profile-Image" />
 
-                            {/* dropdown */}
-                            <div className={`w-52 py-3 px-2 rounded-lg flex-col flex gap-4 bg-gray-400 absolute top-10 right-2 ${profile ? 'hidden' : 'flex'} `}>
-                                <span onClick={() => handleProfile()} className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>My Profile</span>
+                        {/* dropdown */}
+                        <div className={`w-52 py-3 px-2 rounded-lg flex-col flex gap-4 bg-gray-900 absolute top-10 right-2 ${profile ? 'hidden' : 'flex'} `}>
+                            <span onClick={() => handleProfile()} className='cursor-pointer px-2 w-[70%] text-white text-lg rounded-md bg-emerald-600 hover:bg-emerald-700 transition'>My Profile</span>
 
+
+                            <div className='relative'>
                                 {/* for instructor */}
-                                {user.role === 'instructor' ? (<span onClick={() => handleCreateCourse()} className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>Dashboard</span>) : ""}
+                                {user.role === 'instructor' ? (<span onClick={() => handleCreateCourse()} className='cursor-pointer px-2 w-[70%] text-white text-lg rounded-md bg-emerald-600 hover:bg-emerald-700 transition py-1'>My Dashboard</span>) : ""}
 
                                 {/* for admin */}
-                                {user.role === 'admin' ? (<span onClick={() => handleAdmin()} className='cursor-pointer px-2 w-[80%] text-gray-300 text-lg rounded-md bg-gray-600 hover:bg-gray-700'>Dashboard</span>) : ""}
+                                {user.role === 'admin' ? (<span onClick={() => handleAdmin()} className='cursor-pointer px-2 w-[70%] text-white text-lg rounded-md bg-emerald-600 hover:bg-emerald-700 transition py-1'>Dashboard</span>) : ""}
                             </div>
+
+                            {/* logout Btn */}
+                            <button onClick={handleLogout} className="bg-rose-600 hover:bg-rose-700 w-[50%] py-1 text-white rounded-lg font-bold transition duration-300 flex gap-1 items-center">
+                                <span className='pl-2.5'>Logout</span>
+                                <span><LogOut size={20} /></span>
+                            </button>
 
                         </div>
                     </div>) : (<div className="space-x-4" >
