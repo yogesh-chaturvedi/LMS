@@ -67,7 +67,7 @@ const AllCourses = () => {
 
                     {allCourses.map((courses, index) => {
                         const instructor = instuctorDetails[courses.instructor]
-                        return <div key={index} className="flex items-center gap-4 border border-gray-300 rounded-xl shadow-lg p-4 bg-white w-full h-[160p]">
+                        return <div key={index} className="flex items-center gap-4 border border-gray-300 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition p-4 bg-white w-full h-[160p]">
                             {/* Image (Left) */}
                             <img src={`${courses.thumbnail}`} alt="courseThumbnail" className=" w-48 h-32 object-cover rounded-lg shadow-md" />
 

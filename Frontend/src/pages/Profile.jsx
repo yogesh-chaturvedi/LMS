@@ -166,7 +166,7 @@ const Profile = () => {
                 </div>
 
                 {/* cards */}
-                <div className='p-6'>
+                {user.role !== 'admin' ? (<div className='p-6'>
                     {user.role === "user" ? (<div>
                         <h1 className="text-2xl text-black font-bold mb-3">Courses you are enrolled in</h1>
                         {purchasedCourses.length > 0 ? (<div className="flex flex-wrap gap-6 py-2">
@@ -277,9 +277,7 @@ const Profile = () => {
                     </div>
                     )}
 
-                </div>
-
-
+                </div>) : ''}
 
             </div>
             <Footer />
