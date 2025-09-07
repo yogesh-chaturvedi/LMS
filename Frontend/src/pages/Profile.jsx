@@ -104,8 +104,6 @@ const Profile = () => {
         })
     }, [allCourses])
 
-
-
     return (
         <div>
 
@@ -113,23 +111,23 @@ const Profile = () => {
 
             <Navbar />
 
-            <div className='bg-black px-28 flex flex-col gap-3 justify-center h-[91vh]'>
+            <div className='bg-gray-50 px-28 flex flex-col gap-3 justify-center h-[91vh]'>
 
                 {/* user info */}
                 <div className="p-6">
                     {/* Heading */}
-                    <h1 className="text-2xl text-white font-bold mb-3">Profile</h1>
+                    <h1 className="text-2xl text-black font-bold mb-3">Profile</h1>
 
                     {/* Profile Card */}
-                    <div className="flex bg-gray-900 items-center gap-6 p-6 shadow-md rounded-2xl">
+                    <div className="flex bg-gray-100 items-center gap-6 p-6 shadow-md rounded-2xl">
                         {/* User Image */}
                         <img src={user.profileImage} alt="profile-Image" className="w-24 h-24 rounded-full border border-gray-300 object-cover" />
 
                         {/* User Info */}
                         <div className="flex-1">
-                            <h2 className="text-xl font-semibold text-white">{user.name}</h2>
-                            <p className="text-gray-400">{user.email}</p>
-                            <p className="text-sm text-gray-200 mt-1">Role: {user.role}</p>
+                            <h2 className="text-xl font-semibold text-black">{user.name}</h2>
+                            <p className="text-black">{user.email}</p>
+                            <p className="text-sm text-black mt-1">Role: {user.role}</p>
                         </div>
 
 
@@ -169,32 +167,60 @@ const Profile = () => {
 
                 {/* cards */}
                 <div className='p-6'>
-                    <h1 className="text-2xl text-white font-bold mb-3">Courses you are enrolled in</h1>
-                    {purchasedCourses.length > 0 ? (<div className="grid py-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {purchasedCourses.map((course, index) => {
-                            const instructor = instuctorDetails[course.instructor]
+                    {user.role === "user" ? (<div>
+                        <h1 className="text-2xl text-black font-bold mb-3">Courses you are enrolled in</h1>
+                        {purchasedCourses.length > 0 ? (<div className="grid py-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            {purchasedCourses.map((course, index) => {
+                                const instructor = instuctorDetails[course.instructor]
 
-                            return <div key={index} className="bg-white w-[270px] rounded-2xl border-2 border-gray-700 shadow-md overflow-hidden hover:shadow-lg transition" >
-                                <img src={course.thumbnail} alt={course.title} className="w-full h-40 object-cover" />
+                                return <div key={index} className="bg-white w-[270px] rounded-2xl border-2 border-gray-700 shadow-md overflow-hidden hover:shadow-lg transition" >
+                                    <img src={course.thumbnail} alt={course.title} className="w-full h-40 object-cover" />
 
-                                <div className="px-4 py-3">
-                                    <h3 className="text-lg font-semibold">{course.title}</h3>
+                                    <div className="px-4 py-3">
+                                        <h3 className="text-lg font-semibold">{course.title}</h3>
 
-                                    <div className='mb-2 flex justify-between items-center'>
-                                        <span className='instructor-name font-bold'>{instructor ? instructor.name : 'Loading'}</span>
-                                        <span className='course-level bg-blue-500 px-2 rounded-lg font-bold'>Advance</span>
-                                    </div>
+                                        <div className='mb-2 flex justify-between items-center'>
+                                            <span className='instructor-name font-bold'>{instructor ? instructor.name : 'Loading'}</span>
+                                            <span className='course-level bg-blue-500 px-2 rounded-lg font-bold'>Advance</span>
+                                        </div>
 
-                                    <div className=' flex justify-between items-center'>
-                                        <span className='price font-bold'>Rs.{course.price}</span>
-                                        <Link to={`/course-details/${course.id}`} state={course} className='bg-green-500 px-2 rounded-lg font-bold'>View Course</Link>
+                                        <div className=' flex justify-between items-center'>
+                                            <span className='price font-bold'>Rs.{course.price}</span>
+                                            <Link to={`/course-details/${course.id}`} state={course} className='bg-green-500 px-2 rounded-lg font-bold'>View Course</Link>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        })}
-                    </div>) : (<div className='text-2xl font-bold text-gray-100'>Buy Some Courses</div>)}
+                            })}
+                        </div>) : (<div className='text-2xl font-bold text-gray-100'>Buy Some Courses</div>)}
+
+                    </div>) : (<div>
+                        <h1 className="text-2xl text-black font-bold mb-3">Your Courses</h1>
+                        <div className="grid py-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            {allCourses.filter((course) => course.instructor === user.id)
+                                .map((course, index) => {
+                                    const instructor = instuctorDetails[course.instructor]
+                                    return <div key={index} className="bg-white w-[270px] rounded-2xl border-2 border-gray-200 shadow-md overflow-hidden hover:shadow-lg transition" >
+                                        <img src={course.thumbnail} alt={course.title} className="w-full h-40 object-cover" />
+                                        <div className="px-4 py-3">
+                                            <h3 className="text-lg font-semibold">{course.title}</h3>
+
+                                            <div className='mb-2 flex justify-between items-center'>
+                                                <span className='instructor-name font-bold'>{instructor ? instructor.name : 'Loading'}</span>
+                                                <span className='course-level bg-blue-500 px-2 rounded-lg font-bold'>Advance</span>
+                                            </div>
+
+                                            <div className=' flex justify-between items-center'>
+                                                <span className='price font-bold'>Rs.{course.price}</span>
+                                                <Link to={`/course-details/${course.id}`} state={course} className='bg-green-500 px-2 rounded-lg font-bold'>View Course</Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                })}
+                        </div>
+                    </div>)}
 
                 </div>
+
 
 
             </div>

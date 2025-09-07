@@ -24,7 +24,7 @@ const TopCourses = () => {
 
             {/* Course Cards Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {allCourses.filter((courses) => courses.topCourses === true)
+                {allCourses.filter((courses) => courses.topCourses === true && courses.status === true)
                     .map((course, index) => {
                         const instructor = instuctorDetails[course.instructor]
                         return <div key={index} className="bg-white rounded-lg shadow-lg border-2 border-gray-700 overflow-hidden hover:shadow-lg transition" >

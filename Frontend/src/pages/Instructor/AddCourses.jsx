@@ -155,10 +155,12 @@ const AddCourses = () => {
                                     <label className='font-semibold text-xl'>Category</label>
                                     <select value={courseDetails.category} onChange={handleChange} name="category" className='w-40 border-2 border-gray-200 outline-none bg-white text-black rounded-md' id="category">
                                         <option value="">Select a Category</option>
-                                        <option value="webdev">Web Development</option>
-                                        <option value="datascience">Data Science</option>
-                                        <option value="Docker">Docker</option>
-                                        <option value="devops">DevOps</option>
+                                        <option value="Web Development">Web Development</option>
+                                        <option value="Data Science">Data Science</option>
+                                        <option value="Mobile Development">Mobile Development</option>
+                                        <option value="Cloud Computing">Cloud Computing</option>
+                                        <option value="UI/UX Design">UI/UX Design</option>
+                                        <option value="Language">Language</option>
                                     </select>
                                 </div>
 
@@ -167,9 +169,9 @@ const AddCourses = () => {
                                     <label className='font-semibold text-xl'>Level</label>
                                     <select value={courseDetails.level} onChange={handleChange} className='w-32 border-2 border-gray-200 outline-none bg-white text-black rounded-md ' name="level" id="level">
                                         <option value="">Select a Level</option>
-                                        <option value="beginner">Beginner</option>
-                                        <option value="medium">Medium</option>
-                                        <option value="advanced">Advanced</option>
+                                        <option value="Beginner">Beginner</option>
+                                        <option value="Intermediate">Intermediate</option>
+                                        <option value="Advanced">Advanced</option>
                                     </select>
                                 </div>
 
