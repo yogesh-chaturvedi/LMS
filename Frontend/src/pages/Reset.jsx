@@ -1,22 +1,12 @@
 import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
-
-
-
-// toast("text copied successfully", {
-//                 position: "top-center",
-//                 autoClose: 1500,
-//                 hideProgressBar: false,
-//                 closeOnClick: false,
-//                 pauseOnHover: true,
-//                 draggable: true,
-//                 progress: undefined,
-//                 theme: "dark",
-//             });
+import axios from 'axios';
+import { useEffect } from 'react';
 
 
 const Reset = () => {
+    const BASE_URL = import.meta.env.VITE_API_URL;
 
     const [resetData, setResetData] = useState({
         userEmail: '',
@@ -29,6 +19,43 @@ const Reset = () => {
     }
 
     console.log(resetData)
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        try {
+            const response = await axios({
+                method: 'post',
+                url: `${BASE_URL}password/reset`,
+                data: resetData,
+                withCredentials: true
+            });
+
+            const { message, success } = response.data;
+            if (success) {
+                toast.success(message || "Password reset successfully!", {
+                    position: "top-center",
+                    autoClose: 1500,
+                    theme: "dark",
+                });
+
+                setResetData({ userEmail: '', newPassword: '', confirmPassword: '' })
+            }
+        } catch (error) {
+            console.log("there is an error", error);
+
+            // Try to extract the message safely
+            const message =
+                error?.response?.data?.details?.[0]?.message ||
+                error?.response?.data?.message ||
+                "Something went wrong!";
+
+            toast.error(message, {
+                position: "top-center",
+                autoClose: 1500,
+                theme: "dark",
+            });
+        }
+    }
 
 
     return (
@@ -50,7 +77,7 @@ const Reset = () => {
             <div className="login border border-slate-700 shadow-2xl bg-slate-800 rounded-2xl w-[90vw] sm:w-[65vw] md:w-[55vw] lg:w-[45vw] flex flex-col gap-5 py-8 px-6 justify-center items-center">
                 <h1 className="font-bold text-3xl text-white underline">Reset</h1>
 
-                <form className="flex gap-4 flex-col w-[80%]">
+                <form className="flex gap-4 flex-col w-[80%]" onSubmit={handleSubmit}>
                     {/* email */}
                     <div className="w-full">
                         <label className="font-bold text-lg text-gray-200" htmlFor="email">

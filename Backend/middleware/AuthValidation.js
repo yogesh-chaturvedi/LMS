@@ -34,7 +34,7 @@ const signupValidation = (req, res, next) => {
 
 // for login
 const loginValidation = (req, res, next) => {
-    const {userEmail, userPassword } = req.body
+    const { userEmail, userPassword } = req.body
 
     try {
         const schema = Joi.object({
