@@ -35,12 +35,12 @@ function App() {
       <Route path='/reset' element={<Reset />} />
       <Route path='success' element={<Success />} />
       <Route path='cancel' element={<Cancel />} />
+      <Route path='/course' element={<Courses />} />
 
       {/* users can only access if they are logged in  */}
       <Route element={<ProtectedRoutes />}>
         <Route path='/course-details/:id' element={<CourseDetails />} />
         <Route path='/course-progress/:id' element={<CourseProgress />} />
-        <Route path='/course' element={<Courses />} />
         <Route path='/profile' element={<Profile />} />
       </Route>
 
