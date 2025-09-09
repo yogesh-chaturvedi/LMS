@@ -256,7 +256,6 @@ router.post('/search', async (req, res) => {
         const searchedCourses = await CourseModel.find({
             description: { $regex: searchedText, $options: 'i' }
         });
-        console.log(searchedCourses)
         res.status(200).json({ message: 'Your Searched Course', success: true, searchedCourses })
     }
     catch (error) {

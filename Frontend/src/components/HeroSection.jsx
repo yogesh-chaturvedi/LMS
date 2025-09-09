@@ -57,6 +57,14 @@ const HeroSection = () => {
     }
   }
 
+  // search by pressing enter key
+  function funcSearch(e) {
+    console.log(e)
+    if (e.key === "Enter") {
+      handleSearch(searchedText)
+    }
+  }
+
 
   return (
     <section className="bg-gray-100 text-center px-28 py-16">
@@ -73,6 +81,7 @@ const HeroSection = () => {
         <input
           value={searchedText}
           onChange={handleChange}
+          onKeyDown={funcSearch}
           type="text"
           placeholder="Search for courses..."
           className="px-4 py-2 w-72 border border-gray-300 rounded-l-lg focus:outline-none focus:border-blue-500 text-gray-700"
