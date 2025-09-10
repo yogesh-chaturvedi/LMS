@@ -38,7 +38,7 @@ const CourseDetails = () => {
                 theme: "dark",
             });
         }
-        else if (role === "admin") {
+        if (role === "admin") {
             toast(`Admin Can't Buy Course`, {
                 position: "top-center",
                 autoClose: 1500,
@@ -50,22 +50,36 @@ const CourseDetails = () => {
                 theme: "dark",
             });
         }
-        else {
-            try {
-                const response = await axios({
-                    method: 'post',
-                    url: `${BASE_URL}payment/checkout`,
-                    data: { course },
-                    withCredentials: true
-                })
-                // const { message, success } = response.data;
-                console.log(response.data.message);
-                window.location.href = response.data.url;
-            }
-            catch (error) {
-                console.log("there is an error", error)
-            }
+
+        if (user.purchasedCourses.includes(id)) {
+            toast(`Already purchased`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return
         }
+
+        try {
+            const response = await axios({
+                method: 'post',
+                url: `${BASE_URL}payment/checkout`,
+                data: { course },
+                withCredentials: true
+            })
+            // const { message, success } = response.data;
+            console.log(response.data.message);
+            window.location.href = response.data.url;
+        }
+        catch (error) {
+            console.log("there is an error", error)
+        }
+
     }
 
     // to get instructor info 

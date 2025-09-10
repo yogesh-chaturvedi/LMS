@@ -92,7 +92,6 @@ router.post("/add-course", varifyUser, async (req, res) => {
                 return res.status(200).json({ message: 'User updated with new Course', success: true, updatedUser: user });
             }
 
-
         }
     }
     catch (error) {
