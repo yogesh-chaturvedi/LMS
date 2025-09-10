@@ -336,4 +336,29 @@ router.get("/courseInfo/:id", varifyUser, async (req, res) => {
 })
 
 
+
+// remove course
+router.delete('/removeCourse', varifyUser, async (req, res) => {
+    const { courseId } = req.body;
+    try {
+        if (req.user.role === 'admin' || req.user.role === 'instructor') {
+            const course = await CourseModel.findByIdAndDelete(courseId);
+
+            if (!course) {
+                return res.status(400).json({ message: 'Course not found', success: false });
+            }
+
+            return res.status(200).json({ message: 'Course delete successfully', success: true });
+        }
+        else {
+            return res.status(400).json({ message: 'Sorry you are not allowed to do that', success: false });
+        }
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
+
+
 module.exports = router
