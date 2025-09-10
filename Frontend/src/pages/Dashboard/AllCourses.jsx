@@ -6,12 +6,17 @@ import { assets } from '../../assets/assets'
 import { useContext } from 'react'
 import { CoursesContext } from '../../context/CoursesContext'
 import axios from 'axios'
+import { MoreVertical } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const AllCourses = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext);
+    
+    const navigate = useNavigate()
 
+    const [options, setOptions] = useState(null)
 
     const [isloading, setIsloading] = useState(null)
     // function CourseStatus() {
@@ -52,6 +57,43 @@ const AllCourses = () => {
     }, [allCourses])
 
 
+    // to toggle state
+    function handleOptions(indexToToggle) {
+        if (options === null) {
+            setOptions(indexToToggle)
+        }
+        else {
+            setOptions(null)
+        }
+    }
+    console.log(options)
+
+
+    // to remove course
+    async function handleRemove(courseId) {
+        try {
+            const response = await axios({
+                method: 'delete',
+                url: `${BASE_URL}course/removeCourse`,
+                data: { courseId },
+                withCredentials: true
+            })
+            const { message, success } = response.data;
+            if (success) {
+                console.log(message)
+                setOptions(null)
+                getData()
+            }
+        }
+        catch (error) {
+            console.log('there is an error', error)
+        }
+    }
+
+
+    function handleViewCourse(courses) {
+        navigate(`/course-details/${courses._id}`, { state: courses })
+    }
 
     return (
         <div>
@@ -67,7 +109,7 @@ const AllCourses = () => {
 
                     {allCourses.map((courses, index) => {
                         const instructor = instuctorDetails[courses.instructor]
-                        return <div key={index} className="flex items-center gap-4 border border-gray-300 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition p-4 bg-white w-full h-[160p]">
+                        return <div key={index} className="flex gap-4 border border-gray-300 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition p-4 bg-white w-full h-[160p]">
                             {/* Image (Left) */}
                             <img src={`${courses.thumbnail}`} alt="courseThumbnail" className=" w-48 h-32 object-cover rounded-lg shadow-md" />
 
@@ -95,7 +137,24 @@ const AllCourses = () => {
 
                             </div>
 
-                            <button onClick={() => addtoTopRated(courses._id)} className={`rounded-xl flex items-center justify-center w-[120px] px-2 py-1 ${courses.topCourses ? "bg-green-400" : "bg-red-500"}`}>{isloading === courses._id ? (<div className='border-2 text-center border-gray-600 border-t-transparent animate-spin h-5 w-5 rounded-full'></div>) : (courses.topCourses ? '-Toprated' : '+Toprated')}</button>
+                            <div className='relative'>
+
+                                <span onClick={() => handleOptions(index)} className='cursor-pointer'><MoreVertical size={30} color='black' /></span>
+
+                                {/* popup */}
+                                {options === index && (<div className={`px-2 py-1.5 shadow-lg rounded-xl bg-gray-300 flex flex-col gap-1.5 absolute top-6 right-3 z-50`}>
+
+                                    {/* toprated button */}
+                                    <button onClick={() => addtoTopRated(courses._id)} className={`rounded-xl flex items-center justify-center w-[120px] px-2 py-1 ${courses.topCourses ? "bg-green-400" : "bg-red-500"}`}>{isloading === courses._id ? (<div className='border-2 text-center border-gray-600 border-t-transparent animate-spin h-5 w-5 rounded-full'></div>) : (courses.topCourses ? '-Toprated' : '+Toprated')}</button>
+
+                                    {/* course remove button */}
+                                    <button onClick={() => handleRemove(courses._id)} className='bg-red-500 px-2 py-1 rounded-xl'>Remove</button>
+
+                                    {/* View course button */}
+                                    <button onClick={() => handleViewCourse(courses)} className='bg-green-500 px-2 py-1 rounded-xl'>View</button>
+                                </div>)}
+
+                            </div>
 
                         </div>
                     })}
