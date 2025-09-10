@@ -2,8 +2,8 @@ import React from 'react'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import InstructorSidebar from '../../components/InstructorSidebar'
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserPen } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
 import { useContext } from 'react';
 import { CoursesContext } from '../../context/CoursesContext';
 import { useNavigate } from 'react-router-dom';
@@ -45,18 +45,42 @@ const MyCourses = () => {
             })
             const { message, success, course } = response.data
             if (success) {
-                console.log(message)
                 setAllCourses(prev => prev.map(c => (c._id === courseId ? course : c)))
             }
         }
         catch (error) {
             console.log("there is an error", error)
+            const message = error?.response?.data?.message
+            toast(message, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         }
     }
 
 
     return (
         <div>
+
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
+
             <Navbar />
 
             <div className='flex'>

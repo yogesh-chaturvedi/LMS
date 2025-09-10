@@ -225,13 +225,15 @@ router.put('/status/:courseId', varifyUser, async (req, res) => {
                 return res.status(400).json({ message: 'Course not found', success: false })
             }
 
+            if (course.status === false) {
+                const allHaveVideo = course.lecture.every((lec) => lec.lectureVideo !== null)
+                if (!allHaveVideo) {
+                    return res.status(400).json({ message: 'Each lecture must have a video before publishing', success: false })
+                }
+            }
+
             // toggling status
-            if (status === false) {
-                course.status = true;
-            }
-            else {
-                course.status = false;
-            }
+            course.status = !course.status;
 
             await course.save();
             res.status(200).json({ message: 'Status changed successfully', success: true, course })
