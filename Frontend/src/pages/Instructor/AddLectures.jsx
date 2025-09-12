@@ -23,13 +23,11 @@ const AddLectures = () => {
 
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName } = useContext(CoursesContext)
 
-
     // to set the title value in usestate
     function handleChange(e) {
         setLectureTitle(e.target.value);
     }
     console.log(lectureTitle)
-
 
     // fetch course details on mount 
     useEffect(() => {
@@ -52,8 +50,6 @@ const AddLectures = () => {
         }
         fetchCourseDetails(courseId)
     }, [])
-
-
 
     // to create Lecture
     async function createLecture(objectId) {
@@ -89,6 +85,9 @@ const AddLectures = () => {
         }
     }
 
+    function handleDone() {
+        navigate('/instructor/my-courses')
+    }
 
     return (
         <div>
@@ -136,6 +135,11 @@ const AddLectures = () => {
 
                             </div>
                         </div>
+
+                        <div className='flex justify-end'>
+                            <button onClick={() => handleDone()} className='bg-black text-white px-2 py-1 rounded-lg mt-3'>Done</button>
+                        </div>
+
                     </div>
                 </div>
             </div>
