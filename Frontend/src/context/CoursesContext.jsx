@@ -16,9 +16,10 @@ const CoursesContextProvider = (props) => {
         category: '',
         level: '',
         price: '',
-        description: '',
         thumbnail: '',
     })
+
+    //    description: '',
 
     const [isEdit, setIsEdit] = useState(false)  // mode
 

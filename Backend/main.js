@@ -13,7 +13,7 @@ const CourseRoute = require('./routes/CourseRoutes')
 const UserRoute = require('./routes/UserRoutes')
 const PaymentRoute = require('./routes/Payment')
 const ResetPasswordRoute = require('./routes/PasswordResetRoutes')
-
+const CourseCreationRoute = require('./routes/CourseCreation')
 
 const port = process.env.PORT || 3000;
 
@@ -34,6 +34,7 @@ app.use('/course', CourseRoute)
 app.use('/user', UserRoute)
 app.use('/payment', PaymentRoute)
 app.use('/password', ResetPasswordRoute)
+app.use('/courseCreation', CourseCreationRoute)
 
 
 app.listen(port, () => {

@@ -37,8 +37,6 @@ router.post('/info', varifyUser, async (req, res) => {
     }
 })
 
-
-
 // to fetch all courses
 router.get('/fetch', async (req, res) => {
 
@@ -53,8 +51,6 @@ router.get('/fetch', async (req, res) => {
     }
 
 })
-
-
 
 // to update course
 router.put('/update/:id', async (req, res) => {
@@ -91,8 +87,6 @@ router.put('/update/:id', async (req, res) => {
 
 })
 
-
-
 // to add lectures
 router.post('/lecture/:id', varifyUser, async (req, res) => {
     const { lectureTitle } = req.body;
@@ -126,8 +120,6 @@ router.post('/lecture/:id', varifyUser, async (req, res) => {
     }
 })
 
-
-
 // to get coursedaetails
 router.get('/courseDetails/:id', varifyUser, async (req, res) => {
     try {
@@ -146,8 +138,6 @@ router.get('/courseDetails/:id', varifyUser, async (req, res) => {
         res.status(400).json({ message: 'something went wrong', success: false, error })
     }
 })
-
-
 
 // to remove lecture
 router.delete('/removeLecture/:courseId/:lectureId', varifyUser, async (req, res) => {
@@ -172,7 +162,6 @@ router.delete('/removeLecture/:courseId/:lectureId', varifyUser, async (req, res
         res.status(400).json({ message: 'something went wrong', success: false, error })
     }
 })
-
 
 // to add videos and isFree
 router.put('/addVideo/:courseId/:lectureId', varifyUser, async (req, res) => {
@@ -212,7 +201,6 @@ router.put('/addVideo/:courseId/:lectureId', varifyUser, async (req, res) => {
     }
 })
 
-
 // to toggle course status 
 router.put('/status/:courseId', varifyUser, async (req, res) => {
     const id = req.params.courseId;
@@ -227,7 +215,7 @@ router.put('/status/:courseId', varifyUser, async (req, res) => {
 
             if (course.status === false) {
                 const allHaveVideo = course.lecture.every((lec) => lec.lectureVideo !== null)
-                if (!allHaveVideo) {
+                if (!allHaveVideo || course.lecture.length === 0) {
                     return res.status(400).json({ message: 'Each lecture must have a video before publishing', success: false })
                 }
             }
@@ -250,7 +238,6 @@ router.put('/status/:courseId', varifyUser, async (req, res) => {
     }
 })
 
-
 // search route
 router.post('/search', async (req, res) => {
     const searchedText = req.query.q
@@ -265,7 +252,6 @@ router.post('/search', async (req, res) => {
         res.status(400).json({ message: 'something went wrong', success: false, error })
     }
 })
-
 
 // 
 router.put('/toprated', varifyUser, async (req, res) => {
@@ -335,8 +321,6 @@ router.get("/courseInfo/:id", varifyUser, async (req, res) => {
     }
 })
 
-
-
 // remove course
 router.delete('/removeCourse', varifyUser, async (req, res) => {
     const { courseId } = req.body;
@@ -360,5 +344,34 @@ router.delete('/removeCourse', varifyUser, async (req, res) => {
     }
 })
 
+router.put('/outline/:courseId', varifyUser, async (req, res) => {
+    try {
+        const { description, takeaways, prerequisites } = req.body;
+        const courseId = req.params.courseId
+        if (req.user.role === 'instructor') {
+
+            const course = await CourseModel.findById(courseId);
+            if (!course) {
+                return res.status(404).json({ message: 'Course not found', success: false })
+            }
+
+            // updating course object
+            if (description !== undefined) course.description = description;
+            if (takeaways !== undefined) course.takeaways = takeaways;
+            if (prerequisites !== undefined) course.prerequisites = prerequisites;
+
+            await course.save();
+            return res.status(200).json({ message: 'Course outline added successfully', success: true })
+        }
+        else {
+            return res.status(400).json({ message: 'You are not authorized', success: false })
+        }
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+
+})
 
 module.exports = router

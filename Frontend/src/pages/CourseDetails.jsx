@@ -91,6 +91,15 @@ const CourseDetails = () => {
 
     const instructor = instuctorDetails[course.instructor]
 
+    // const cleanText = (text) => {
+    //     if (!text) return "";
+    //     return text
+    //         .replace(/\*\*/g, "")         // remove bold markers
+    //         .replace(/^\s*[-*•]\s?/gm, "• ") // normalize list markers
+    //         .replace(/\n{2,}/g, "\n")     // collapse multiple newlines
+    //         .trim();
+    // };
+
     return (
         <div>
             <Navbar />
@@ -130,37 +139,32 @@ const CourseDetails = () => {
                     <section className=''>
                         <div className="max-w-3xl mx-auto rounded-lg">
                             <h2 className="text-2xl font-bold text-gray-800">Course Description</h2>
-                            <p className="text-gray-600 leading-relaxed">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet
-                                vehicula leo, et laoreet nisl. Cras eu sapien non eros scelerisque
-                                ullamcorper sed non erat. Integer vel ante a erat interdum tempus. Fusce
-                                pretium, augue vel pellentesque fermentum, nulla ipsum varius neque, non
-                                facilisis odio purus sit amet quam. Suspendisse potenti. Maecenas sed
-                                efficitur libero, at sagittis sapien. In non urna eros. Phasellus
-                                ullamcorper orci sed neque vehicula, id efficitur mauris dictum.
-                            </p>
+                            <p className="text-gray-600 leading-relaxed">{course.description}</p>
 
                             {/* key takaways */}
                             <h2 className="text-2xl font-bold text-gray-800 mt-2">key takaways</h2>
-                            <p className="text-gray-600 leading-relaxed">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet
-                                vehicula leo, et laoreet nisl. Cras eu sapien non eros scelerisque
-                                ullamcorper sed non erat. Integer vel ante a erat interdum tempus. Fusce
-                                pretium, augue vel pellentesque fermentum, nulla ipsum varius neque, non
-                                facilisis odio purus sit amet quam. Suspendisse potenti. Maecenas sed
-                                efficitur libero, at sagittis sapien. In non urna eros. Phasellus
-                                ullamcorper orci sed neque vehicula, id efficitur mauris dictum.
-                            </p>
+                            <div className='text-gray-600 leading-relaxed'>
+                                {course.takeaways
+                                    .split('\n')
+                                    .map((line, index) => {
+                                        return (
+                                            <p key={index} className="text-gray-600 leading-relaxed">{line.trim()}</p>
+                                        )
+                                    })}
+                            </div>
 
                             {/* prerequisites */}
-                            <h2 className="text-2xl font-bold text-gray-800 mt-2">prerequisites</h2>
-                            <p className="text-gray-600 leading-relaxed">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet
-                                vehicula leo, et laoreet nisl. Cras eu sapien non eros scelerisque
-                                ullamcorper sed non erat. Integer vel ante a erat interdum tempus. Fusce
-                                pretium, augue vel pellentesque fermentum, nulla ipsum varius neque, non
-                                facilisis odio purus sit amet quam. Suspendisse potenti.
-                            </p>
+                            <h2 className="text-2xl font-bold text-gray-800 mt-2">Prerequisites</h2>
+                            <div className='text-gray-600 leading-relaxed'>
+                                {course.prerequisites
+                                    .split('\n')
+                                    .map((line, index) => {
+                                        return (
+                                            <p key={index} className="text-gray-600 leading-relaxed">{line.trim()}</p>
+                                        )
+                                    })}
+                            </div>
+
                         </div>
                     </section>
 
@@ -181,7 +185,6 @@ const CourseDetails = () => {
                     </div>
 
                 </div>
-
 
 
                 {/* right */}

@@ -13,7 +13,7 @@ const AllCourses = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext);
-    
+
     const navigate = useNavigate()
 
     const [options, setOptions] = useState(null)

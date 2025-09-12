@@ -18,6 +18,9 @@ const AddCourses = () => {
     console.log(isEdit)
     // console.log(courseDetails)
 
+
+    //   navigate(`/instructor/add-lectures/${course._id}`);
+
     function handleChange(e) {
         setCourseDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
@@ -49,8 +52,8 @@ const AddCourses = () => {
                     });
                     setIsEdit(false);
                     setTimeout(() => {
-                        navigate(`/instructor/add-lectures/${course._id}`);
-                    }, 1500);
+                        navigate(`/instructor/course-outline/${course._id}`, { state: course });
+                    }, 1000);
                 }
 
             }
@@ -76,8 +79,8 @@ const AddCourses = () => {
                         theme: "dark",
                     });
                     setTimeout(() => {
-                        navigate(`/instructor/add-lectures/${course._id}`);
-                    }, 1500);
+                        navigate(`/instructor/course-outline/${course._id}`, { state: course });
+                    }, 1000);
                 }
             }
         }
@@ -175,19 +178,19 @@ const AddCourses = () => {
                                     </select>
                                 </div>
 
-                                {/* price */}
-                                <div className='flex flex-col gap-1'>
-                                    <label className='font-semibold text-lg'>Price</label>
-                                    <input value={courseDetails.price} onChange={handleChange} name='price' className='w-40 border-2 border-gray-200 rounded-lg px-2 outline-none bg-white text-black' type="number" placeholder='Enter Price' />
-                                </div>
-
                             </div>
 
-                            {/* description */}
+                            {/* price */}
+                            <div className='flex flex-col gap-1'>
+                                <label className='font-semibold text-lg'>Price</label>
+                                <input value={courseDetails.price} onChange={handleChange} name='price' className='w-40 border-2 border-gray-200 rounded-lg px-2 outline-none bg-white text-black' type="number" placeholder='Enter Price' />
+                            </div>
+
+                            {/* description
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Course Description</label>
                                 <input value={courseDetails.description} onChange={handleChange} name='description' className='outline-none border-2 border-gray-200 rounded-md px-2 bg-white text-black' type="text" placeholder='Enter description of your course' />
-                            </div>
+                            </div> */}
 
                             {/*thumbnail url*/}
                             <div className='flex flex-col'>
@@ -200,7 +203,7 @@ const AddCourses = () => {
                                 <button onClick={() => handleClear()} className='text-white font-semibold rounded-lg px-2 py-1 bg-black'>Clear</button>
 
                                 {/* to='/instructor/add-lectures' */}
-                                <button onClick={() => handleClick()} className='bg-black text-white font-semibold rounded-lg px-2 py-1'>{isEdit ? 'Updated' : 'Create'}</button>
+                                <button onClick={() => handleClick()} className='bg-black text-white font-semibold rounded-lg px-2 py-1'>{isEdit ? 'Updated' : 'Next'}</button>
                             </div>
 
                         </div>

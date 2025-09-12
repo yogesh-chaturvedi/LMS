@@ -25,7 +25,15 @@ const CourseSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true
+
+    },
+    takeaways: {
+        type: String,
+
+    },
+    prerequisites: {
+        type: String,
+
     },
     thumbnail: {
         type: String,

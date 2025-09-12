@@ -22,6 +22,7 @@ import Profile from './pages/Profile'
 import Success from './pages/Success'
 import Cancel from './pages/Cancel'
 import AllUsers from './pages/Dashboard/AllUsers'
+import CourseOutline from './pages/Instructor/CourseOutline'
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
       <Route element={<InstructorProtectedRoutes />}>
         <Route path='/instructor/add-courses' element={<AddCourses />} />
         <Route path='/instructor/my-courses' element={<MyCourses />} />
+        <Route path='/instructor/course-outline/:courseId' element={<CourseOutline />} />
         <Route path='/instructor/add-lectures/:courseId' element={<AddLectures />} />
         <Route path='/instructor/add-lectures/:courseId/:lectureId' element={<AddLectures />} />
         <Route path='/instructor/edit-lectures/:courseId/:lectureId' element={<EditLecture />} />
