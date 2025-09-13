@@ -374,4 +374,35 @@ router.put('/outline/:courseId', varifyUser, async (req, res) => {
 
 })
 
+
+//  to get current lecture
+router.get('/currentLecture/:courseId/:lectureId', varifyUser, async (req, res) => {
+    try {
+        const courseId = req.params.courseId
+        const lectureId = req.params.lectureId
+        if (req.user.role) {
+
+            const course = await CourseModel.findById(courseId);
+            if (!course) {
+                return res.status(404).json({ message: 'Course not found', success: false })
+            }
+
+            const currentLecture = course.lecture.find((lectures) => lectures._id.toString() === lectureId)
+
+            if (!currentLecture) {
+                return res.status(404).json({ message: 'Lecture not found', success: false })
+            }
+
+            return res.status(200).json({ message: 'Your current lecture is fetched', success: true, currentLecture })
+        }
+        else {
+            return res.status(404).json({ message: 'You are not authorized', success: false })
+        }
+    }
+    catch (error) {
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+
+})
 module.exports = router

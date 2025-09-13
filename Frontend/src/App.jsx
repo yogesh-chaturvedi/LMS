@@ -41,7 +41,7 @@ function App() {
       {/* users can only access if they are logged in  */}
       <Route element={<ProtectedRoutes />}>
         <Route path='/course-details/:id' element={<CourseDetails />} />
-        <Route path='/course-progress/:id' element={<CourseProgress />} />
+        <Route path='/course-progress/:courseId/:lectureId' element={<CourseProgress />} />
         <Route path='/profile' element={<Profile />} />
       </Route>
 

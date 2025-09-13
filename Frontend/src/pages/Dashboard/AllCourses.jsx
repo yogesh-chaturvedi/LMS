@@ -122,7 +122,7 @@ const AllCourses = () => {
                                     <h2 className="font-bold text-xl text-gray-800">{courses.title}</h2>
 
                                     {/* Description */}
-                                    <p className="text-sm text-gray-600">{courses.description}</p>
+                                    <p className="text-sm text-gray-600 h-11 line-clamp-2">{courses.description}</p>
 
                                     {/* Instructor */}
                                     <p className="text-gray-700">Instructor: <span className="font-semibold">{instructor ? instructor.name : 'Loading...'}</span></p>

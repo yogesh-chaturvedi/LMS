@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { Camera, PlayCircle } from 'lucide-react'
-import { Link, useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios'
 import { AuthContext } from '../context/AuthContext'
@@ -23,6 +23,8 @@ const CourseDetails = () => {
     // stores the data
     const course = location.state || null;
     console.log(course)
+
+    const navigate = useNavigate()
 
     // for stripe payment
     async function handleCheckOut(role) {
@@ -99,6 +101,12 @@ const CourseDetails = () => {
     //         .replace(/\n{2,}/g, "\n")     // collapse multiple newlines
     //         .trim();
     // };
+
+
+    function goToCourseProgress(courseId, lectureId) {
+        navigate(`/course-progress/${courseId}/${lectureId}`, {state:course})
+    }
+
 
     return (
         <div>
@@ -211,7 +219,7 @@ const CourseDetails = () => {
 
                         {/* to show buy or purchase */}
                         {user.purchasedCourses.length > 0 && user.purchasedCourses.includes(id) ? (<div className='text-center'>
-                            <Link to={`/course-progress/${id}`} state={course} className='bg-green-500 hover:bg-green-600 px-2 rounded-lg text-lg font-medium'>Continue Course</Link>
+                            <button onClick={() => goToCourseProgress(id, course.lecture[0]._id)} className='bg-green-500 hover:bg-green-600 px-2 rounded-lg text-lg font-medium'>Continue Course</button>
                         </div>) : (<div className='text-center'>
                             <button onClick={() => handleCheckOut(user.role)} type='button' className='bg-green-500 hover:bg-green-600 px-2 rounded-lg text-lg font-medium'>Buy Course</button>
                         </div>)}
