@@ -67,9 +67,9 @@ const HeroSection = () => {
 
 
   return (
-    <section className="bg-gray-100 text-center px-28 py-16">
+    <section className="bg-gray-100 text-center px-5 lg:px-28 py-16">
       {/* Main Title */}
-      <h1 className="text-4xl font-bold text-gray-800">Learn Without Limits</h1>
+      <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 ">Learn Without Limits</h1>
 
       {/* Mini Title */}
       <p className="text-lg text-gray-600 mt-2">

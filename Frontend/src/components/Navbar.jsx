@@ -83,7 +83,7 @@ const Navbar = () => {
     return (
         <div>
 
-            <nav className="bg-gray-900 border-b border-gray-400 px-28 shadow-md  py-3 flex justify-between items-center">
+            <nav className="bg-gray-900 border-b border-gray-400 px-5 lg:px-28 shadow-md py-3 flex justify-between items-center">
                 {/* Logo / Platform Name */}
                 <h1 onClick={() => GoToHome()} className="text-2xl font-bold text-blue-600 cursor-pointer">eLearning</h1>
 

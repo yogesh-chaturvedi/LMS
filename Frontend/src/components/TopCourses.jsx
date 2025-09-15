@@ -18,7 +18,7 @@ const TopCourses = () => {
 
 
     return (
-        <section className="bg-gray-200 py-20 px-28">
+        <section className="bg-gray-200 py-20 px-5 lg:px-28">
             {/* Heading */}
             <h2 className="text-3xl text-gray-800 font-bold text-center mb-12">
                 Top Courses
