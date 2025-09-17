@@ -116,18 +116,18 @@ const AddCourses = () => {
 
             <Navbar />
 
-            <div className='flex'>
+            <div className='flex bg-gray-50 '>
 
                 {/* sidebar */}
                 <InstructorSidebar />
 
                 {/* right  */}
-                <div className='bg-gray-50 px-28 flex-1 py-10 flex gap-4 flex-col'>
+                <div className='px-5 lg:px-28  w-full md:w-[70vw] flex-1 py-3 flex gap-4 flex-col'>
 
-                    <div className='flex justify-between'>
+                    {/* <div className='flex justify-between'>
                         <h2 className='text-2xl font-bold text- pl-1'>Add details information regarding course</h2>
                         <button className='text-white font-semibold hover:underline bg-gray-800 hover:bg-gray-700  px-2 rounded-lg'>Go to lecture page</button>
-                    </div>
+                    </div> */}
 
                     <div className='text-black bg-gray-200 rounded-xl p-4 border border-gray-200 shadow-xl'>
 
@@ -151,12 +151,12 @@ const AddCourses = () => {
                             </div>
 
                             {/* category and level */}
-                            <div className='flex gap-5'>
+                            <div className='flex flex-col sm:flex-row gap-5 w-full'>
 
                                 {/* category */}
-                                <div className='flex flex-col gap-1'>
+                                <div className='flex flex-col gap-1 w-[160px] sm:w-[200px]'>
                                     <label className='font-semibold text-xl'>Category</label>
-                                    <select value={courseDetails.category} onChange={handleChange} name="category" className='w-40 border-2 border-gray-200 outline-none bg-white text-black rounded-md' id="category">
+                                    <select value={courseDetails.category} onChange={handleChange} name="category" className='w-full border-2 border-gray-200 outline-none bg-white text-black rounded-md' id="category">
                                         <option value="">Select a Category</option>
                                         <option value="Web Development">Web Development</option>
                                         <option value="Data Science">Data Science</option>
@@ -168,9 +168,9 @@ const AddCourses = () => {
                                 </div>
 
                                 {/* level */}
-                                <div className='flex flex-col gap-1'>
+                                <div className='flex flex-col gap-1 w-[160px] sm:w-[200px]'>
                                     <label className='font-semibold text-xl'>Level</label>
-                                    <select value={courseDetails.level} onChange={handleChange} className='w-32 border-2 border-gray-200 outline-none bg-white text-black rounded-md ' name="level" id="level">
+                                    <select value={courseDetails.level} onChange={handleChange} className='w-full border-2 border-gray-200 outline-none bg-white text-black rounded-md ' name="level" id="level">
                                         <option value="">Select a Level</option>
                                         <option value="Beginner">Beginner</option>
                                         <option value="Intermediate">Intermediate</option>
@@ -185,12 +185,6 @@ const AddCourses = () => {
                                 <label className='font-semibold text-lg'>Price</label>
                                 <input value={courseDetails.price} onChange={handleChange} name='price' className='w-40 border-2 border-gray-200 rounded-lg px-2 outline-none bg-white text-black' type="number" placeholder='Enter Price' />
                             </div>
-
-                            {/* description
-                            <div className='flex flex-col'>
-                                <label className='font-semibold text-lg'>Course Description</label>
-                                <input value={courseDetails.description} onChange={handleChange} name='description' className='outline-none border-2 border-gray-200 rounded-md px-2 bg-white text-black' type="text" placeholder='Enter description of your course' />
-                            </div> */}
 
                             {/*thumbnail url*/}
                             <div className='flex flex-col'>

@@ -27,11 +27,9 @@ const CourseOutline = () => {
     })
     console.log(courseOutlines)
 
-
     function handleOnchange(e) {
         setCourseOutlines((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
-
 
     // function to saperate things 
     function parseAIAnswer(answer) {
@@ -55,7 +53,6 @@ const CourseOutline = () => {
             prerequisites: cleanText(prerequisitesMatch ? prerequisitesMatch[1].trim() : "")
         };
     }
-
 
     async function callingGemini(category, level, title, subTitle) {
         try {
@@ -129,17 +126,17 @@ const CourseOutline = () => {
 
             <Navbar />
 
-            <div className='flex'>
+            <div className='flex bg-gray-50'>
 
                 {/* left sidebar */}
                 <InstructorSidebar />
 
                 {/* right */}
-                <div className="border-2 border-red-500 flex-1 px-28 py-6 flex flex-col space-y-6 bg-gray-50">
+                <div className=" flex-1 px-5 lg:px-28 py-3 flex flex-col space-y-6">
 
                     {/* Heading */}
-                    <div className="text-center">
-                        <h1 className="text-2xl font-bold text-gray-800">
+                    <div className="text-center ">
+                        <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
                             ✨ AI Co-Pilot Suggestions
                         </h1>
                         <p className="text-gray-600 text-sm mt-2">

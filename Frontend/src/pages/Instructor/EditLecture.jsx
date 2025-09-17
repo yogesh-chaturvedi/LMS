@@ -115,13 +115,13 @@ const EditLecture = () => {
         <div>
             <Navbar />
 
-            <div className='flex'>
+            <div className='flex bg-gray-50'>
 
                 {/* sidebar */}
                 <InstructorSidebar />
 
-                <div className=' bg-gray-50 px-28 flex-1 py-10'>
-                    <div className='text-black bg-gray-100 rounded-xl p-4 border border-gray-100 shadow-xl'>
+                <div className='px-5 lg:px-28 flex-1 py-3 min-h-screen'>
+                    <div className='text-black bg-gray-100 rounded-xl p-4 shadow-xl'>
 
                         {/* heading */}
                         <h3 className='font-bold text-2xl text-black'>Edit Lectures</h3>
@@ -134,13 +134,13 @@ const EditLecture = () => {
                             {/* title */}
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Title</label>
-                                <input value={lectureName} className='outline-none text-black bg-white border-2 border-gray-200 rounded-md px-2' type="text" placeholder='Enter Title of your course' />
+                                <input value={lectureName} className='w-full sm:w-72 outline-none text-black bg-white border-2 border-gray-200 rounded-md px-2' type="text" placeholder='Enter Title of your course' />
                             </div>
 
                             {/* video url */}
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Video</label>
-                                <input value={videoUrl} onChange={handleChange} className='w-72 outline-none text-balck bg-white border-2 border-gray-200 rounded-md px-2' type="url" placeholder='Enter Video url' />
+                                <input value={videoUrl} onChange={handleChange} className='w-full sm:w-72 outline-none text-balck bg-white border-2 border-gray-200 rounded-md px-2' type="url" placeholder='Enter Video url' />
                             </div>
 
                             <div className="flex items-center gap-2">

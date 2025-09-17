@@ -84,7 +84,7 @@ const Courses = () => {
                 <div className='flex justify-between gap-4 px-5 lg:px-28 py-2 h-[91vh] bg-gray-50  '>
 
                     {/* left  */}
-                    <div className={`fixed md:static top-28 left-0 h-full w-[220px] bg-gray-50 shadow-lg md:shadow-none z-[50] md:z-auto md:flex flex-col gap-2 ${menu ? 'flex' : 'hidden'}`}>
+                    <div className={`fixed md:static top-16 transition-all duration-300 left-0 h-full w-[240px] bg-gray-50 shadow-lg md:shadow-none z-[50] md:z-auto md:flex flex-col gap-2 ${menu ? 'flex' : 'hidden'}`}>
 
                         {/* filter */}
                         <div className='px-2'>
@@ -127,7 +127,7 @@ const Courses = () => {
                                 const instructor = instuctorDetails[courses.instructor]
                                 return <div onClick={() => handleClick(courses)} key={index} className="w-[80vw]  sm:w-[300px] flex items-center flex-col gap-1 md:flex-row md:gap-4 cursor-pointer border border-gray-300 rounded-xl shadow-lg py-4 px-2 sm:p-4 md:w-full md:h-[160px]">
                                     {/* Image (Left) */}
-                                    <img src={`${courses.thumbnail}`} alt="course thumbnail" className="w-[76vw] sm:w-[200px] sm:h-[120px] md:w-48 md:h-32 object-cover rounded-lg shadow-md" />
+                                    <img src={`${courses.thumbnail}`} alt="course thumbnail" className="w-[76vw] sm:w-[250px] sm:h-[120px] md:w-48 md:h-32 object-cover rounded-lg shadow-md" />
 
                                     {/* Content (Right) */}
                                     <div className="flex flex-col">

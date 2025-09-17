@@ -107,30 +107,38 @@ const Profile = () => {
     return (
         <div>
 
-            {/* <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" /> */}
+            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
 
             <Navbar />
+            <div className="bg-gray-50 pt-9 pb-6 px-5 lg:px-28 flex flex-col gap-3 min-h-screen">
 
-            <div className='bg-gray-50 px-28 flex flex-col gap-3 justify-center h-[91vh]'>
 
                 {/* user info */}
-                <div className="p-6">
+                <div className="">
                     {/* Heading */}
                     <h1 className="text-2xl text-black font-bold mb-3">Profile</h1>
 
                     {/* Profile Card */}
                     <div className="flex bg-gray-100 items-center gap-6 p-6 shadow-md rounded-2xl">
-                        {/* User Image */}
-                        <img src={user.profileImage} alt="profile-Image" className="w-24 h-24 rounded-full border border-gray-300 object-cover" />
 
-                        {/* User Info */}
-                        <div className="flex-1">
-                            <h2 className="text-xl font-semibold text-black">{user.name}</h2>
-                            <p className="text-black">{user.email}</p>
-                            <p className="text-sm text-black mt-1">Role: {user.role}</p>
+                        <div className='flex flex-col sm:flex-row gap-2 sm:justify-between items-start sm:items-center w-full '>
+                            {/* User Image */}
+                            <div>
+                                <img src={user.profileImage} alt="profile-Image" className="w-24 h-24 rounded-full border border-gray-300 object-cover" />
+
+                                {/* User Info */}
+                                <div className="flex-1 ">
+                                    <h2 className="text-xl font-semibold text-black">Name: {user.name}</h2>
+                                    <p className="text-black text-xl font-semibold">Email: {user.email}</p>
+                                    <p className="text-xl font-semibold text-black mt-1">Role: {user.role}</p>
+                                </div>
+                            </div>
+
+                            {/* Edit Profile Button */}
+                            <span>
+                                <button onClick={() => setEditMode(true)} className="px-5 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition">Edit Profile</button>
+                            </span>
                         </div>
-
-
 
                         {/* Popup Modal */}
                         {editMode && (
@@ -158,25 +166,21 @@ const Profile = () => {
                             </div>
                         )}
 
-
-
-                        {/* Edit Profile Button */}
-                        <button onClick={() => setEditMode(true)} className="px-5 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition">Edit Profile</button>
                     </div>
                 </div>
 
                 {/* cards */}
-                {user.role !== 'admin' ? (<div className='p-6'>
-                    {user.role === "user" ? (<div>
+                {user.role !== 'admin' ? (<div className='pt-10'>
+                    {user.role === "user" ? (<div className='flex justify-center sm:justify-normal flex-col items-center sm:items-start'>
                         <h1 className="text-2xl text-black font-bold mb-3">Courses you are enrolled in</h1>
-                        {purchasedCourses.length > 0 ? (<div className="flex flex-wrap gap-6 py-2">
+                        {purchasedCourses.length > 0 ? (<div className="flex justify-center sm:justify-normal flex-wrap  gap-6 py-2">
                             {purchasedCourses.map((course, index) => {
                                 const instructor = instuctorDetails[course.instructor];
 
                                 return (
                                     <div
                                         key={index}
-                                        className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition w-72"
+                                        className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition w-[75vw] sm:w-72"
                                     >
                                         <img
                                             src={course.thumbnail}

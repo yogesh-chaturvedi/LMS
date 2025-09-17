@@ -78,39 +78,54 @@ const CourseProgress = () => {
     return (
         <div>
             <Navbar />
-            <div className='bg-gray-50 flex py-12 justify-between px-28 h-[90vh]'>
+            <div className='bg-gray-50 flex gap-4 xl:flex-row flex-col items-center xl:items-start py-8 justify-between px-5 lg:px-28 h-auto xl:h-[90vh]'>
+
                 {/* left */}
-                <div className="left p-6 w-[55%] rounded-md border-2 border-gray-200 shadow-xl hover:bg-gray-100 ">
+                <div className="left p-6 w-full xl:w-[55%] rounded-md border-2 border-gray-200 shadow-xl hover:bg-gray-100 ">
 
                     {/* Title */}
-                    <h1 className="text-3xl font-bold mb-4 ">{videoTitle}</h1>
+                    <h1 title={videoTitle} className="md:text-3xl text-xl font-bold mb-4 truncate ">{videoTitle}</h1>
                     {/* Video */}
-                    <div className="aspect-w-16 aspect-h-9">
-                        <iframe width="100%" height="400" src={videos}
-                            title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    <div className="w-full">
+                        <iframe src={videos}
+                            className="w-full h-[200px] md:[250px] lg:h-[400px] rounded-md"
+                            title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
+                        </iframe>
                     </div>
 
                 </div>
 
                 {/* right */}
-                <div className='w-[40%]'>
-
-                    <div className='text-end'>
-                        <button onClick={() => handleReset(course.lecture[0]._id)} className='m-1 px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg'>Reset</button>
-                    </div>
+                <div className='w-full xl:w-[40%]'>
 
                     <div className="rounded-lg p-6 hover:bg-gray-100 shadow-xl border border-gray-200">
                         {/* Header */}
-                        <div className="mb-4">
-                            <h2 className="text-xl font-bold text-gray-800">Course Content</h2>
-                            <p className="text-sm text-gray-500">{`${course.lecture.length} Lectures`}</p>
+
+                        <div className='flex justify-between'>
+
+                            <div className="mb-4">
+                                <h2 className="text-xl font-bold text-gray-800">Course Content</h2>
+                                <p className="text-sm text-gray-500">{`${course.lecture.length} Lectures`}</p>
+                            </div>
+
+                            <div className='text-end'>
+                                <button onClick={() => handleReset(course.lecture[0]._id)} className='m-1 px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg'>Reset</button>
+                            </div>
+
                         </div>
+
+
                         {/* lectures.lectureVideo, lectures.lectureTitle, index */}
                         {/* Topics List */}
                         <ul className="space-y-3">
                             {course.lecture.map((lectures, index) => (
-                                <li onClick={() => currentLecture(courseId, lectures._id, index)} key={index} className={`flex justify-between border-2 border-gray-300 py-2.5 px-1.5 rounded-lg items-center gap-3 text-gray-700 hover:bg-gray-400 cursor-pointer transition ${lectures._id === lectureId ? "bg-gray-500" : ""}`}><div className='flex items-center gap-1.5'><PlayCircle className="w-5 h-5 text-blue-500" /><span className='w-[390px] truncate'>{lectures.lectureTitle}</span></div><span>{isCompleted.includes(index) && (
-                                    <CheckCircle className="w-5 h-5 text-green-500" />)}</span></li>
+                                <li onClick={() => currentLecture(courseId, lectures._id, index)} key={index} className={`flex relative justify-between border-2 border-gray-300 py-2.5 px-1.5 rounded-lg items-center gap-3 text-gray-700 hover:bg-gray-400 cursor-pointer transition ${lectures._id === lectureId ? "bg-gray-500" : ""}`}>
+                                    <div className='flex flex-1 pr-8 w-5 items-center gap-1.5'>
+                                        <PlayCircle className="w-5 h-5 shrink-0 text-blue-500" />
+                                        <span className='truncate overflow-hidden whitespace-nowrap'>{lectures.lectureTitle}</span>
+                                    </div>
+                                    <span className='absolute right-2'>{isCompleted.includes(index) && (
+                                        <CheckCircle className="w-5 h-5 text-green-500" />)}</span></li>
                             ))}
                         </ul>
                     </div>

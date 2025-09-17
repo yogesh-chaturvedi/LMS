@@ -104,7 +104,7 @@ const CourseDetails = () => {
 
 
     function goToCourseProgress(courseId, lectureId) {
-        navigate(`/course-progress/${courseId}/${lectureId}`, {state:course})
+        navigate(`/course-progress/${courseId}/${lectureId}`, { state: course })
     }
 
 
@@ -115,7 +115,7 @@ const CourseDetails = () => {
             <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
 
             {/* course details hero section */}
-            <div className="bg-gray-700 text-gray-200 shadow-md p-6 w-full px-28 ">
+            <div className="bg-gray-700 text-gray-200 shadow-md p-6 w-full px-5 lg:px-28 ">
 
                 {course && (
                     <div>
@@ -138,7 +138,7 @@ const CourseDetails = () => {
             </div>
 
             {/* course details */}
-            <div className='bg-gray-50 px-28 py-10 flex justify-between w-full'>
+            <div className='bg-gray-50 px-5 lg:px-28 py-10 flex md:flex-row items-center md:items-start flex-col-reverse  md:justify-between w-full'>
 
                 {/*left*/}
                 <div className='left flex flex-col gap-3'>
@@ -196,7 +196,7 @@ const CourseDetails = () => {
 
 
                 {/* right */}
-                <div className='right w-[29vw]'>
+                <div className='right w-full pb-2 md:w-[60vw] lg:w-[45vw] xl:w-[29vw] '>
                     <div className="w-full pb-3 shadow-md rounded-lg overflow-hidden border border-gray-200 max-w-md">
                         {/* Video Section */}
                         {/* <video controls className="w-full h-64 object-cover">

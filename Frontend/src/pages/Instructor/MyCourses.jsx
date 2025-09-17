@@ -107,17 +107,17 @@ const MyCourses = () => {
 
             <Navbar />
 
-            <div className='flex'>
+            <div className='flex justify-center items-start bg-gray-50'>
 
                 {/* sidebar */}
                 <InstructorSidebar />
 
                 {/* right */}
-                <div className="flex-1 bg-gray-50 px-28 overflow-auto h-[91vh] py-8">
+                <div className="flex-1 px-5 lg:px-28 overflow-x-auto min-h-screen py-3">
 
                     <h2 className='font-bold text-2xl pb-2'>My Courses</h2>
 
-                    <div className="border shadow-xl rounded-lg overflow-hidden ">
+                    <div className="border-2 border-gray-200 min-w-[500px] shadow-xl rounded-lg overflow-hidden ">
                         {/* Heading Row */}
                         <div className="flex justify-between bg-gray-100 px-4 py-3 font-bold text-lg">
                             <p className="w-1/3">Title</p>
@@ -143,8 +143,8 @@ const MyCourses = () => {
 
                                         {/* Action */}
                                         <div className="w-1/6 text-center flex items-center justify-center gap-2 text-blue-600 ">
-
-                                            <div className='flex gap-1 items-center '>
+                                            {/* gap-1 */}
+                                            <div className='flex items-center '>
                                                 {/* edit */}
                                                 <span onClick={() => { handleEdit(index, course) }} className='cursor-pointer hover:bg-gray-400 rounded-full px-2 py-1 '><UserPen size={18} color='black' /></span>
                                                 <span>|</span>

@@ -93,15 +93,15 @@ const AddLectures = () => {
         <div>
             <Navbar />
 
-            <div className='flex '>
+            <div className='flex bg-gray-50'>
 
                 {/* sidebar */}
                 <InstructorSidebar />
 
-                <div className=' bg-gray-50 px-28 flex-1 py-10'>
+                <div className='px-5 lg:px-28 flex-1 py-4 min-h-screen'>
                     <div className='text-black bg-gray-100 rounded-xl p-4 border border-gray-200 shadow-xl'>
-                        {/* heading */}
 
+                        {/* heading */}
                         <h3 className='font-bold text-2xl text-black'>Add some lectures for your course</h3>
 
                         <div className='mt-5 flex flex-col gap-4'>

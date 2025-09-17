@@ -43,16 +43,16 @@ const DashboardHome = () => {
     return (
         <div>
             <Navbar />
-            <div className='flex h-[90vh]'>
+            <div className='flex bg-gray-50'>
 
                 {/* sidebar */}
                 <Sidebar />
 
                 {/* right */}
                 {/* flex-1 for remaining width */}
-                <div className='bg-gray-50 flex flex-1 py-12 border-2 w-full'>
+                <div className='flex flex-1 py-4 w-full min-h-screen'>
 
-                    <div className='mx-auto w-[80%] flex flex-col gap-10'>
+                    <div className='mx-auto w-full px-5 lg:px-28 flex flex-col gap-10'>
                         <div className='flex gap-10 '>
                             {/* box1 */}
                             <div className='rounded-xl h-28 border-2 border-gray-500 bg-gray-500 shadow-xl p-4 py-5'>
