@@ -27,7 +27,7 @@ const Sidebar = () => {
 
                 <div className='flex justify-between border-b-2 border-gray-800 items-center mb-5 pb-2'>
                     <h1 className="text-2xl font-bold">Admin Panel</h1>
-                    <span onClick={() => handleCnacel()} className='p-1 rounded-full hover:bg-blue-600 cursor-pointer'><X size={24} color='black' /></span>
+                    <span onClick={() => handleCnacel()} className={`p-1 rounded-full hover:bg-blue-600 cursor-pointer block lg:hidden`}><X size={24} color='black' /></span>
                 </div>
 
                 <nav className="flex flex-col gap-4">

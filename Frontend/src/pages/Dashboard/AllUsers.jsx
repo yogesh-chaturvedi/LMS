@@ -52,17 +52,17 @@ const AllUsers = () => {
 
             <Navbar />
 
-            <div className='flex '>
+            <div className='flex bg-gray-50'>
 
                 {/* left  */}
                 <Sidebar />
 
                 {/* right */}
-                <div className="flex-1 pl-4 pr-28 overflow-auto h-[90vh] py-8 bg-gray-50">
+                <div className="flex-1 px-5 lg:pr-28 overflow-auto py-3 min-h-screen ">
 
-                    <h2 className='text-2xl font-bold px-1 text-center pb-2 text-gray-700 hover:text-gray-800 '>All Users</h2>
+                    <h2 className='text-2xl font-bold px-1  pb-2 text-gray-700 hover:text-gray-800 '>All Users</h2>
 
-                    <div className="border rounded-lg overflow-hidden ">
+                    <div className="min-w-[550px] rounded-lg overflow-hidden">
                         {/* Heading Row */}
                         <div className="flex justify-between bg-gray-100 px-4 py-3 font-bold text-lg">
                             <p className="w-1/6">Image</p>
