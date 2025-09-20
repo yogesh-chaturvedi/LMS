@@ -113,7 +113,7 @@ const MyCourses = () => {
                 <InstructorSidebar />
 
                 {/* right */}
-                <div className="flex-1 px-5 lg:px-28 overflow-x-auto min-h-screen py-3">
+                <div className="flex-1 px-5 lg:px-28 overflow-x-auto min-h-screen lg:max-h-screen py-3">
 
                     <h2 className='font-bold text-2xl pb-2'>My Courses</h2>
 

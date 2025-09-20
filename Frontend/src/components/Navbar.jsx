@@ -83,7 +83,7 @@ const Navbar = () => {
     return (
         <div>
 
-            <nav className="bg-gray-900 border-b border-gray-400 px-5 lg:px-28 shadow-md py-3 flex justify-between items-center">
+            <nav className="bg-gray-900  px-5 lg:px-28 shadow-md py-3 flex justify-between items-center">
                 {/* Logo / Platform Name */}
                 <h1 onClick={() => GoToHome()} className="text-2xl font-bold text-blue-600 cursor-pointer">eLearning</h1>
 
@@ -94,7 +94,7 @@ const Navbar = () => {
                         <img onClick={() => handleClick()} className="h-10 w-10 border-2 border-gray-400 rounded-full object-contain" src={user.profileImage} alt="profile-Image" />
 
                         {/* dropdown */}
-                        <div className={`w-52 py-3 px-2 rounded-lg flex-col flex gap-4 bg-gray-900 absolute top-10 right-2 ${profile ? 'hidden' : 'flex'} `}>
+                        <div className={`w-52 z-50 py-3 px-2 rounded-lg flex-col flex gap-4 bg-gray-900 absolute top-10 right-2 ${profile ? 'hidden' : 'flex'} `}>
                             <span onClick={() => handleProfile()} className='cursor-pointer px-2 w-[70%] text-white text-lg rounded-md bg-emerald-600 hover:bg-emerald-700 transition'>My Profile</span>
 
 

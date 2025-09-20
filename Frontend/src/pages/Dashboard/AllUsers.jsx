@@ -58,9 +58,9 @@ const AllUsers = () => {
                 <Sidebar />
 
                 {/* right */}
-                <div className="flex-1 px-5 lg:pr-28 overflow-auto py-3 min-h-screen ">
+                <div className="flex-1 px-5 lg:pr-28 overflow-auto py-3 min-h-screen lg:max-h-screen ">
 
-                    <h2 className='text-2xl font-bold px-1  pb-2 text-gray-700 hover:text-gray-800 '>All Users</h2>
+                    <h2 className='text-2xl font-bold px-1 pb-2 text-gray-700 hover:text-gray-800 '>All Users</h2>
 
                     <div className="min-w-[550px] rounded-lg overflow-hidden">
                         {/* Heading Row */}

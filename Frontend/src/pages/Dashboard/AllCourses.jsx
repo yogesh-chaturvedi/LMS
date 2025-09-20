@@ -98,14 +98,14 @@ const AllCourses = () => {
     return (
         <div>
             <Navbar />
-            <div className='flex min-h-screen bg-gray-50'>
+            <div className='flex  bg-gray-50'>
 
                 {/* left */}
                 <Sidebar />
 
                 {/* right */}
                 {/* flex-1 for remaining width */}
-                <div className='flex flex-1 flex-col gap-4 lg:pr-28 px-5 py-4 overflow-auto'>
+                <div className='flex flex-1 flex-col gap-4 lg:pr-28 px-5 py-4 min-h-screen lg:max-h-screen overflow-auto'>
 
                     {allCourses.map((courses, index) => {
                         const instructor = instuctorDetails[courses.instructor]
