@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext';
@@ -10,10 +10,16 @@ const Navbar = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
     const navigate = useNavigate();
-    const { user, setUser, loading, setLoading } = useContext(AuthContext);
+    const { user, setUser, fetchUser, loading, setLoading } = useContext(AuthContext);
     // console.log('user' ,user)
 
     const [profile, setProfile] = useState(true)
+
+    // to relode page (so that we can get profile img in navbar)
+    useEffect(() => {
+        fetchUser()
+    }, [])
+
 
     function handleLogin() {
         navigate('/login')
@@ -91,7 +97,11 @@ const Navbar = () => {
                 <div className="space-x-4">
                     {user ? (<div className="space-x-4 flex gap-3 items-center" >
 
-                        <img onClick={() => handleClick()} className="h-10 w-10 border-2 border-gray-400 rounded-full object-contain" src={user.profileImage} alt="profile-Image" />
+                        <img onClick={() => handleClick()} className="h-10 w-10 border-2 border-gray-400 rounded-full object-cover" src={
+                            user?.profileImage?.data
+                                ? `data:${user.profileImage.contentType};base64,${user.profileImage.data}`
+                                : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                        } alt="profile-Image" />
 
                         {/* dropdown */}
                         <div className={`w-52 z-50 py-3 px-2 rounded-lg flex-col flex gap-4 bg-gray-900 absolute top-10 right-2 ${profile ? 'hidden' : 'flex'} `}>
