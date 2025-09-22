@@ -26,8 +26,10 @@ const Profile = () => {
     const [newData, setnewData] = useState({
         name: '',
         email: '',
-        imageUrl: '',
     })
+
+    const [file, setfile] = useState(null)
+
 
 
     function handleChange(e) {
@@ -35,19 +37,38 @@ const Profile = () => {
     }
     // console.log(newData)
 
+
+    function handleFileChange(e) {
+        setfile(e.target.files[0])
+    }
+
     // to edit user info
     async function handleEdit(userId) {
 
         if (newData.name === "" || newData.email === "") {
-            console.log("fields are empty")
+            toast("Fields Are Empty", {
+                position: "bottom-right",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             return;
         }
+
+        const formData = new FormData();
+        formData.append('name', newData.name)
+        formData.append('email', newData.email)
+        if (file) formData.append('photo', file)
 
         try {
             const response = await axios({
                 method: 'put',
                 url: `${BASE_URL}user/edit/${userId}`,
-                data: { newData },
+                data: formData,
                 withCredentials: true
             })
             const { message, success, user } = response.data;
@@ -96,6 +117,7 @@ const Profile = () => {
     }, [])
 
 
+    console.log('imageUrl', user.profileImage)
 
     // to get instructors details 
     useEffect(() => {
@@ -103,6 +125,8 @@ const Profile = () => {
             getInstructorInfo(courses.instructor)
         })
     }, [allCourses])
+
+
 
     return (
         <div>
@@ -124,7 +148,15 @@ const Profile = () => {
                         <div className='flex flex-col sm:flex-row gap-2 sm:justify-between items-start sm:items-center w-full '>
                             {/* User Image */}
                             <div>
-                                <img src={user.profileImage} alt="profile-Image" className="w-24 h-24 rounded-full border border-gray-300 object-cover" />
+                                <img
+                                    src={
+                                        user.profileImage.data
+                                            ? `data:${user.profileImage.contentType};base64,${user.profileImage.data}`
+                                            : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                                    }
+                                    alt="profile-Image"
+                                    className="w-24 h-24 rounded-full border border-gray-300 object-cover"
+                                />
 
                                 {/* User Info */}
                                 <div className="flex-1 ">
@@ -148,11 +180,11 @@ const Profile = () => {
 
                                     {/* Example form (you can customize fields later) */}
                                     {/* name */}
-                                    <input value={newData.name} onChange={handleChange} name='name' type="text" placeholder="Enter name" className="w-full rounded-md border p-2  mb-3" />
+                                    <input value={newData.name} onChange={handleChange} name='name' type="text" placeholder="Enter Name" className="w-full cursor-pointer rounded-md border p-2  mb-3" />
                                     {/* email */}
-                                    <input value={newData.email} onChange={handleChange} name='email' type="email" placeholder="Enter email" className="w-full border p-2 rounded-md mb-3" />
-                                    {/* role */}
-                                    <input value={newData.imageUrl} onChange={handleChange} name='imageUrl' type="url" placeholder="Enter image url" className="w-full border p-2 rounded-md mb-3" />
+                                    <input value={newData.email} onChange={handleChange} name='email' type="email" placeholder="Enter Email" className="w-full cursor-pointer border p-2 rounded-md mb-3" />
+                                    {/* image */}
+                                    <input onChange={handleFileChange} name='photo' type="file" accept='image/*' placeholder="Upload Image" className="w-[34%] border p-2 rounded-md mb-3" />
 
                                     {/* Buttons */}
                                     <div className="flex justify-end gap-3 mt-4">

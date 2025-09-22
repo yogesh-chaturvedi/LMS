@@ -29,8 +29,13 @@ const UserSchema = new mongoose.Schema({
         type: Number
     },
     profileImage: {
-        type: String,
-        default: "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        data: {
+            type: String,
+            default: "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        },
+        contentType: {
+            type: String,
+        }
     },
     // if login by user 
     purchasedCourses: [
