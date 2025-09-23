@@ -4,11 +4,19 @@ const CourseModel = require('../models/Course')
 const UserModel = require('../models/User')
 const varifyUser = require('../middleware/varifyUser');
 const { route } = require('./AuthRoutes');
+const multer = require('multer');
+const { date } = require('joi');
+
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 
 
 // to save basic information of course
-router.post('/info', varifyUser, async (req, res) => {
-    const { title, subTitle, category, level, price, description, thumbnail } = req.body;
+router.post('/info', varifyUser, upload.single('thumbnail'), async (req, res) => {
+    const { title, subTitle, category, level, price, description } = req.body;
+
     try {
         if (req.user.role === 'instructor') {
 
@@ -19,7 +27,10 @@ router.post('/info', varifyUser, async (req, res) => {
                 level: level,
                 price: price,
                 description: description,
-                thumbnail: thumbnail,
+                thumbnail: {
+                    data: req.file.buffer.toString('base64'),
+                    contentType: req.file.mimetype
+                },
                 instructor: req.user.id
             })
 
@@ -53,8 +64,8 @@ router.get('/fetch', async (req, res) => {
 })
 
 // to update course
-router.put('/update/:id', async (req, res) => {
-    const { title, subTitle, category, level, price, description, thumbnail } = req.body;
+router.put('/update/:id', upload.single('thumbnail'), async (req, res) => {
+    const { title, subTitle, category, level, price, description } = req.body;
 
     try {
 
@@ -67,7 +78,10 @@ router.put('/update/:id', async (req, res) => {
                 level: level,
                 price: price,
                 description: description,
-                thumbnail: thumbnail
+                thumbnail: {
+                    data: req.file.buffer.toString('base64'),
+                    contentType: req.file.mimetype
+                }
             },
             { new: true, runValidators: true }
         )

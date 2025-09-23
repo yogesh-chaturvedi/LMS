@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import InstructorSidebar from '../../components/InstructorSidebar'
-import { Link, useNavigate } from 'react-router-dom'
+import { Form, Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useContext } from 'react'
 import { CoursesContext } from '../../context/CoursesContext'
@@ -25,6 +25,21 @@ const AddCourses = () => {
         setCourseDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
+    const [file, setfile] = useState(null)
+
+    function handleFileChange(e) {
+        setfile(e.target.files[0])
+    }
+
+    const formData = new FormData();
+    formData.append('title', courseDetails.title)
+    formData.append('subTitle', courseDetails.subTitle)
+    formData.append('category', courseDetails.category)
+    formData.append('price', courseDetails.price)
+    formData.append('level', courseDetails.level)
+    if (file) formData.append('thumbnail', file)
+
+
     async function handleClick() {
         try {
             // edit mode
@@ -32,7 +47,7 @@ const AddCourses = () => {
                 const response = await axios({
                     method: "put",
                     url: `${BASE_URL}course/update/${courseDetails._id}`,
-                    data: courseDetails,
+                    data: formData,
                     withCredentials: true
                 })
 
@@ -52,7 +67,8 @@ const AddCourses = () => {
                     });
                     setIsEdit(false);
                     setTimeout(() => {
-                        navigate(`/instructor/course-outline/${course._id}`, { state: course });
+                        // navigate(`/instructor/course-outline/${course._id}`, { state: course });
+                        navigate('/instructor/my-courses')
                     }, 1000);
                 }
 
@@ -62,7 +78,7 @@ const AddCourses = () => {
                 const response = await axios({
                     method: 'post',
                     url: `${BASE_URL}course/info`,
-                    data: courseDetails,
+                    data: formData,
                     withCredentials: true
                 })
                 const { message, success, course } = response.data;
@@ -107,6 +123,7 @@ const AddCourses = () => {
     // function goToLecture(courseId) {
     //     navigate(`instructor/add-lectures/${courseId}`)
     // }
+
 
 
     return (
@@ -189,7 +206,7 @@ const AddCourses = () => {
                             {/*thumbnail url*/}
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Course Thumbnail</label>
-                                <input value={courseDetails.thumbnail} onChange={handleChange} name='thumbnail' className='outline-none text-black bg-white border-2 border-gray-200 rounded-md px-2' type="url" placeholder='Enter Thumbnail of your course' />
+                                <input onChange={handleFileChange} name='thumbnail' accept='image/*' className='outline-none w-[116px] text-black bg-white border-2 border-gray-200 rounded-md px-2' type="file" />
                             </div>
 
                             {/* buttons */}

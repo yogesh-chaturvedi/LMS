@@ -16,7 +16,6 @@ const CoursesContextProvider = (props) => {
         category: '',
         level: '',
         price: '',
-        thumbnail: '',
     })
 
     //    description: '',

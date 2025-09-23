@@ -1,4 +1,4 @@
-const { ref } = require('joi');
+const { ref, string } = require('joi');
 const mongoose = require('mongoose');
 
 
@@ -36,8 +36,13 @@ const CourseSchema = new mongoose.Schema({
 
     },
     thumbnail: {
-        type: String,
-        required: true
+        data: {
+            type: String,
+            required: true
+        },
+        contentType: {
+            type: String
+        }
     },
     status: {
         type: Boolean,
