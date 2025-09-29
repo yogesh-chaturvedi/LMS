@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 const AllCourses = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
+    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext);
 
     const navigate = useNavigate()
@@ -111,7 +112,7 @@ const AllCourses = () => {
                         const instructor = instuctorDetails[courses.instructor]
                         return <div key={index} className="flex relative sm:flex-row flex-col gap-2 sm:gap-4 border border-gray-300 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition p-4 bg-white w-full h-[160p]">
                             {/* Image (Left) */}
-                            <img src={`${courses.thumbnail}`} alt="courseThumbnail" className=" w-full sm:w-48 sm:h-32 object-cover rounded-lg shadow-md" />
+                            <img src={`${courses?.thumbnail?.url?`${BASE_URL2}${courses.thumbnail.url}`:''}`} alt="courseThumbnail" className=" w-full sm:w-48 sm:h-32 object-cover rounded-lg shadow-md" />
 
                             {/* Content (Right) */}
                             <div className='flex justify-between items-start w-full '>

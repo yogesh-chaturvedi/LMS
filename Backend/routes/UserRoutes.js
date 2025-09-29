@@ -5,7 +5,15 @@ const UserModel = require('../models/User')
 const multer = require('multer')
 
 
-const storage = multer.memoryStorage();
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/images')
+    },
+    filename: (req, file, cb) => {
+        const safeName = file.originalname.replace(/\s+/g, '-');
+        cb(null, Date.now() + '-' + safeName)
+    }
+});
 const upload = multer({ storage });
 
 router.put('/edit/:userId', varifyUser, upload.single('photo'), async (req, res) => {
@@ -30,23 +38,23 @@ router.put('/edit/:userId', varifyUser, upload.single('photo'), async (req, res)
             if (req.file) {
                 // converting the imag ein buffer(a long string converted from binary)
                 user.profileImage = {
-                    data: req.file.buffer.toString('base64'),
+                    url: `/uploads/images/${req.file.filename}`,
                     contentType: req.file.mimetype
                 }
             }
 
-                await user.save();
-                return res.status(200).json({ message: 'Updated', success: true, user })
-            }
-            else {
-                return res.status(400).json({ message: 'You are unauthorized', success: false })
-            }
+            await user.save();
+            return res.status(200).json({ message: 'Updated', success: true, user })
         }
+        else {
+            return res.status(400).json({ message: 'You are unauthorized', success: false })
+        }
+    }
     catch (error) {
-            console.error("error", error)
-            res.status(400).json({ message: 'something went wrong', success: false, error })
-        }
-    })
+        console.error("error", error)
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+})
 
 
 router.get('/info/:id', async (req, res) => {

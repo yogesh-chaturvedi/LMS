@@ -9,6 +9,7 @@ import { LogOut } from 'lucide-react';
 const Navbar = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
+    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const navigate = useNavigate();
     const { user, setUser, fetchUser, loading, setLoading } = useContext(AuthContext);
     // console.log('user' ,user)
@@ -98,8 +99,8 @@ const Navbar = () => {
                     {user ? (<div className="space-x-4 flex gap-3 items-center" >
 
                         <img onClick={() => handleClick()} className="h-10 w-10 border-2 border-gray-400 rounded-full object-cover" src={
-                            user?.profileImage?.data
-                                ? `data:${user.profileImage.contentType};base64,${user.profileImage.data}`
+                            user?.profileImage?.url
+                                ? `${BASE_URL2}${user.profileImage.url}`
                                 : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
                         } alt="profile-Image" />
 

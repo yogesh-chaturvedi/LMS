@@ -151,8 +151,8 @@ const Profile = () => {
                             <div>
                                 <img
                                     src={
-                                        user.profileImage.data
-                                            ? `data:${user.profileImage.contentType};base64,${user.profileImage.data}`
+                                        user?.profileImage?.url
+                                            ? `${BASE_URL2}${user.profileImage.url}`
                                             : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
                                     }
                                     alt="profile-Image"

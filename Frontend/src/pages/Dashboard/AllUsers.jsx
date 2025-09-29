@@ -11,6 +11,7 @@ import axios from 'axios'
 
 const AllUsers = () => {
     const BASE_URL = import.meta.env.VITE_API_URL;
+    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const { allUsers, setAllUsers, getAllUser } = useContext(UserContext)
 
 
@@ -80,7 +81,7 @@ const AllUsers = () => {
 
                                         {/* profileImage */}
                                         <div className='w-1/6'>
-                                            <img src={user.profileImage} alt="user-Imge" className='border-black  border w-12 h-12 rounded-full object-contain bg-gray-200 ' />
+                                            <img src={user?.profileImage?.url ? `${BASE_URL2}${user.profileImage.url}` : ''} alt="user-Image" className='border-black  border w-12 h-12 rounded-full object-contain bg-gray-200 ' />
                                         </div>
 
                                         {/* Name */}
