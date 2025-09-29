@@ -26,6 +26,7 @@ const CourseProgress = () => {
     const course = location.state || '';
 
     const [videoIndex, setvideoIndex] = useState(0)
+
     function currentLecture(courseId, currentLectureId, index) {
         navigate(`/course-progress/${courseId}/${currentLectureId}`, { state: course })
 
@@ -37,6 +38,19 @@ const CourseProgress = () => {
     }
     console.log('videoIndex', videoIndex)
     console.log('isCompleted', isCompleted)
+
+    // to sync lecture id and index
+    useEffect(() => {
+        if (course?.lecture && lectureId) {
+            const idx = course.lecture.findIndex((lec) => lec._id === lectureId)
+            if (idx !== -1) {
+                setvideoIndex(idx)
+            }
+            else {
+                setvideoIndex(0)
+            }
+        }
+    }, [course, lectureId])
 
 
     // to get current lecture info
@@ -95,8 +109,9 @@ const CourseProgress = () => {
                     <div className="w-full">
 
                         <video key={videoIndex} width='700' height='500' controls >
-                            <source src={`${BASE_URL2}${course?.lecture?.[videoIndex]?.lectureVideo?.url}`} />
+                            <source src={`${BASE_URL2}${course?.lecture?.[videoIndex]?.lectureVideo?.url}`} type={course?.lecture?.[videoIndex]?.lectureVideo?.contentType} />
                         </video>
+
                         {/* <video width='700' height='500' controls >
                             <source src={`${BASE_URL2}${videos}`} type={currentLecture?.lectureVideo?.contentType} />
                         </video> */}

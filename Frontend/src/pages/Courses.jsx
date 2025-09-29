@@ -120,7 +120,7 @@ const Courses = () => {
 
 
                     {/* right */}
-                    <div className='flex items-center flex-wrap justify-center sm:gap-3  gap-y-2 w-full min-h-[80vh] overflow-y-auto scrollbar-hide'>
+                    <div className='flex flex-wrap justify-center sm:gap-3 gap-y-2 w-full min-h-[80vh] overflow-y-auto scrollbar-hide'>
                         {filtering.length === 0 ? (
                             <p className="text-gray-800 font-bold text-2xl text-center mt-20">No courses found for selected filters</p>
                         ) : (filtering.filter((courses) => courses.status === true)

@@ -126,16 +126,16 @@ const CourseDetails = () => {
                         <h3 className="text-xl font-bold">{course.title}</h3>
 
                         {/* One-line Description */}
-                        <p className=" mt-1">This is one of the best course it will help u to become great mern developer</p>
+                        <p className="mt-1 line-clamp-2">{course.description}</p>
 
                         {/* Instructor */}
-                        <p className="mt-3 text-sm ">
-                            <span className="font-semibold">Instructor:</span> {instructor ? instructor.name : "Loading"}
+                        <p className="mt-3 ">
+                            <span className="font-semibold ">Instructor:</span> {instructor ? instructor.name : "Loading"}
                         </p>
 
-                        {/* Students Enrolled */}
+                        {/* Students Enrolled
                         <p className="text-sm ">
-                            <span className="font-semibold">Enrolled:</span>40</p>
+                            <span className="font-semibold">Enrolled:</span>40</p> */}
                     </div>
                 )}
             </div>
@@ -201,28 +201,14 @@ const CourseDetails = () => {
                 {/* right */}
                 <div className='right w-full pb-2 md:w-[60vw] lg:w-[45vw] xl:w-[29vw] '>
                     <div className="w-full pb-3 shadow-md rounded-lg overflow-hidden border border-gray-200 max-w-md">
-                        {/* Video Section */}
-                        {/* <video controls className="w-full h-64 object-cover">
-                            <source src={course?.lecture[0]?.lectureVideo} type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video> */}
 
-
+                        {/* video section */}
                         <video width="600" controls>
                             <source
                                 src={`${BASE_URL2}${course?.lecture?.[0]?.lectureVideo?.url}`}
                                 type={course?.lecture?.[0]?.lectureVideo?.contentType}
                             />
                         </video>
-                        {/* <p>{course?.lecture?.[0]?.lectureVideo?.url}</p> */}
-
-                        {/* <iframe
-                            src={course?.lecture?.[0]?.lectureVideo}
-                            title="Course Preview"
-                            className="w-full h-full rounded-lg"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe> */}
 
                         {/* Price Section */}
                         <div className="p-4">
