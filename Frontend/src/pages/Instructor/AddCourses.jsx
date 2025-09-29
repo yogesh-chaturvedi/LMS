@@ -206,7 +206,7 @@ const AddCourses = () => {
                             {/*thumbnail url*/}
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Course Thumbnail</label>
-                                <input onChange={handleFileChange} name='thumbnail' accept='image/*' className='outline-none w-[116px] text-black bg-white border-2 border-gray-200 rounded-md px-2' type="file" />
+                                <input onChange={handleFileChange} name='thumbnail' accept='image/*' type="file" />
                             </div>
 
                             {/* buttons */}

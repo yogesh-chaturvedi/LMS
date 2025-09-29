@@ -12,6 +12,7 @@ import { CoursesContext } from '../context/CoursesContext'
 const Profile = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
+    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const { user, setUser, loading, setLoading, fetchUser } = useContext(AuthContext);
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext);
 
@@ -215,7 +216,7 @@ const Profile = () => {
                                         className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition w-[75vw] sm:w-72"
                                     >
                                         <img
-                                            src={course.thumbnail}
+                                            src={course?.thumbnail?.url ? `${BASE_URL2}${course.thumbnail.url}` : ''}
                                             alt="courseThumbnail"
                                             className="w-full h-44 object-cover"
                                         />
@@ -271,7 +272,7 @@ const Profile = () => {
                                             className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition w-72"
                                         >
                                             <img
-                                                src={course.thumbnail}
+                                                src={course?.thumbnail?.url ? `${BASE_URL2}${course.thumbnail.url}` : ''}
                                                 alt="courseThumbnail"
                                                 className="w-full h-44 object-cover"
                                             />

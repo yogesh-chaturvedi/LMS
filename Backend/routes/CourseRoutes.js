@@ -8,13 +8,34 @@ const multer = require('multer');
 const { date } = require('joi');
 
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+// for image uplode 
+const imageStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/images');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + "-" + file.originalname);
+    }
+});
+const imageUpload = multer({ storage: imageStorage });
 
+
+// for video uplode 
+// For Videos → stored on disk
+const videoStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/videos"); // folder for videos
+    },
+    filename: (req, file, cb) => {
+        const safeName = file.originalname.replace(/\s+/g, '-');
+        cb(null, Date.now() + "-" + safeName);
+    },
+});
+const uploadVideo = multer({ storage: videoStorage });
 
 
 // to save basic information of course
-router.post('/info', varifyUser, upload.single('thumbnail'), async (req, res) => {
+router.post('/info', varifyUser, imageUpload.single('thumbnail'), async (req, res) => {
     const { title, subTitle, category, level, price, description } = req.body;
 
     try {
@@ -28,7 +49,7 @@ router.post('/info', varifyUser, upload.single('thumbnail'), async (req, res) =>
                 price: price,
                 description: description,
                 thumbnail: {
-                    data: req.file.buffer.toString('base64'),
+                    url: `/uploads/images/${req.file.filename}`,
                     contentType: req.file.mimetype
                 },
                 instructor: req.user.id
@@ -64,7 +85,7 @@ router.get('/fetch', async (req, res) => {
 })
 
 // to update course
-router.put('/update/:id', upload.single('thumbnail'), async (req, res) => {
+router.put('/update/:id', imageUpload.single('thumbnail'), async (req, res) => {
     const { title, subTitle, category, level, price, description } = req.body;
 
     try {
@@ -79,7 +100,7 @@ router.put('/update/:id', upload.single('thumbnail'), async (req, res) => {
                 price: price,
                 description: description,
                 thumbnail: {
-                    data: req.file.buffer.toString('base64'),
+                    url: `/uploads/images/${req.file.filename}`,
                     contentType: req.file.mimetype
                 }
             },
@@ -178,8 +199,8 @@ router.delete('/removeLecture/:courseId/:lectureId', varifyUser, async (req, res
 })
 
 // to add videos and isFree
-router.put('/addVideo/:courseId/:lectureId', varifyUser, async (req, res) => {
-    const { videoUrl, isFree } = req.body
+router.put('/addVideo/:courseId/:lectureId', uploadVideo.single('video'), varifyUser, async (req, res) => {
+    const { isFree } = req.body
     const CourseId = req.params.courseId;
     const LectureId = req.params.lectureId;
     try {
@@ -198,8 +219,11 @@ router.put('/addVideo/:courseId/:lectureId', varifyUser, async (req, res) => {
             }
 
             // addinf video and status also
-            lecture.lectureVideo = videoUrl,
-                lecture.isFree = isFree
+            lecture.lectureVideo = {
+                url: `/uploads/videos/${req.file.filename}`,
+                contentType: req.file.mimetype
+            }
+            lecture.isFree = isFree
 
             await course.save();
             return res.status(200).json({ message: 'Lecture video updated successfully', success: true, course });

@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { CheckCircle, PlayCircle } from 'lucide-react'
+import { CheckCircle, Fullscreen, PlayCircle } from 'lucide-react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
 
 const CourseProgress = () => {
     const BASE_URL = import.meta.env.VITE_API_URL;
+    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const { courseId, lectureId } = useParams()
     console.log(courseId, lectureId)
 
@@ -24,15 +25,17 @@ const CourseProgress = () => {
     const location = useLocation();
     const course = location.state || '';
 
-
+    const [videoIndex, setvideoIndex] = useState(0)
     function currentLecture(courseId, currentLectureId, index) {
         navigate(`/course-progress/${courseId}/${currentLectureId}`, { state: course })
+
+        setvideoIndex(index)
 
         if (!isCompleted.includes(index)) {
             setIsCompleted((prev) => ([...prev, index]))
         }
     }
-
+    console.log('videoIndex', videoIndex)
     console.log('isCompleted', isCompleted)
 
 
@@ -50,7 +53,7 @@ const CourseProgress = () => {
                     console.log(message);
                     setCurrentLecture(currentLecture)
                     setVideoTitle(currentLecture.lectureTitle)
-                    setVideos(currentLecture.lectureVideo)
+                    setVideos(currentLecture.lectureVideo.url)
                 }
             }
             catch (error) {
@@ -68,10 +71,13 @@ const CourseProgress = () => {
         setflag(false)
     }, [course]);
 
+    console.log(videos)
+
 
     // to reset completed video
     function handleReset(lectureId) {
         setIsCompleted([0])
+        setvideoIndex(0)
         navigate(`/course-progress/${courseId}/${lectureId}`, { state: course })
     }
 
@@ -87,10 +93,14 @@ const CourseProgress = () => {
                     <h1 title={videoTitle} className="md:text-3xl text-xl font-bold mb-4 truncate ">{videoTitle}</h1>
                     {/* Video */}
                     <div className="w-full">
-                        <iframe src={videos}
-                            className="w-full h-[200px] md:[250px] lg:h-[400px] rounded-md"
-                            title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
-                        </iframe>
+
+                        <video key={videoIndex} width='700' height='500' controls >
+                            <source src={`${BASE_URL2}${course?.lecture?.[videoIndex]?.lectureVideo?.url}`} />
+                        </video>
+                        {/* <video width='700' height='500' controls >
+                            <source src={`${BASE_URL2}${videos}`} type={currentLecture?.lectureVideo?.contentType} />
+                        </video> */}
+
                     </div>
 
                 </div>
@@ -125,7 +135,8 @@ const CourseProgress = () => {
                                         <span className='truncate overflow-hidden whitespace-nowrap'>{lectures.lectureTitle}</span>
                                     </div>
                                     <span className='absolute right-2'>{isCompleted.includes(index) && (
-                                        <CheckCircle className="w-5 h-5 text-green-500" />)}</span></li>
+                                        <CheckCircle className="w-5 h-5 text-green-500" />)}</span>
+                                </li>
                             ))}
                         </ul>
                     </div>

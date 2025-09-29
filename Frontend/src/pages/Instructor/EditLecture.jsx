@@ -16,7 +16,7 @@ const EditLecture = () => {
     const { courseId, lectureId } = useParams();
     // console.log("edit lecture ", courseId)
 
-    const [videoUrl, setVideoUrl] = useState('')
+    // const [videoUrl, setVideoUrl] = useState('')
 
     const navigate = useNavigate();
 
@@ -34,7 +34,13 @@ const EditLecture = () => {
     function handleCheckBox(e) {
         setIsFree(e.target.checked)
     }
-    console.log('isFree', isFree)
+    // console.log('isFree', isFree)
+
+    const [video, setvideo] = useState(null)
+
+    function handleVideoChange(e) {
+        setvideo(e.target.files[0])
+    }
 
 
     // to remove lecture
@@ -58,15 +64,14 @@ const EditLecture = () => {
     }
 
     // to set video url
-    function handleChange(e) {
-        setVideoUrl(e.target.value)
-    }
+    // function handleChange(e) {
+    //     setVideoUrl(e.target.value)
+    // }
+    // console.log(videoUrl)
 
-    console.log(videoUrl)
+    async function addVideo(isFree) {
 
-    async function addVideo(videoUrl, isFree) {
-
-        if (videoUrl === '') {
+        if (video === '') {
             toast('Add Video', {
                 position: "top-center",
                 autoClose: 1500,
@@ -84,7 +89,7 @@ const EditLecture = () => {
             const response = await axios({
                 method: 'put',
                 url: `${BASE_URL}course/addVideo/${courseId}/${lectureId}`,
-                data: { videoUrl, isFree },
+                data: formData,
                 withCredentials: true
             })
             const { message, success, course } = response.data;
@@ -110,6 +115,11 @@ const EditLecture = () => {
             console.log("there is an error", error)
         }
     }
+
+    const formData = new FormData();
+    formData.append('isFree', isFree)
+    if (video) formData.append('video', video)
+
 
     return (
         <div>
@@ -140,7 +150,7 @@ const EditLecture = () => {
                             {/* video url */}
                             <div className='flex flex-col'>
                                 <label className='font-semibold text-lg'>Video</label>
-                                <input value={videoUrl} onChange={handleChange} className='w-full sm:w-72 outline-none text-balck bg-white border-2 border-gray-200 rounded-md px-2' type="url" placeholder='Enter Video url' />
+                                <input onChange={handleVideoChange} name='LectureVideo' accept='video/*' type="file" />
                             </div>
 
                             <div className="flex items-center gap-2">
@@ -152,9 +162,8 @@ const EditLecture = () => {
                             {/* buttons */}
                             {/* to='/instructor/my-courses' */}
                             <div className='flex gap-2'>
-                                <button onClick={() => addVideo(videoUrl, isFree)} className='bg-black text-white font-semibold rounded-lg px-2 py-1'>Update Lecture</button>
+                                <button onClick={() => addVideo(isFree)} className='bg-black text-white font-semibold rounded-lg px-2 py-1'>Update Lecture</button>
                             </div>
-
 
                         </div>
                     </div>

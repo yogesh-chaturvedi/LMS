@@ -5,6 +5,8 @@ import { CoursesContext } from '../context/CoursesContext';
 
 const TopCourses = () => {
 
+    const BASE_URL = import.meta.env.VITE_API_URL;
+    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext);
 
 
@@ -24,7 +26,7 @@ const TopCourses = () => {
                 Top Courses
             </h2>
 
-            {/* Course Cards Grid */}
+            {/* Course Cards */}
             <div className="flex flex-wrap gap-8 justify-center">
                 {allCourses
                     .filter((courses) => courses.topCourses === true && courses.status === true)
@@ -36,10 +38,13 @@ const TopCourses = () => {
                                 className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition w-72"
                             >
                                 <img
-                                    src={course.thumbnail}
+                                    src={
+                                        course?.thumbnail?.url ? `${BASE_URL2}${course.thumbnail.url}` : ''
+                                    }
                                     alt="courseThumbnail"
                                     className="w-full h-44 object-cover"
                                 />
+
 
                                 <div className="px-4 py-3 flex flex-col gap-2">
                                     {/* Title */}

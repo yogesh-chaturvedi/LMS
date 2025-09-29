@@ -5,6 +5,8 @@ dotenv.config();
 require('./models/db')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const fs = require("fs");
+const path = require('path');
 const Cookies = require('cookies')
 const cookieParser = require('cookie-parser')
 const AuthRoute = require('./routes/AuthRoutes')
@@ -16,6 +18,12 @@ const ResetPasswordRoute = require('./routes/PasswordResetRoutes')
 const CourseCreationRoute = require('./routes/CourseCreation')
 
 const port = process.env.PORT || 3000;
+
+
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+
 
 app.use(cookieParser())
 app.use(bodyParser.json()) // to parse the requests which comes from the frontend...

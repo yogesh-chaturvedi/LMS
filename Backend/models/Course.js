@@ -36,7 +36,7 @@ const CourseSchema = new mongoose.Schema({
 
     },
     thumbnail: {
-        data: {
+        url: {
             type: String,
             required: true
         },
@@ -64,8 +64,12 @@ const CourseSchema = new mongoose.Schema({
                 required: true
             },
             lectureVideo: {
-                type: String,
-                default: null
+                url: {
+                    type: String
+                },
+                contentType: {
+                    type: String
+                }
             },
             isFree: {
                 type: Boolean,

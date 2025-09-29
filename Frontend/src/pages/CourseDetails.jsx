@@ -11,6 +11,7 @@ import { CoursesContext } from '../context/CoursesContext'
 
 const CourseDetails = () => {
     const BASE_URL = import.meta.env.VITE_API_URL;
+    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const { user, setUser, loading, setLoading, fetchUser } = useContext(AuthContext);
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext)
 
@@ -39,6 +40,7 @@ const CourseDetails = () => {
                 progress: undefined,
                 theme: "dark",
             });
+            return
         }
         if (role === "admin") {
             toast(`Admin Can't Buy Course`, {
@@ -51,6 +53,7 @@ const CourseDetails = () => {
                 progress: undefined,
                 theme: "dark",
             });
+            return
         }
 
         if (user.purchasedCourses.includes(id)) {
@@ -203,13 +206,23 @@ const CourseDetails = () => {
                             <source src={course?.lecture[0]?.lectureVideo} type="video/mp4" />
                             Your browser does not support the video tag.
                         </video> */}
-                        <iframe
+
+
+                        <video width="600" controls>
+                            <source
+                                src={`${BASE_URL2}${course?.lecture?.[0]?.lectureVideo?.url}`}
+                                type={course?.lecture?.[0]?.lectureVideo?.contentType}
+                            />
+                        </video>
+                        {/* <p>{course?.lecture?.[0]?.lectureVideo?.url}</p> */}
+
+                        {/* <iframe
                             src={course?.lecture?.[0]?.lectureVideo}
                             title="Course Preview"
                             className="w-full h-full rounded-lg"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
-                        ></iframe>
+                        ></iframe> */}
 
                         {/* Price Section */}
                         <div className="p-4">

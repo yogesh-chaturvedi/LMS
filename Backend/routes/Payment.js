@@ -7,9 +7,11 @@ const Stripe = require('stripe');
 
 const stripe = Stripe(process.env.STRIPE_SK);
 
+const BASE_URL2 = process.env.BASE_URL2
 
 router.post('/checkout', varifyUser, async (req, res) => {
     const { course } = req.body;
+    const courseImage = `${BASE_URL2}${course.thumbnail.url}`
     try {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
@@ -20,7 +22,7 @@ router.post('/checkout', varifyUser, async (req, res) => {
                         currency: "inr", // or "inr" if in India
                         product_data: {
                             name: course.title,
-                            images: [course.thumbnail],
+                            images: [courseImage],
                         },
                         unit_amount: course.price * 100, // price in cents/paise
                     },
