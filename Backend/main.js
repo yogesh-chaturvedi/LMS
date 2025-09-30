@@ -10,19 +10,15 @@ const path = require('path');
 const Cookies = require('cookies')
 const cookieParser = require('cookie-parser')
 const AuthRoute = require('./routes/AuthRoutes')
-const AddInstructorRoute = require('./routes/AddInstructor')
 const CourseRoute = require('./routes/CourseRoutes')
 const UserRoute = require('./routes/UserRoutes')
 const PaymentRoute = require('./routes/Payment')
 const ResetPasswordRoute = require('./routes/PasswordResetRoutes')
 const CourseCreationRoute = require('./routes/CourseCreation')
 
+
 const port = process.env.PORT || 3000;
-
-
-
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
 
 
 app.use(cookieParser())
@@ -37,7 +33,6 @@ app.get('/', (req, res) => {
 })
 
 app.use('/auth', AuthRoute)
-app.use('/add', AddInstructorRoute)
 app.use('/course', CourseRoute)
 app.use('/user', UserRoute)
 app.use('/payment', PaymentRoute)

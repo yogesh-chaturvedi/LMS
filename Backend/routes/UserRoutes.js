@@ -2,6 +2,7 @@ const express = require('express');
 const varifyUser = require('../middleware/varifyUser');
 const router = express.Router();
 const UserModel = require('../models/User')
+const bcrypt = require('bcrypt');
 const multer = require('multer')
 
 
@@ -36,7 +37,6 @@ router.put('/edit/:userId', varifyUser, upload.single('photo'), async (req, res)
             user.email = email
 
             if (req.file) {
-                // converting the imag ein buffer(a long string converted from binary)
                 user.profileImage = {
                     url: `/uploads/images/${req.file.filename}`,
                     contentType: req.file.mimetype
@@ -75,7 +75,6 @@ router.get('/info/:id', async (req, res) => {
     }
 })
 
-
 // to fetch all users 
 router.get("/fetch-allUser", varifyUser, async (req, res) => {
     try {
@@ -92,7 +91,6 @@ router.get("/fetch-allUser", varifyUser, async (req, res) => {
         res.status(400).json({ message: 'something went wrong', success: false, error })
     }
 })
-
 
 // to remive user buy admin only 
 router.delete('/remove', varifyUser, async (req, res) => {
@@ -111,6 +109,51 @@ router.delete('/remove', varifyUser, async (req, res) => {
         res.status(400).json({ message: 'something went wrong', success: false, error })
     }
 })
+
+// to add instructors
+router.post('/instructor', upload.single('profileImage'), varifyUser, async (req, res) => {
+    const { name, email, password, phone, expertise, experience } = req.body;
+    try {
+
+        const isPresent = await UserModel.findOne({ email: email })
+
+        if (isPresent) {
+            return res.status(400).json({ message: 'Already have an account', success: false })
+        }
+        else {
+            if (req.user.role == "admin") {
+                const hashedPassword = await bcrypt.hash(password, 10);
+
+                const instructor = new UserModel({
+                    name: name,
+                    email: email,
+                    password: hashedPassword,
+                    role: 'instructor',
+                    phone: phone,
+                    expertise: expertise,
+                    experience: experience,
+                    profileImage: {
+                        url: `/uploads/images/${req.file.filename}`,
+                        contentType: req.file.mimetype
+                    }
+                })
+
+                await instructor.save();
+                res.status(200).json({ message: 'Instructor Account Created', success: true })
+
+            }
+            else {
+                return res.status(400).json({ message: 'Unauthorized to create instructor account', success: false })
+            }
+        }
+    }
+    catch (error) {
+        console.error('error', error);
+        res.status(400).json({ message: 'something went wrong', success: false, error })
+    }
+
+})
+
 
 
 module.exports = router

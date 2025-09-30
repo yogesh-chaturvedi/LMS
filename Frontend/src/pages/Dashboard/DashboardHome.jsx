@@ -8,6 +8,8 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 import { CoursesContext } from '../../context/CoursesContext'
+import SalesGraph from '../../components/salesGraph'
+import AllUsers from './AllUsers'
 
 const DashboardHome = () => {
     // const BASE_URL = import.meta.env.VITE_API_URL;
@@ -67,11 +69,14 @@ const DashboardHome = () => {
                             </div>
                         </div>
 
-                        <div className='rounded-xl bg-gray-700 h-72'></div>
+                        {/* all users */}
+                        <AllUsers />
+                        {/* <div className='rounded-xl bg-gray-700 h-72'></div> */}
                     </div>
 
 
                 </div>
+
 
             </div>
             <Footer />

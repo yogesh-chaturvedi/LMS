@@ -14,12 +14,9 @@ const AddInstructor = () => {
         phone: '',
         expertise: '',
         experience: '',
-        profileImage: ''
     })
 
     const BASE_URL = import.meta.env.VITE_API_URL;
-
-
 
     // set data
     function handleChange(e) {
@@ -36,8 +33,8 @@ const AddInstructor = () => {
         try {
             const response = await axios({
                 method: 'post',
-                url: `${BASE_URL}add/instructor`,
-                data: instructorData,
+                url: `${BASE_URL}user/instructor`,
+                data: formData,
                 withCredentials: true
             })
             const { message, success } = response.data;
@@ -77,6 +74,19 @@ const AddInstructor = () => {
         }
     }
 
+    const [file, setFile] = useState(null)
+    function handleFileChange(e) {
+        setFile(e.target.files[0])
+    }
+
+    const formData = new FormData();
+    formData.append('name', instructorData.name)
+    formData.append('email', instructorData.email)
+    formData.append('password', instructorData.password)
+    formData.append('phone', instructorData.phone)
+    formData.append('expertise', instructorData.expertise)
+    formData.append('experience', instructorData.experience)
+    if (file) formData.append('profileImage', file)
 
 
     return (
@@ -113,8 +123,10 @@ const AddInstructor = () => {
                             <input value={instructorData.experience} onChange={handleChange} type="number" name="experience" placeholder="Experience (in years)" className="w-full border p-2 rounded-lg" required />
 
                             {/* Profile Image */}
-                            <input value={instructorData.profileImage} onChange={handleChange} type="text" name="profileImage" placeholder="Profile Image URL" className="w-full border p-2 rounded-lg" />
-
+                            {/* <input value={instructorData.profileImage} onChange={handleChange} type="text" name="profileImage" placeholder="Profile Image URL" className="w-full border p-2 rounded-lg" /> */}
+                            
+                            <input onChange={handleFileChange} type="file" accept='image/*' name="profileImage" />
+                            
                             {/* Submit */}
                             <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700" >
                                 Add Instructor

@@ -51,17 +51,12 @@ const AllUsers = () => {
 
             <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={false} rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
 
-            <Navbar />
 
-            <div className='flex bg-gray-50'>
-
-                {/* left  */}
-                <Sidebar />
-
+            {/*className='flex bg-gray-50' ,,, min-h-screen lg:max-h-screen */}
+            
+                <h2 className='text-2xl font-bold px-1 pb-2 text-gray-700 hover:text-gray-800 '>All Users</h2>
                 {/* right */}
-                <div className="flex-1 px-5 lg:pr-28 overflow-auto py-3 min-h-screen lg:max-h-screen ">
-
-                    <h2 className='text-2xl font-bold px-1 pb-2 text-gray-700 hover:text-gray-800 '>All Users</h2>
+                <div className="flex-1 lg:pr-28 overflow-auto py-3 h-[60vh] ">
 
                     <div className="min-w-[550px] rounded-lg overflow-hidden">
                         {/* Heading Row */}
@@ -102,9 +97,7 @@ const AllUsers = () => {
                         </div>
                     </div>
                 </div>
-
-            </div>
-            <Footer />
+            
         </div>
     )
 }

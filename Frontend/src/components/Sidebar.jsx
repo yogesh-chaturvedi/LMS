@@ -36,8 +36,6 @@ const Sidebar = () => {
 
                     <Link to="/admin/courses" className={`px-4 py-2 rounded-lg hover:bg-gray-700 transition text-center w-[80%] mx-auto ${loaction.pathname === "/admin/courses" ? 'bg-gray-600' : ''}`}>Courses</Link>
 
-                    <Link to="/admin/users" className={`px-4 py-2 rounded-lg hover:bg-gray-700 transition text-center w-[80%] mx-auto ${loaction.pathname === "/admin/users" ? 'bg-gray-600' : ''}`}>Users</Link>
-
                     <Link to="/admin/add-instructor" className={`px-4 py-2 rounded-lg hover:bg-gray-700 text-center w-[80%] mx-auto transition  ${loaction.pathname === "/admin/add-instructor" ? 'bg-gray-600' : ''}`}>Add Instructor</Link>
 
                 </nav>
