@@ -8,12 +8,9 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useState } from 'react'
 import { CoursesContext } from '../../context/CoursesContext'
-import SalesGraph from '../../components/salesGraph'
 import AllUsers from './AllUsers'
 
 const DashboardHome = () => {
-    // const BASE_URL = import.meta.env.VITE_API_URL;
-    const sideMenue = ['Dashboard', 'Add Instructor']
 
     const { allUsers, setAllUsers } = useContext(UserContext);
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData } = useContext(CoursesContext);
@@ -21,7 +18,6 @@ const DashboardHome = () => {
     const [purchasedCoursesPrice, setPurchasedCoursesPrice] = useState([])
 
     const [boughtCourses, setBoughtCourses] = useState(0);
-
 
     // to match id and fetch prices
     useEffect(() => {
@@ -39,8 +35,6 @@ const DashboardHome = () => {
         setPurchasedCoursesPrice(totalRevenue)
 
     }, [allUsers])
-
-
 
     return (
         <div>

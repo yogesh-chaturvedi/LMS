@@ -11,19 +11,17 @@ import { CoursesContext } from '../context/CoursesContext'
 
 const CourseDetails = () => {
     const BASE_URL = import.meta.env.VITE_API_URL;
-    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const { user, setUser, loading, setLoading, fetchUser } = useContext(AuthContext);
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext)
 
     const { id } = useParams();
-    console.log(id);
 
     const location = useLocation()
     // console.log(location.state)
 
     // stores the data
     const course = location.state || null;
-    console.log(course)
+    // console.log(course)
 
     const navigate = useNavigate()
 
@@ -73,7 +71,7 @@ const CourseDetails = () => {
         try {
             const response = await axios({
                 method: 'post',
-                url: `${BASE_URL}payment/checkout`,
+                url: `${BASE_URL}/payment/checkout`,
                 data: { course },
                 withCredentials: true
             })
@@ -109,7 +107,6 @@ const CourseDetails = () => {
     function goToCourseProgress(courseId, lectureId) {
         navigate(`/course-progress/${courseId}/${lectureId}`, { state: course })
     }
-
 
     return (
         <div>
@@ -205,7 +202,7 @@ const CourseDetails = () => {
                         {/* video section */}
                         <video width="600" controls>
                             <source
-                                src={`${BASE_URL2}${course?.lecture?.[0]?.lectureVideo?.url}`}
+                                src={`${BASE_URL}${course?.lecture?.[0]?.lectureVideo?.url}`}
                                 type={course?.lecture?.[0]?.lectureVideo?.contentType}
                             />
                         </video>

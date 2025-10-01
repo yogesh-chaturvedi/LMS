@@ -19,9 +19,7 @@ const Signup = () => {
     function handleChange(e) {
         setSignupData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
-    console.log(signupData)
-
-
+    // console.log(signupData)
 
     // send user credentials 
     async function handleSubmit(e) {
@@ -29,10 +27,9 @@ const Signup = () => {
         try {
             const response = await axios({
                 method: "post",
-                url: `${BASE_URL}auth/signup`,
+                url: `${BASE_URL}/auth/signup`,
                 data: signupData,
             })
-
             const { message, success, error } = response.data
 
             if (success) {
@@ -69,7 +66,6 @@ const Signup = () => {
             });
         }
     }
-
 
     return (
         <div className="min-h-screen flex justify-center items-center bg-slate-900">

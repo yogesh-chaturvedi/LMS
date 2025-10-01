@@ -16,19 +16,15 @@ const EditLecture = () => {
     const { courseId, lectureId } = useParams();
     // console.log("edit lecture ", courseId)
 
-    // const [videoUrl, setVideoUrl] = useState('')
-
     const navigate = useNavigate();
-
     const location = useLocation();
+
+    const [isFree, setIsFree] = useState(false)
 
     // to set lecture name in lecture-edit page
     useEffect(() => {
         setLectureName(location.state.lectureTitle)
     }, [])
-
-
-    const [isFree, setIsFree] = useState(false)
 
     // to set free video or not
     function handleCheckBox(e) {
@@ -42,13 +38,12 @@ const EditLecture = () => {
         setvideo(e.target.files[0])
     }
 
-
     // to remove lecture
     async function handleRemove(courseId, lectureId) {
         try {
             const response = await axios({
                 method: 'delete',
-                url: `${BASE_URL}course/removeLecture/${courseId}/${lectureId}`,
+                url: `${BASE_URL}/course/removeLecture/${courseId}/${lectureId}`,
                 withCredentials: true
             })
             const { message, success, course } = response.data;
@@ -63,12 +58,7 @@ const EditLecture = () => {
         }
     }
 
-    // to set video url
-    // function handleChange(e) {
-    //     setVideoUrl(e.target.value)
-    // }
-    // console.log(videoUrl)
-
+    // to send details along with video in backend 
     async function addVideo(isFree) {
 
         if (video === '') {
@@ -88,7 +78,7 @@ const EditLecture = () => {
         try {
             const response = await axios({
                 method: 'put',
-                url: `${BASE_URL}course/addVideo/${courseId}/${lectureId}`,
+                url: `${BASE_URL}/course/addVideo/${courseId}/${lectureId}`,
                 data: formData,
                 withCredentials: true
             })
@@ -108,7 +98,6 @@ const EditLecture = () => {
                 setTimeout(() => {
                     navigate(`/instructor/add-lectures/${courseId}`)
                 }, 1500);
-                // setCourseDetails(course)
             }
         }
         catch (error) {

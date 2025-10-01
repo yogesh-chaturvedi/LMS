@@ -8,7 +8,6 @@ import axios from 'axios'
 
 const CourseProgress = () => {
     const BASE_URL = import.meta.env.VITE_API_URL;
-    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const { courseId, lectureId } = useParams()
     console.log(courseId, lectureId)
 
@@ -36,8 +35,8 @@ const CourseProgress = () => {
             setIsCompleted((prev) => ([...prev, index]))
         }
     }
-    console.log('videoIndex', videoIndex)
-    console.log('isCompleted', isCompleted)
+    // console.log('videoIndex', videoIndex)
+    // console.log('isCompleted', isCompleted)
 
     // to sync lecture id and index
     useEffect(() => {
@@ -59,7 +58,7 @@ const CourseProgress = () => {
             try {
                 const response = await axios({
                     method: 'get',
-                    url: `${BASE_URL}course/currentLecture/${courseId}/${lectureId}`,
+                    url: `${BASE_URL}/course/currentLecture/${courseId}/${lectureId}`,
                     withCredentials: true
                 })
                 const { message, success, currentLecture } = response.data;
@@ -71,7 +70,7 @@ const CourseProgress = () => {
                 }
             }
             catch (error) {
-                console.log("there ia na error", error)
+                console.log("there is an error", error)
             }
         }
         getCurrentLecture(courseId, lectureId)
@@ -85,8 +84,7 @@ const CourseProgress = () => {
         setflag(false)
     }, [course]);
 
-    console.log(videos)
-
+    // console.log(videos)
 
     // to reset completed video
     function handleReset(lectureId) {
@@ -109,7 +107,7 @@ const CourseProgress = () => {
                     <div className="w-full">
 
                         <video key={videoIndex} width='700' height='500' controls >
-                            <source src={`${BASE_URL2}${course?.lecture?.[videoIndex]?.lectureVideo?.url}`} type={course?.lecture?.[videoIndex]?.lectureVideo?.contentType} />
+                            <source src={`${BASE_URL}${course?.lecture?.[videoIndex]?.lectureVideo?.url}`} type={course?.lecture?.[videoIndex]?.lectureVideo?.contentType} />
                         </video>
 
                         {/* <video width='700' height='500' controls >

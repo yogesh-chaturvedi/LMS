@@ -17,7 +17,7 @@ const UserContextProvider = (props) => {
         try {
             const response = await axios({
                 method: 'get',
-                url: `${BASE_URL}user/fetch-allUser`,
+                url: `${BASE_URL}/user/fetch-allUser`,
                 withCredentials: true
             })
             const { message, success, allUser } = response.data;
@@ -36,9 +36,8 @@ const UserContextProvider = (props) => {
     }, [])
 
 
-
-
     const value = { allUsers, setAllUsers, getAllUser }
+    
     return (
         <UserContext.Provider value={value}>
             {props.children}

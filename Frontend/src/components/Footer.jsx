@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Footer = () => {
-    // border-gray-400
+    
     return (
         <footer className="bg-gray-800 border-gray-400 border-t text-white px-5 lg:px-28 py-6">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-700 pb-4">

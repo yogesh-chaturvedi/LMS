@@ -9,14 +9,13 @@ import { LogOut } from 'lucide-react';
 const Navbar = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
-    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const navigate = useNavigate();
     const { user, setUser, fetchUser, loading, setLoading } = useContext(AuthContext);
     // console.log('user' ,user)
 
     const [profile, setProfile] = useState(true)
 
-    // to relode page (so that we can get profile img in navbar)
+    // to reloade page (so that we can get profile img in navbar)
     useEffect(() => {
         fetchUser()
     }, [])
@@ -35,7 +34,7 @@ const Navbar = () => {
         try {
             const response = await axios({
                 method: 'post',
-                url: `${BASE_URL}auth/logout`,
+                url: `${BASE_URL}/auth/logout`,
                 withCredentials: true
             })
             const { success, message } = response.data;
@@ -100,7 +99,7 @@ const Navbar = () => {
 
                         <img onClick={() => handleClick()} className="h-10 w-10 border-2 border-gray-400 rounded-full object-cover" src={
                             user?.profileImage?.url
-                                ? `${BASE_URL2}${user.profileImage.url}`
+                                ? `${BASE_URL}${user.profileImage.url}`
                                 : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
                         } alt="profile-Image" />
 

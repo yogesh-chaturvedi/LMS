@@ -17,15 +17,14 @@ const Reset = () => {
     function handleChange(e) {
         setResetData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
-
-    console.log(resetData)
+    // console.log(resetData)
 
     async function handleSubmit(e) {
         e.preventDefault();
         try {
             const response = await axios({
                 method: 'post',
-                url: `${BASE_URL}password/reset`,
+                url: `${BASE_URL}/password/reset`,
                 data: resetData,
                 withCredentials: true
             });
@@ -56,7 +55,6 @@ const Reset = () => {
             });
         }
     }
-
 
     return (
         <div className="min-h-screen flex justify-center items-center bg-slate-900">

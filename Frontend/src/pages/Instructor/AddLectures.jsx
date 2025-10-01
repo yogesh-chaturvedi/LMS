@@ -35,7 +35,7 @@ const AddLectures = () => {
             try {
                 const response = await axios({
                     method: 'get',
-                    url: `${BASE_URL}course/courseDetails/${courseId}`,
+                    url: `${BASE_URL}/course/courseDetails/${courseId}`,
                     withCredentials: true
                 })
                 const { message, success, course } = response.data;
@@ -57,7 +57,7 @@ const AddLectures = () => {
         try {
             const response = await axios({
                 method: 'post',
-                url: `${BASE_URL}course/lecture/${objectId}`,
+                url: `${BASE_URL}/course/lecture/${objectId}`,
                 data: { lectureTitle },
                 withCredentials: true
             })

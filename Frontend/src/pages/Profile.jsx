@@ -12,7 +12,6 @@ import { CoursesContext } from '../context/CoursesContext'
 const Profile = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
-    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const { user, setUser, loading, setLoading, fetchUser } = useContext(AuthContext);
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext);
 
@@ -31,13 +30,10 @@ const Profile = () => {
 
     const [file, setfile] = useState(null)
 
-
-
     function handleChange(e) {
         setnewData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
     // console.log(newData)
-
 
     function handleFileChange(e) {
         setfile(e.target.files[0])
@@ -68,7 +64,7 @@ const Profile = () => {
         try {
             const response = await axios({
                 method: 'put',
-                url: `${BASE_URL}user/edit/${userId}`,
+                url: `${BASE_URL}/user/edit/${userId}`,
                 data: formData,
                 withCredentials: true
             })
@@ -94,14 +90,13 @@ const Profile = () => {
         }
     }
 
-
     // to get purchased courses
     useEffect(() => {
         async function getCourses() {
             try {
                 const resposne = await axios({
                     method: 'get',
-                    url: `${BASE_URL}course/get-purchasedCourses`,
+                    url: `${BASE_URL}/course/get-purchasedCourses`,
                     withCredentials: true
                 })
                 const { message, success, purchasedCourse } = resposne.data;
@@ -116,9 +111,7 @@ const Profile = () => {
         }
         getCourses()
     }, [])
-
-
-    console.log('imageUrl', user.profileImage)
+    // console.log('imageUrl', user.profileImage)
 
     // to get instructors details 
     useEffect(() => {
@@ -126,8 +119,6 @@ const Profile = () => {
             getInstructorInfo(courses.instructor)
         })
     }, [allCourses])
-
-
 
     return (
         <div>
@@ -152,7 +143,7 @@ const Profile = () => {
                                 <img
                                     src={
                                         user?.profileImage?.url
-                                            ? `${BASE_URL2}${user.profileImage.url}`
+                                            ? `${BASE_URL}${user.profileImage.url}`
                                             : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
                                     }
                                     alt="profile-Image"
@@ -216,7 +207,7 @@ const Profile = () => {
                                         className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition w-[75vw] sm:w-72"
                                     >
                                         <img
-                                            src={course?.thumbnail?.url ? `${BASE_URL2}${course.thumbnail.url}` : ''}
+                                            src={course?.thumbnail?.url ? `${BASE_URL}${course.thumbnail.url}` : ''}
                                             alt="courseThumbnail"
                                             className="w-full h-44 object-cover"
                                         />
@@ -272,7 +263,7 @@ const Profile = () => {
                                             className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition w-72"
                                         >
                                             <img
-                                                src={course?.thumbnail?.url ? `${BASE_URL2}${course.thumbnail.url}` : ''}
+                                                src={course?.thumbnail?.url ? `${BASE_URL}${course.thumbnail.url}` : ''}
                                                 alt="courseThumbnail"
                                                 className="w-full h-44 object-cover"
                                             />

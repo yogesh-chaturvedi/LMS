@@ -12,7 +12,6 @@ import { useEffect } from 'react'
 const Courses = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
-    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, search, setSearch, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext)
     const navigate = useNavigate();
 
@@ -22,7 +21,6 @@ const Courses = () => {
 
     const [Filter, setFilter] = useState([]);
 
-
     // to run getInstructorInfo function 
     useEffect(() => {
         allCourses.forEach((course) => {
@@ -30,15 +28,13 @@ const Courses = () => {
         })
     }, [allCourses])
 
-
-
     // filtering
     function handleChange(category) {
         setFilter((prev) =>
             prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category]
         )
     }
-    console.log(Filter);
+    // console.log(Filter);
 
     const filtering = allCourses
         .filter((course) => Filter.length === 0 || Filter.includes(course.category))
@@ -49,20 +45,17 @@ const Courses = () => {
         navigate(`/course-details/${course._id}`, { state: course });
     }
 
-
     function handleSort(e) {
         setSortBy(e.target.value)
     }
     // console.log(SortBy)
-
 
     const [menu, setMenu] = useState(false)
 
     function handleHamburger() {
         setMenu((prev) => !prev)
     }
-    console.log('menu', menu)
-
+    // console.log('menu', menu)
 
     function handleCancel() {
         setMenu(false)
@@ -128,7 +121,7 @@ const Courses = () => {
                                 const instructor = instuctorDetails[courses.instructor]
                                 return <div onClick={() => handleClick(courses)} key={index} className="w-[80vw]  sm:w-[300px] flex items-center flex-col gap-1 md:flex-row md:gap-4 cursor-pointer border border-gray-300 rounded-xl shadow-lg py-4 px-2 sm:p-4 md:w-full md:h-[160px]">
                                     {/* Image (Left) */}
-                                    <img src={courses?.thumbnail?.url ? `${BASE_URL2}${courses.thumbnail.url}`
+                                    <img src={courses?.thumbnail?.url ? `${BASE_URL}${courses.thumbnail.url}`
                                         : ''
                                     }
                                         alt="course thumbnail" className="w-[76vw] sm:w-[250px] sm:h-[120px] md:w-48 md:h-32 object-cover rounded-lg shadow-md" />

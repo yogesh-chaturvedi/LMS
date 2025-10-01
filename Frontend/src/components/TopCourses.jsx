@@ -6,9 +6,7 @@ import { CoursesContext } from '../context/CoursesContext';
 const TopCourses = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
-    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext);
-
 
     // to get instructor details
     useEffect(() => {
@@ -16,8 +14,6 @@ const TopCourses = () => {
             getInstructorInfo(courses.instructor)
         })
     }, [allCourses])
-
-
 
     return (
         <section className="bg-gray-200 py-20 px-5 lg:px-28">
@@ -39,7 +35,7 @@ const TopCourses = () => {
                             >
                                 <img
                                     src={
-                                        course?.thumbnail?.url ? `${BASE_URL2}${course.thumbnail.url}` : ''
+                                        course?.thumbnail?.url ? `${BASE_URL}${course.thumbnail.url}` : ''
                                     }
                                     alt="courseThumbnail"
                                     className="w-full h-44 object-cover"

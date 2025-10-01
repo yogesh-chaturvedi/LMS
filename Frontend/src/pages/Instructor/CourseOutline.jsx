@@ -25,7 +25,7 @@ const CourseOutline = () => {
         takeaways: '',
         prerequisites: ''
     })
-    console.log(courseOutlines)
+    // console.log(courseOutlines)
 
     function handleOnchange(e) {
         setCourseOutlines((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -59,7 +59,7 @@ const CourseOutline = () => {
             setLoading(true)
             const response = await axios({
                 method: 'post',
-                url: `${BASE_URL}courseCreation/outline`,
+                url: `${BASE_URL}/courseCreation/outline`,
                 data: { category, level, title, subTitle },
                 withCredentials: true
             })
@@ -81,12 +81,12 @@ const CourseOutline = () => {
         }
     }
 
-
+    // save the details and go to next page 
     async function handleNext(courseId) {
         try {
             const response = await axios({
                 method: 'put',
-                url: `${BASE_URL}course/outline/${courseId}`,
+                url: `${BASE_URL}/course/outline/${courseId}`,
                 data: courseOutlines,
                 withCredentials: true
             })
@@ -115,9 +115,6 @@ const CourseOutline = () => {
             console.log("there is an error", error)
         }
     }
-
-
-
 
     return (
         <div>

@@ -22,7 +22,6 @@ const Success = () => {
 
     const hasRun = useRef(false);
 
-
     // to get data and set it to usestate so that i can send it to with Link 
     useEffect(() => {
         async function getCourse() {
@@ -30,7 +29,7 @@ const Success = () => {
                 setCurrentBuy([])
                 const response = await axios({
                     method: 'get',
-                    url: `${BASE_URL}payment/get-course/${courseId}`,
+                    url: `${BASE_URL}/payment/get-course/${courseId}`,
                     withCredentials: true
                 })
 
@@ -47,7 +46,6 @@ const Success = () => {
         getCourse()
     }, [])
 
-
     useEffect(() => {
         // to prevent duplication
         if (user?.purchasedCourses?.includes(courseId)) {
@@ -59,7 +57,7 @@ const Success = () => {
             try {
                 const response = await axios({
                     method: 'post',
-                    url: `${BASE_URL}payment/add-course`,
+                    url: `${BASE_URL}/payment/add-course`,
                     data: { courseId },
                     withCredentials: true
                 })
@@ -84,8 +82,6 @@ const Success = () => {
 
 
     }, [courseId])
-
-
 
     return (
         <div className="flex items-center justify-center h-screen bg-green-50 px-4">

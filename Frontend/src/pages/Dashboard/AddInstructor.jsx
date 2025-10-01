@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const AddInstructor = () => {
 
+    const BASE_URL = import.meta.env.VITE_API_URL;
     const [instructorData, setInstructorData] = useState({
         name: '',
         email: '',
@@ -16,15 +17,13 @@ const AddInstructor = () => {
         experience: '',
     })
 
-    const BASE_URL = import.meta.env.VITE_API_URL;
+    const [file, setFile] = useState(null)
 
     // set data
     function handleChange(e) {
         setInstructorData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
-
-    console.log(instructorData)
-
+    // console.log(instructorData)
 
     // to send data and create admin 
     async function handleSubmit(e) {
@@ -33,7 +32,7 @@ const AddInstructor = () => {
         try {
             const response = await axios({
                 method: 'post',
-                url: `${BASE_URL}user/instructor`,
+                url: `${BASE_URL}/user/instructor`,
                 data: formData,
                 withCredentials: true
             })
@@ -74,7 +73,6 @@ const AddInstructor = () => {
         }
     }
 
-    const [file, setFile] = useState(null)
     function handleFileChange(e) {
         setFile(e.target.files[0])
     }
@@ -124,9 +122,9 @@ const AddInstructor = () => {
 
                             {/* Profile Image */}
                             {/* <input value={instructorData.profileImage} onChange={handleChange} type="text" name="profileImage" placeholder="Profile Image URL" className="w-full border p-2 rounded-lg" /> */}
-                            
+
                             <input onChange={handleFileChange} type="file" accept='image/*' name="profileImage" />
-                            
+
                             {/* Submit */}
                             <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700" >
                                 Add Instructor

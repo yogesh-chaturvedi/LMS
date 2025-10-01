@@ -16,12 +16,10 @@ const Login = () => {
         userPassword: ''
     })
 
-
     function handleChange(e) {
         setLoginData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
-    console.log(loginData)
-
+    // console.log(loginData)
 
     // to login
     async function handleSubmit(e) {
@@ -29,7 +27,7 @@ const Login = () => {
         try {
             const response = await axios({
                 method: "post",
-                url: `${BASE_URL}auth/login`,
+                url: `${BASE_URL}/auth/login`,
                 data: loginData,
                 withCredentials: true
             })

@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom'
 const AllCourses = () => {
 
     const BASE_URL = import.meta.env.VITE_API_URL;
-    const BASE_URL2 = import.meta.env.VITE_API_URL2;
     const { allCourses, setAllCourses, courseDetails, setCourseDetails, isEdit, setIsEdit, lectureName, setLectureName, getData, getInstructorInfo, instuctorDetails, setInstuctorDetails } = useContext(CoursesContext);
 
     const navigate = useNavigate()
@@ -20,16 +19,13 @@ const AllCourses = () => {
     const [options, setOptions] = useState(null)
 
     const [isloading, setIsloading] = useState(null)
-    // function CourseStatus() {
-    //     console.log("published Clicked")
-    // }
 
     async function addtoTopRated(courseId) {
         setIsloading(courseId)
         try {
             const response = await axios({
                 method: 'put',
-                url: `${BASE_URL}course/toprated`,
+                url: `${BASE_URL}/course/toprated`,
                 data: { courseId },
                 withCredentials: true
             })
@@ -49,14 +45,12 @@ const AllCourses = () => {
         }
     }
 
-
     // to get instructors details 
     useEffect(() => {
         allCourses.forEach((courses) => {
             getInstructorInfo(courses.instructor)
         })
     }, [allCourses])
-
 
     // to toggle state
     function handleOptions(indexToToggle) {
@@ -67,15 +61,14 @@ const AllCourses = () => {
             setOptions(null)
         }
     }
-    console.log(options)
-
+    // console.log(options)
 
     // to remove course
     async function handleRemove(courseId) {
         try {
             const response = await axios({
                 method: 'delete',
-                url: `${BASE_URL}course/removeCourse`,
+                url: `${BASE_URL}/course/removeCourse`,
                 data: { courseId },
                 withCredentials: true
             })
@@ -90,7 +83,6 @@ const AllCourses = () => {
             console.log('there is an error', error)
         }
     }
-
 
     function handleViewCourse(courses) {
         navigate(`/course-details/${courses._id}`, { state: courses })
@@ -112,7 +104,7 @@ const AllCourses = () => {
                         const instructor = instuctorDetails[courses.instructor]
                         return <div key={index} className="flex relative sm:flex-row flex-col gap-2 sm:gap-4 border border-gray-300 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition p-4 bg-white w-full h-[160p]">
                             {/* Image (Left) */}
-                            <img src={`${courses?.thumbnail?.url?`${BASE_URL2}${courses.thumbnail.url}`:''}`} alt="courseThumbnail" className=" w-full sm:w-48 sm:h-32 object-cover rounded-lg shadow-md" />
+                            <img src={`${courses?.thumbnail?.url ? `${BASE_URL}${courses.thumbnail.url}` : ''}`} alt="courseThumbnail" className=" w-full sm:w-48 sm:h-32 object-cover rounded-lg shadow-md" />
 
                             {/* Content (Right) */}
                             <div className='flex justify-between items-start w-full '>

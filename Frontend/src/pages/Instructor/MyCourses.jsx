@@ -27,11 +27,9 @@ const MyCourses = () => {
         navigate('/instructor/add-courses')
     }
 
-
     function handleClick(courseId) {
         navigate(`/instructor/add-lectures/${courseId}`)
     }
-
 
     // toggle course status
     async function handleStatus(courseId, status) {
@@ -39,7 +37,7 @@ const MyCourses = () => {
         try {
             const response = await axios({
                 method: 'put',
-                url: `${BASE_URL}course/status/${courseId}`,
+                url: `${BASE_URL}/course/status/${courseId}`,
                 data: { status },
                 withCredentials: true
             })
@@ -64,14 +62,12 @@ const MyCourses = () => {
         }
     }
 
-
     async function handleDelete(courseId) {
-        // console.log(courseId)
 
         try {
             const response = await axios({
                 method: 'delete',
-                url: `${BASE_URL}course/removeCourse`,
+                url: `${BASE_URL}/course/removeCourse`,
                 data: { courseId },
                 withCredentials: true
             })
@@ -87,7 +83,6 @@ const MyCourses = () => {
             console.log("there is an error", error)
         }
     }
-
 
     return (
         <div>

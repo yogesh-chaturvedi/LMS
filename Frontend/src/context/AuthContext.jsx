@@ -9,19 +9,20 @@ const AuthContextProvider = (props) => {
 
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null)
+    const BASE_URL = import.meta.env.VITE_API_URL;
 
-
+    // to fetch users
     async function fetchUser() {
         try {
             const response = await axios({
                 method: 'get',
-                url: 'http://localhost:3000/auth/verify',
+                url: `${BASE_URL}/auth/verify`,
                 withCredentials: true
             })
 
             const { success, user } = response.data;
             if (success) {
-                console.log('userData',response.data.user)
+                console.log('userData', response.data.user)
                 setUser(response.data.user)
             }
             else {
@@ -38,12 +39,10 @@ const AuthContextProvider = (props) => {
 
     }
 
-    // runs when componebt mount
+    // runs when component mount
     useEffect(() => {
         fetchUser()
     }, [])
-
-
 
     const value = { user, setUser, loading, setLoading, fetchUser };
 

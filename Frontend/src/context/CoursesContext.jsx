@@ -6,6 +6,7 @@ export const CoursesContext = createContext();
 
 
 const CoursesContextProvider = (props) => {
+
     // for url
     const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -17,8 +18,6 @@ const CoursesContextProvider = (props) => {
         level: '',
         price: '',
     })
-
-    //    description: '',
 
     const [isEdit, setIsEdit] = useState(false)  // mode
 
@@ -36,7 +35,7 @@ const CoursesContextProvider = (props) => {
         try {
             const response = await axios({
                 method: 'get',
-                url: `${BASE_URL}course/fetch`,
+                url: `${BASE_URL}/course/fetch`,
                 withCredentials: true
             })
 
@@ -62,7 +61,7 @@ const CoursesContextProvider = (props) => {
         try {
             const response = await axios({
                 method: 'get',
-                url: `${BASE_URL}user/info/${id}`,
+                url: `${BASE_URL}/user/info/${id}`,
                 withCredentials: true
             })
             const { message, success, details } = response.data;

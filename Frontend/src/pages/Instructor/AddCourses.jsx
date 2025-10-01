@@ -46,7 +46,7 @@ const AddCourses = () => {
             if (courseDetails._id) {
                 const response = await axios({
                     method: "put",
-                    url: `${BASE_URL}course/update/${courseDetails._id}`,
+                    url: `${BASE_URL}/course/update/${courseDetails._id}`,
                     data: formData,
                     withCredentials: true
                 })
@@ -77,7 +77,7 @@ const AddCourses = () => {
                 // call to create new
                 const response = await axios({
                     method: 'post',
-                    url: `${BASE_URL}course/info`,
+                    url: `${BASE_URL}/course/info`,
                     data: formData,
                     withCredentials: true
                 })
@@ -105,6 +105,8 @@ const AddCourses = () => {
         }
     }
 
+
+    // need to add toast 
     // to clear fields
     function handleClear() {
         setCourseDetails({
@@ -119,12 +121,9 @@ const AddCourses = () => {
         //later i will add tost also
     }
 
-
     // function goToLecture(courseId) {
     //     navigate(`instructor/add-lectures/${courseId}`)
     // }
-
-
 
     return (
         <div>

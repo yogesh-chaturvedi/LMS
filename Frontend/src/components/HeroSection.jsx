@@ -41,7 +41,7 @@ const HeroSection = () => {
     try {
       const response = await axios({
         method: 'post',
-        url: `${BASE_URL}course/search/?q=${searchedText}`,
+        url: `${BASE_URL}/course/search/?q=${searchedText}`,
       })
 
       const { message, success, searchedCourses } = response.data;
