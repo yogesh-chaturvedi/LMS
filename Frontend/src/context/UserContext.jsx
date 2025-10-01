@@ -33,7 +33,7 @@ const UserContextProvider = (props) => {
 
 
     const value = { allUsers, setAllUsers, getAllUser }
-    
+
     return (
         <UserContext.Provider value={value}>
             {props.children}

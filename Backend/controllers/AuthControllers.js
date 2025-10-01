@@ -30,7 +30,6 @@ const signup = async (req, res) => {
     }
 }
 
-
 // for login
 const login = async (req, res, next) => {
     const { userEmail, userPassword } = req.body;
@@ -44,9 +43,9 @@ const login = async (req, res, next) => {
             else {
                 const token = jwt.sign({ email: user.email, id: user._id, role: user.role, name: user.name }, process.env.JWT_SECRET);
                 res.cookie("Token", token, {
-                    secure: false,        // only for localhost dev
                     httpOnly: true,
-                    sameSite: 'lax',      // works with http://localhost
+                    secure: true,
+                    sameSite: 'none',      // works with http://localhost
                     maxAge: 7 * 24 * 60 * 60 * 1000
                 })
                 return res.status(200).json({ message: "Login Successful", success: true });
@@ -62,8 +61,6 @@ const login = async (req, res, next) => {
         return res.status(500).json({ message: "Something went wrong", success: false, error })
     }
 }
-
-
 
 
 module.exports = { signup, login }
