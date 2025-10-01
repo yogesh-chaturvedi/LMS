@@ -1,17 +1,13 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
-
-
 export const UserContext = createContext();
-
 
 const UserContextProvider = (props) => {
     const BASE_URL = import.meta.env.VITE_API_URL;
 
     const [allUsers, setAllUsers] = useState([]);
     console.log('allUsers', allUsers)
-
 
     async function getAllUser() {
         try {

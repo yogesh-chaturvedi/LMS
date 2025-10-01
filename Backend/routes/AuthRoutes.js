@@ -13,7 +13,7 @@ router.post('/login', loginValidation, login)
 router.get('/verify', varifyUser, (req, res) => {
     res.status(200).json({
         success: true,
-        user: {
+        userData: {
             id: req.user.id,
             email: req.user.email,
             name: req.user.name,
@@ -25,15 +25,13 @@ router.get('/verify', varifyUser, (req, res) => {
 })
 
 
-
-
 // to clear jwt token fron cookie
 router.post('/logout', (req, res) => {
     console.log("done");
     res.clearCookie('Token', {
-        secure: false,        // only for localhost dev
         httpOnly: true,
-        sameSite: 'lax',      // works with http://localhost
+        secure: true,      //for production(true) ,, only for localhost dev(false)
+        sameSite: 'none',      // works with http://localhost
         maxAge: 7 * 24 * 60 * 60 * 1000
     })
     res.status(200).json({ message: 'Logout Successfully', success: true })
