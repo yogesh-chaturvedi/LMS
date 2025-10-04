@@ -26,7 +26,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(cookieParser())
 app.use(bodyParser.json()) // to parse the requests which comes from the frontend...
 app.use(cors({
-    origin: 'https://lms-phi-azure.vercel.app',
+    origin: 'https://elearnings-phi-azure.vercel.app',
     credentials: true
 }))
 
