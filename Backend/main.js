@@ -20,6 +20,8 @@ const CourseCreationRoute = require('./routes/CourseCreation')
 const port = process.env.PORT || 3000;
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// 'https://lms-phi-azure.vercel.app'
+// http://localhost:5173 
 
 app.use(cookieParser())
 app.use(bodyParser.json()) // to parse the requests which comes from the frontend...
