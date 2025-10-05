@@ -44,6 +44,16 @@ const MyCourses = () => {
             const { message, success, course } = response.data
             if (success) {
                 setAllCourses(prev => prev.map(c => (c._id === courseId ? course : c)))
+                toast(message, {
+                    position: "top-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             }
         }
         catch (error) {

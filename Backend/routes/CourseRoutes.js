@@ -5,7 +5,7 @@ const UserModel = require('../models/User')
 const varifyUser = require('../middleware/varifyUser');
 const { route } = require('./AuthRoutes');
 const multer = require('multer');
-const { date } = require('joi');
+const { date, func } = require('joi');
 
 
 // for image uplode 
@@ -35,16 +35,28 @@ const videoStorage = multer.diskStorage({
 const uploadVideo = multer({ storage: videoStorage });
 
 
+// to capitalize the first character
+function capitalization(str) {
+    if (!str) return str
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+
 // to save basic information of course
 router.post('/info', varifyUser, imageUpload.single('thumbnail'), async (req, res) => {
     const { title, subTitle, category, level, price, description } = req.body;
+
+
+    const formattedTitle = capitalization(title.trim())
+    const formattedSubTitle = capitalization(subTitle.trim())
+
 
     try {
         if (req.user.role === 'instructor') {
 
             const course = new CourseModel({
-                title: title,
-                subTitle: subTitle,
+                title: formattedTitle,
+                subTitle: formattedSubTitle,
                 category: category,
                 level: level,
                 price: price,
@@ -131,6 +143,8 @@ router.post('/lecture/:id', varifyUser, async (req, res) => {
         // console.log(objId)
         // console.log(lectureTitle)
 
+        const formattedlectureTitle = capitalization(lectureTitle.trim())
+
         if (req.user.role === 'instructor') {
             const course = await CourseModel.findById(objId);
 
@@ -140,7 +154,7 @@ router.post('/lecture/:id', varifyUser, async (req, res) => {
 
             // console.log(course);
             course.lecture.push({
-                lectureTitle: lectureTitle
+                lectureTitle: formattedlectureTitle
             })
 
             await course.save();
@@ -252,9 +266,10 @@ router.put('/status/:courseId', varifyUser, async (req, res) => {
                 return res.status(400).json({ message: 'Course not found', success: false })
             }
 
+            // boolean cheks for null, empty string, undefined or any boolean value 
             if (course.status === false) {
-                const allHaveVideo = course.lecture.every((lec) => lec.lectureVideo !== null)
-                if (!allHaveVideo || course.lecture.length === 0) {
+                const allHaveVideo = course.lecture.every((lec) => lec.lectureVideo && typeof lec.lectureVideo === 'object' && typeof lec.lectureVideo.url === "string" && lec.lectureVideo.url.trim() !== '')
+                if (!allHaveVideo) {
                     return res.status(400).json({ message: 'Each lecture must have a video before publishing', success: false })
                 }
             }
@@ -413,7 +428,6 @@ router.put('/outline/:courseId', varifyUser, async (req, res) => {
 
 })
 
-
 //  to get current lecture
 router.get('/currentLecture/:courseId/:lectureId', varifyUser, async (req, res) => {
     try {
@@ -444,4 +458,6 @@ router.get('/currentLecture/:courseId/:lectureId', varifyUser, async (req, res) 
     }
 
 })
+
+
 module.exports = router
