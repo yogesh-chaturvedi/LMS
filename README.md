@@ -1,10 +1,14 @@
 # eLearning - Learning Management System (LMS)
 **eLearning** is a full-featured Learning Management System that allows students to learn seamlessly and instructors to manage courses efficiently. It includes multi-role support, AI-powered course content generation, secure payments, and more.
 
+
+## 🌐 Live Demo
+
+👉 [Visit eLearning Live](elearnings-phi-azure.vercel.app)
+
 ---
 
-## Features
-### User Roles
+## ✨ Features
 
 **1. User (Student)**
 - Browse, search, sort and filter courses.
@@ -26,7 +30,7 @@
 
 ---
 
-### Core Functionalities
+### ✨ Core Functionalities
 - **Authentication System**: Secure login, signup, and password reset.
 - **File Uploads**: Support for images and video lectures through **Multer**.
 - **AI Integration**: Generate course descriptions, prerequisites, and key takeaways automatically.
@@ -37,37 +41,54 @@
 
 ---
 
-## Installation
+## ⚙️ Installation
 
 1. Clone the repository:  
 ```bash
 git clone https://github.com/yogesh-chaturvedi/LMS
 cd LMS
 ```
-2. Install dependencies:
+2. Setup Backend:
 ```bash
+cd Backend
 npm install
-```
-3. Set up environment variables for MongoDB, Stripe, and Gemini API.
 
-4. Start the server:
+#Create a .env file in the backend directory
+PORT=3000
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+STRIPE_SK=your_stripe_key
+API_KEY=your_gemini_api_key
+
+npm start
+```
+
+3. Setup Frontend
 ```bash
+cd Frontend
+npm install
+
+#Create a .env file in the frontend directory
+STRIPE_PK=your_stripe_publishable_key
+VITE_API_URL=on_which_your_backend_runs
+
 npm start
 ```
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 ```bash
-/frontend
+/Frontend
 ├── src
 │ ├── Components
 | ├── context
 │ ├── pages
 │   └── Dashboard
+    └── Instructor
 │ └── App.jsx
 
-/backend
+/Backend
 ├── Controllers
 ├── Middlewares
 ├── Models
@@ -96,6 +117,7 @@ npm start
 - JWT for Authentication
 - bcrypt for Password Hashing
 - cors for API Security
+- Multer for file upload
 - joi for Input Validation
 
 ### AI Integration
@@ -106,4 +128,4 @@ npm start
 
 ## 👤 Author
 - Name: Yogesh Chaturvedi
-- GitHub: @yogesh-chaturvedi
+- GitHub: [@yogesh-chaturvedi](https://github.com/yogesh-chaturvedi)
