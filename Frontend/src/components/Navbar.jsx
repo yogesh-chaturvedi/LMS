@@ -91,7 +91,7 @@ const Navbar = () => {
 
             <nav className="bg-gray-900  px-5 lg:px-28 shadow-md py-3 flex justify-between items-center">
                 {/* Logo / Platform Name */}
-                <h1 onClick={() => GoToHome()} className="text-2xl font-bold text-blue-600 cursor-pointer">eLearning</h1>
+                <h1 onClick={() => GoToHome()} className="text-2xl font-bold text-blue-600 cursor-pointer">LearnifyAI</h1>
 
                 {/* Right Side Buttons */}
                 <div className="space-x-4">

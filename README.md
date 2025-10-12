@@ -1,10 +1,11 @@
-# eLearning - Learning Management System (LMS)
-**eLearning** is a full-featured Learning Management System that allows students to learn seamlessly and instructors to manage courses efficiently. It includes multi-role support, AI-powered course content generation, secure payments, and more.
+# LearnifyAI - Learning Management System (LMS)
+**LearnifyAI** is a full-featured Learning Management System that allows students to learn seamlessly and instructors to manage courses efficiently. It includes multi-role support, AI-powered course content generation, secure payments, and more.
 
 
 ## 🌐 Live Demo
 
-👉 [Visit eLearning Live](https://elearnings-phi-azure.vercel.app/)
+👉 [Visit LearnifyAI Live](https://learnifyai-phi-azure.vercel.app/)
+
 
 ---
 
