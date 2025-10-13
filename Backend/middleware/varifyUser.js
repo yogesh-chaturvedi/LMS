@@ -10,7 +10,7 @@ const varifyUser = async (req, res, next) => {
         else {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-            // fetching frest data 
+            // fetching fresh data 
             const user = await UserModel.findById(decoded.id);
 
             if (!user) {

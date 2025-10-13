@@ -25,9 +25,9 @@ router.get('/verify', varifyUser, (req, res) => {
 })
 
 
-// to clear jwt token fron cookie
+// to clear jwt token from cookie
 router.post('/logout', (req, res) => {
-    console.log("done");
+    // console.log("done");
     res.clearCookie('Token', {
         httpOnly: true,
         secure: true,      //for production(true) ,, only for localhost dev(false)
